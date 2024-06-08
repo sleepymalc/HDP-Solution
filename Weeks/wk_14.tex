@@ -1,0 +1,206 @@
+\week{14}{17 Apr.\ 2024}{Random Sub-Gaussian Matrices}
+\section{Application: error correcting codes}
+\begin{problem*}[Exercise 4.3.7]\label{ex4.3.7}
+	\begin{enumerate}[(a)]
+		\item\label{ex4.3.7:a} Prove the converse to the statement of Lemma 4.3.4.
+		\item\label{ex4.3.7:b} Deduce a converse to Theorem 4.3.5. Conclude that for any error correcting code that encodes \(k\)-bit strings into \(n\)-bit strings and can correct \(r\) errors, the rate must be
+		      \[
+			      R \leq 1 - f(\delta )
+		      \]
+		      where \(f(t) = t \log _2 (1 / t)\) as before.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Upper bounds on random sub-gaussian matrices}
+\begin{problem*}[Exercise 4.4.2]\label{ex4.4.2}
+	Let \(x \in \mathbb{R} ^n\) and \(\mathcal{N} \) be an \(\epsilon \)-net of the sphere \(S^{n-1}\). Show that
+	\[
+		\sup _{y \in \mathcal{N} }\langle x, y \rangle
+		\leq \lVert x \rVert _2
+		\leq \frac{1}{1 - \epsilon } \sup _{y \in \mathcal{N} }\langle x, y \rangle .
+	\]
+\end{problem*}
+\begin{answer}
+	The lower bound is again trivial. On the other hand, for any \(x \in \mathbb{R} ^n\), consider an \(x_0 \in \mathcal{N} \) such that \(\lVert x_0 - x / \lVert x \rVert _2 \rVert _2 \leq \epsilon \) (normalization is necessary since \(\mathcal{N} \) is an \(\epsilon \)-net of \(S^{n-1}\), while \(x \in \mathbb{R} ^n\)). Now, observe that from the Cauchy-Schwarz inequality, we have
+	\[
+		\lVert x \rVert _2 - \langle x, x_0 \rangle
+		= \left\langle x, \frac{x}{\lVert x \rVert _2} - x_0 \right\rangle
+		\leq \lVert x \rVert _2 \left\lVert \frac{x}{\lVert x \rVert _2} - x_0 \right\rVert
+		\leq \epsilon \lVert x \rVert _2,
+	\]
+	which implies \(\langle x, x_0 \rangle \geq (1 - \epsilon ) \lVert x \rVert _2\). This proves the upper bound.
+\end{answer}
+
+\begin{problem*}[Exercise 4.4.3]\label{ex4.4.3}
+	Let \(A\) be an \(m \times n\) matrix and \(\epsilon \in [0, 1 / 2)\).
+	\begin{enumerate}[(a)]
+		\item\label{ex4.4.3:a} Show that for any \(\epsilon \)-net \(\mathcal{N} \) of the sphere \(S^{n-1}\) and any \(\epsilon \)-net \(\mathcal{M} \) of the sphere \(S^{m-1}\) we have
+		      \[
+			      \sup _{x \in \mathcal{N} , y \in \mathcal{M} }\langle Ax, y \rangle
+			      \leq \lVert A \rVert
+			      \leq \frac{1}{1 - 2\epsilon } \cdot \sup _{x \in \mathcal{N} , y \in \mathcal{M} } \langle Ax, y \rangle .
+		      \]
+		\item\label{ex4.4.3:b} Moreover, if \(m = n\) and \(A\) is symmetric, show that
+		      \[
+			      \sup _{x \in \mathcal{N} } \lvert \langle Ax, x \rangle \rvert
+			      \leq \lVert A \rVert
+			      \leq \frac{1}{1 - 2\epsilon } \cdot \sup _{x \in \mathcal{N} } \lvert \langle Ax, x \rangle \rvert .
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item The lower bound is again trivial. On the other hand, denote \(x^{\ast} \in S^{n-1}\) and \(y^{\ast} \in S^{m-1}\) such that \(\lVert A \rVert = \langle A x^{\ast} , y^{\ast}  \rangle \). Pick \(x_0 \in \mathcal{N} \) and \(y_0 \in \mathcal{M} \) such that \(\lVert x^{\ast} - x_0 \rVert _2, \lVert y^{\ast} - y_0 \rVert _2 \leq \epsilon \). We then have
+		      \[
+			      \begin{split}
+				      \langle A x^{\ast} , y^{\ast}  \rangle - \langle A x_0, y_0 \rangle
+				       & = \langle A(x^{\ast} - x_0), y^{\ast}  \rangle + \langle A x_0, y^{\ast} - y_0 \rangle                                                  \\
+				       & \leq \lVert A \rVert (\lVert x^{\ast} - x_0 \rVert _2 \lVert y^{\ast} \rVert _2 + \lVert x_0 \rVert _2 \lVert y^{\ast} - y_0 \rVert _2)
+				      \leq 2 \epsilon \lVert A \rVert
+			      \end{split}
+		      \]
+		      as \(\lVert y^{\ast} \rVert = \lVert x_0 \rVert _2 = 1\). Rewrite the above, we have
+		      \[
+			      \lVert A \rVert - \langle A x_0, y_0 \rangle \leq 2 \epsilon \lVert A \rVert
+			      \implies \lVert A \rVert \leq \frac{1}{1 - 2\epsilon} \langle A x_0, y_0 \rangle
+			      \leq \frac{1}{1 - 2\epsilon} \sup _{x \in \mathcal{N} , y \in \mathcal{N} }\langle A x, y \rangle .
+		      \]
+		\item Following the same argument as \hyperref[ex4.4.3:a]{(a)}, with \(y^{\ast} \coloneqq x^{\ast} \) and \(y_0 \coloneqq x_0\). To be explicit to handle the absolute value, we see that
+		      \[
+			      \lvert \langle A x^{\ast} , x^{\ast} \rangle  \rvert - \lvert \langle A x_0, x_0 \rangle \rvert
+			      \leq \lvert \langle A x^{\ast} , x^{\ast} \rangle - \langle A x_0, x_0 \rangle \rvert
+			      \leq 2 \epsilon \lVert A \rVert ,
+		      \]
+		      from the same argument. The result follows immediately.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 4.4.4]\label{ex4.4.4}
+	Let \(A\) be an \(m \times n\) matrix, \(\mu \in \mathbb{R} \) and \(\epsilon \in [0, 1 / 2)\). Show that for any \(\epsilon \)-net \(\mathcal{N} \) of the sphere \(S^{n-1}\), we have
+	\[
+		\sup _{x \in S^{n-1}} \lvert \lVert Ax \rVert _2 - \mu  \rvert
+		\leq \frac{C}{1 - 2 \epsilon } \cdot \sup _{x \in \mathcal{N} } \lvert \lVert Ax \rVert _2 - \mu  \rvert .
+	\]
+\end{problem*}
+\begin{answer}
+	Let \(\mu = 1\). Firstly, for \(x \in S^{n-1}\), observe that we can write
+	\[
+		\left\lvert \lVert Ax \rVert _2^2 - 1 \right\rvert
+		= \langle Rx, x \rangle
+	\]
+	for a symmetric \(R = A^{\top} A - I_n\). Secondly, there exists \(x^{\ast} \) such that \(\lVert R \rVert = \langle R x^{\ast} , x^{\ast}  \rangle \), consider \(x_0 \in \mathcal{N} \) such that \(\lVert x_0 - x^{\ast} \rVert \leq \epsilon \). Now, from a numerical inequality \(\lvert z-1 \rvert \leq \lvert z^2 - 1 \rvert \) for \(z > 0\), we have
+	\[
+		\begin{split}
+			\sup _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert
+			 & \leq \sup _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2^2 - 1 \right\rvert
+			= \lVert R \rVert                                                                               \\
+			 & \leq \frac{1}{1 - 2\epsilon } \sup _{x \in \mathcal{N} } \lvert \langle Rx, x \rangle \rvert
+			= \frac{1}{1 - 2\epsilon } \sup _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2^2 - 1 \right\rvert ,
+		\end{split}
+	\]
+	where the last inequality follows from \hyperref[ex4.4.3]{Exercise 4.4.3}. Further, factoring \(\lvert \lVert Ax \rVert _2^2 - 1 \rvert \) get
+	\[
+		\sup _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert
+		\leq \frac{1}{1 - 2\epsilon } \sup _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert \left( \lVert Ax \rVert _2 + 1 \right) .
+	\]
+	If \(\lVert A \rVert \leq 2\), then \(\lVert Ax \rVert _2 + 1 \leq 3\), and \(C = 3\) suffices.
+
+	On the other hand, if \(\lVert A \rVert > 2\), consider directly computing the left-hand side
+	\[
+		\sup _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert
+		= \lVert A \rVert - 1
+	\]
+	where the maximum is attained at some \(x^{\prime} \in S^{n-1}\). With the existence of \(x^{\prime\prime} \in \mathcal{N} \cap \{ x \colon \lVert x - x^{\prime}  \rVert _2 \leq \epsilon  \} \), the supremum over \(\mathcal{N} \) can be lower bounded as
+	\[
+		\sup _{x \in \mathcal{N} }\left\lvert \lVert Ax \rVert _2 - 1 \right\rvert
+		\geq \lVert A x^{\prime\prime}  \rVert _2 - 1
+		\geq \lVert A x^{\prime}  \rVert _2 - \lVert A(x^{\prime\prime} - x^{\prime} ) \rVert _2 - 1
+		\geq \lVert A \rVert (1 - \epsilon ) - 1
+		> 1 - 2\epsilon .
+	\]
+	The above implies the following.
+	\begin{itemize}
+		\item \(\lVert A \rVert \leq \frac{1}{1 - \epsilon } (\sup _{x \in \mathcal{N} }\left\lvert \lVert Ax \rVert _2 - 1 \right\rvert + 1)\).
+		\item \(\sup _{x \in \mathcal{N} }\left\lvert \lVert Ax \rVert _2 - 1 \right\rvert > 1 - 2\epsilon \).
+	\end{itemize}
+	This allows us to conclude that
+	\[
+		\begin{split}
+			\sup _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert
+			= \lVert A \rVert - 1
+			 & \leq \frac{1}{1 - \epsilon } \left( \sup _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert + 1 \right) - 1 \\
+			 & = \frac{1}{1 - \epsilon } \left( \sup _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert + \epsilon \right)
+			\leq \frac{3}{1 - 2\epsilon } \sup _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2 - 1 \right\rvert ,
+		\end{split}
+	\]
+	provided that
+	\[
+		C
+		\coloneqq 3
+		\geq \sup _{d > 1 - 2\epsilon } \frac{1 - 2\epsilon }{1 - \epsilon } \left( 1 + \frac{\epsilon }{d} \right)
+		\geq \frac{1 - 2\epsilon }{1 - \epsilon } \frac{\sup _{x \in \mathcal{N} } \lvert \lVert Ax \rVert _2 - 1 \rvert + \epsilon }{\sup _{x \in \mathcal{N} } \lvert \lVert Ax \rVert _2 - 1 \rvert },
+	\]
+	which is true since the middle supremum is just \(1\). The case that \(\mu \neq 1\) can be easily generalized by considering \(R = A^{\top} A - \mu I_n\).
+\end{answer}
+
+\begin{problem*}[Exercise 4.4.6]\label{ex4.4.6}
+	Deduce from Theorem 4.4.5 that
+	\[
+		\mathbb{E}_{}[\lVert A \rVert ]
+		\leq CK(\sqrt{m} + \sqrt{n} ).
+	\]
+\end{problem*}
+\begin{answer}
+	From Theorem 4.4.5, for any \(t > 0\), we have
+	\[
+		\mathbb{P} (\lVert A \rVert - CK(\sqrt{m} + \sqrt{n} ) > CKt)
+		\leq 2 \exp (-t^2).
+	\]
+	Then we immediately have
+	\[
+		\begin{split}
+			\mathbb{E}_{}[\lVert A \rVert - CK(\sqrt{m} + \sqrt{n} )]
+			 & = \mathbb{E}_{}[\lVert A \rVert ] - CK(\sqrt{m} + \sqrt{n} )                                       \\
+			 & = \int_{0}^{\infty} \mathbb{P} (\lVert A \rVert - CK(\sqrt{m} + \sqrt{n} ) > CKt) CK \,\mathrm{d}t \\
+			 & \leq 2CK \int_{0}^{\infty} \exp (-t^2) \,\mathrm{d}t
+			= CK \sqrt{\pi },
+		\end{split}
+	\]
+	hence \(\mathbb{E}_{}[\lVert A \rVert ] \leq CK(\sqrt{m} + \sqrt{n}  + \sqrt{\pi } )\), and choosing a large enough \(C\) subsumes \(\sqrt{\pi } \).
+\end{answer}
+
+\begin{problem*}[Exercise 4.4.7]\label{ex4.4.7}
+	Suppose that in Theorem 4.4.5 the entries \(A_{ij}\) have unit variances. Prove that for sufficiently large \(n\) and \(m\) one has
+	\[
+		\mathbb{E}_{}[\lVert A \rVert ]
+		\geq \frac{1}{4} ( \sqrt{m} + \sqrt{n}).
+	\]
+\end{problem*}
+\begin{answer}
+	Clearly, by choosing \(x = e_1 \in S^{n-1}\),
+	\[
+		\lVert A \rVert
+		= \sup _{x \in S^{n-1} } \lVert Ax \rVert _2
+		\geq \lVert (A_{i1})_{1 \leq i \leq m} \rVert _2.
+	\]
+	On the other hand, by picking \(x = (A_{11} / \lVert (A_{1j})_{1 \leq j \leq n} \rVert _2 , \dots , A_{1n} / \lVert (A_{1j})_{1 \leq j \leq n} \rVert _2 ) \in S^{n-1}\) and \(y = e_1 \in S^{m-1}\), we have
+	\[
+		\lVert A \rVert
+		= \sup _{x \in S^{n-1}, y\in S^{m-1}} \langle Ax, y \rangle
+		\geq \sum_{j=1}^{n} \frac{A_{1j}}{\lVert (A_{1j})_{1 \leq j \leq n} \rVert _2} A_{1j}
+		= \lVert (A_{1j})_{1 \leq j \leq n} \rVert _2.
+	\]
+	Hence, \(\lVert A \rVert \) is lower bounded by the norm of the first row and column, i.e.,
+	\[
+		\lVert A \rVert
+		\geq \max (\lVert (A_{i1})_{1 \leq i \leq m} \rVert _2, \lVert (A_{1j})_{1 \leq j \leq n} \rVert _2).
+	\]
+	\hyperref[ex3.1.4:b]{Exercise 3.1.4 (b)}, the expectation of \(\lVert A \rVert \) is then greater than or equal to \(\max (\sqrt{m} - o(1), \sqrt{n} - o(1))\) by  Thus, \(\mathbb{E}_{}[\lVert A \rVert ] \geq (\sqrt{m} + \sqrt{n} - o(1)) / 2\).
+\end{answer}
+
+\begin{remark}
+	An easier way to deduce the second (i.e., lower bounded by the norm of the first row) is to note that \(\lVert A^{\top}  \rVert = \lVert A \rVert \) by some elementary (functional) analysis.
+\end{remark}

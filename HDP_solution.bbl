@@ -1,0 +1,120 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{vershyninHighDimensionalProbability2024}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=711c5aa2fe76a4ff674a2c6e2c7a2d91}{%
+           family={Vershynin},
+           familyi={V\bibinitperiod},
+           given={Roman},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{fullhash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{fullhashraw}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{bibnamehash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{authorbibnamehash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{authornamehash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{authorfullhash}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \strng{authorfullhashraw}{711c5aa2fe76a4ff674a2c6e2c7a2d91}
+      \field{labelalpha}{Ver24}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{english}
+      \field{title}{High-{{Dimensional Probability}}}
+      \field{volume}{47}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb /Users/pbb/Research/Zotero/storage/2T2EKNM7/Vershynin - High-Dimensional Probability.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.html
+      \endverb
+      \verb{url}
+      \verb https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.html
+      \endverb
+    \endentry
+    \entry{Vladimirova_2020}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=6f21933cca37570912933ac584c16a35}{%
+           family={Vladimirova},
+           familyi={V\bibinitperiod},
+           given={Mariia},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3087d4cc70fb7b23058ecbe7cdbb507d}{%
+           family={Girard},
+           familyi={G\bibinitperiod},
+           given={Stéphane},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1fca003445f69ee14fb81497cdf9fa24}{%
+           family={Nguyen},
+           familyi={N\bibinitperiod},
+           given={Hien},
+           giveni={H\bibinitperiod}}}%
+        {{hash=1be6f8b4e6bf90d68f48eb31810f0ec9}{%
+           family={Arbel},
+           familyi={A\bibinitperiod},
+           given={Julyan},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{65d78e9e4cb44b6762f6a76f2fcaa181}
+      \strng{fullhash}{299c4e54dcc92ac1a51071885014151d}
+      \strng{fullhashraw}{299c4e54dcc92ac1a51071885014151d}
+      \strng{bibnamehash}{65d78e9e4cb44b6762f6a76f2fcaa181}
+      \strng{authorbibnamehash}{65d78e9e4cb44b6762f6a76f2fcaa181}
+      \strng{authornamehash}{65d78e9e4cb44b6762f6a76f2fcaa181}
+      \strng{authorfullhash}{299c4e54dcc92ac1a51071885014151d}
+      \strng{authorfullhashraw}{299c4e54dcc92ac1a51071885014151d}
+      \field{labelalpha}{Vla+20}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2049-1573}
+      \field{journaltitle}{Stat}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{Sub-Weibull distributions: Generalizing sub-Gaussian and sub-Exponential properties to heavier tailed distributions}
+      \field{volume}{9}
+      \field{year}{2020}
+      \verb{doi}
+      \verb 10.1002/sta4.318
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1002/sta4.318
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1002/sta4.318
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -1,0 +1,221 @@
+\chapter{Random vectors in high dimensions}
+\week{9}{15 Mar.\ 2024}{Concentration Inequalities of Random Vectors}
+\section{Concentration of the norm}
+
+\begin{problem*}[Exercise 3.1.4]\label{ex3.1.4}
+	\begin{enumerate}[(a)]
+		\item\label{ex3.1.4:a} Deduce from Theorem 3.1.1 that
+		      \[
+			      \sqrt{n} - CK^2
+			      \leq \mathbb{E}_{}[\lVert X \rVert _2]
+			      \leq \sqrt{n} + CK^2.
+		      \]
+		\item\label{ex3.1.4:b} Can \(CK^2\) be replaced by \(o(1)\), a quantity that vanishes as \(n \to \infty \)?
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item From Jensen's inequality, we have
+		      \[
+			      \vert \mathbb{E}_{}[\lVert X \rVert _2 - \sqrt{n} ]  \vert
+			      \leq \mathbb{E}_{}[\vert \lVert X \rVert _2 - \sqrt{n}  \vert ]
+			      \leq \lVert \lVert X \rVert _2 - \sqrt{n}  \rVert _{\psi _2}
+			      \leq C K^2
+		      \]
+		      from Theorem 3.1.1 and
+		      \[
+			      \lVert Z \rVert _{\psi _2}
+			      = \inf \{ t > 0 \colon \mathbb{E}_{}[\exp (Z^2 / t^2)] \leq 2 \}
+			      \geq \lVert Z \rVert _{L^1}
+		      \]
+		      as \(\mathbb{E}_{}[\exp (Z^2 / (\mathbb{E}_{}[\vert Z \vert ] ^2 ))] \geq 1 + \mathbb{E}_{}[Z^2] / (\mathbb{E}_{}[\vert Z \vert ]^2 ) \geq 2\), again from Jensen's inequality.
+		\item We first observe that \(\mathbb{E}_{}[\lVert X \rVert _2] \leq \sqrt{\mathbb{E}_{}[\lVert X \rVert _2^2] } = \sqrt{n} \), hence we only need to deal with lower-bound. Consider the following non-negative function
+		      \[
+			      f(x) = \sqrt{x} - \frac{1}{2}(1 + x - (x - 1)^2) \geq 0
+		      \]
+		      for \(x \geq 0\). Then, for \(x = \lVert X \rVert _2^2 / n \geq 0\), we have
+		      \[
+			      \begin{split}
+				               & \sqrt{\frac{\lVert X \rVert _2^2}{n}}
+				      \geq \frac{1}{2} \left( 1 + \frac{\lVert X \rVert _2^2}{n} - \left( \frac{\lVert X \rVert _2^2}{n} - 1 \right) ^2 \right)                                                                                                                    \\
+				      \implies & \lVert X \rVert _2 \geq \frac{\sqrt{n} }{2} \left( 1 + \frac{\lVert X \rVert _2^2}{n} - \left( \frac{\lVert X \rVert _2^2}{n} - 1 \right) ^2 \right)                                                                              \\
+				      \implies & \mathbb{E}_{}[\lVert X \rVert _2] \geq \frac{\sqrt{n} }{2} \left( 1 + \frac{n}{n} \right) - \frac{\sqrt{n} }{2}\mathbb{E}_{}\left[\left( \frac{\lVert X \rVert _2^2 - \mathbb{E}_{}[\lVert X \rVert _2^2] }{n} \right) ^2 \right] \\
+				      \implies & \mathbb{E}_{}[\lVert X \rVert _2] \geq \sqrt{n} - \frac{1}{2 n^{3 / 2}} \Var_{}[\lVert X \rVert _2^2].
+			      \end{split}
+		      \]
+		      Expanding the variance, we see that
+		      \[
+			      \Var_{}[\lVert X \rVert _2^2]
+			      = \sum_{i=1}^{n} \Var_{}\left[X_i^2 \right]
+			      = \sum_{i=1}^{n} \left( \mathbb{E}_{}[X_i^4] - \mathbb{E}_{}[X_i^2]^2  \right)
+			      \leq n \cdot \max _{1 \leq i \leq n} \mathbb{E}_{}[X_i^4]
+			      = n \cdot \max _{1 \leq i \leq n} \lVert X_i \rVert _{L^4}^4,
+		      \]
+		      and from the sub-gaussian property, this is \(\lesssim n \cdot \max _{1 \leq i \leq n} \lVert X_i \rVert _{\psi _2}^4 = n K^4\). Overall,
+		      \[
+			      \mathbb{E}_{}[\lVert X \rVert _2]
+			      \gtrsim \sqrt{n} - \frac{1}{2 n^{3 / 2}} n K^4
+			      = \sqrt{n} - \frac{K^4}{\sqrt{n} }
+			      = \sqrt{n} + o(1),
+		      \]
+		      if \(K \geq 1\). Otherwise, when \(K < 1\), we replace \(K^4\) by \(1\), the result holds still.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.1.5]\label{ex3.1.5}
+	Deduce from Theorem 3.1.1 that
+	\[
+		\Var_{}[\lVert X \rVert _2]
+		\leq CK^4.
+	\]
+\end{problem*}
+\begin{answer}
+	From the definition and the fact that the mean minimizes the MSE,
+	\[
+		\Var_{}[\lVert X \rVert _2]
+		= \mathbb{E}_{}[(\lVert X \rVert _2 - \mathbb{E}_{}[\lVert X \rVert _2] )^2]
+		\leq \mathbb{E}_{}[(\lVert X \rVert _2 - \sqrt{n} )^2],
+	\]
+	then from the proof of \hyperref[ex3.1.4]{Exercise 3.1.4}, as \(\mathbb{E}_{}[\vert \lVert X \rVert _2 - \sqrt{n} \vert] \leq c K^2\) for some \(c\),
+	\[
+		\Var_{}[\lVert X \rVert _2]
+		\leq \mathbb{E}_{}[(\lVert X \rVert _2 - \sqrt{n} )^2]
+		\leq c^2 K^4,
+	\]
+	and by letting \(c^2 \eqqcolon C\), we're done.
+
+\end{answer}
+
+\begin{problem*}[Exercise 3.1.6]\label{ex3.1.6}
+	Let \(X = (X_1, \dots , X_n) \in \mathbb{R} ^n\) be a random vector with independent coordinates \(X_i\) that satisfy \(\mathbb{E}_{}[X_i^2] = 1\) and \(\mathbb{E}_{}[X_i^4] \leq K^4\). Show that
+	\[
+		\Var_{}[\lVert X \rVert _2]
+		\leq CK^4.
+	\]
+\end{problem*}
+\begin{answer}
+	Firstly, observe that with our new assumption, \hyperref[ex3.1.4:b]{Exercise 3.1.4 (b)} again gives \(\mathbb{E}_{}[\lVert X \rVert _2] \gtrsim \sqrt{n} - K^4 / \sqrt{n} \). Then from the same reason as stated in \hyperref[ex3.1.5]{Exercise 3.1.5},
+	\[
+		\Var_{}[\lVert X \rVert _2]
+		\leq \mathbb{E}_{}[(\lVert X \rVert _2 - \sqrt{n} )^2]
+		= 2n - 2 \sqrt{n} \mathbb{E}_{}[\lVert X \rVert _2]
+		\lesssim 2n - 2 \sqrt{n} \left( \sqrt{n} - \frac{K^4}{\sqrt{n} } \right)
+		= 2K^4,
+	\]
+	proving the result.
+\end{answer}
+
+\begin{problem*}[Exercise 3.1.7]\label{ex3.1.7}
+	Let \(X = (X_1, \dots , X_n) \in \mathbb{R} ^n\) be a random vector with independent coordinates \(X_i\) with continuous distributions. Assume that the densities of \(X_i\) are uniformly bounded by \(1\). Show that, for any \(\epsilon > 0\), we have
+	\[
+		\mathbb{P} (\lVert X \rVert _2 \leq \epsilon \sqrt{n} )
+		\leq (C \epsilon )^n.
+	\]
+\end{problem*}
+\begin{answer}
+	We want to bound
+	\[
+		\mathbb{P} \left( \lVert X \rVert _2 \leq \epsilon \sqrt{n} \right)
+		= \mathbb{P} (\lVert X \rVert _2^2 \leq \epsilon ^2 n)
+		= \mathbb{P} \left( \sum_{i=1}^{n} X_i^2 \leq \epsilon ^2 n \right).
+	\]
+	Follow the same argument as Exercise 2.2.10,\footnote{The result does not directly follow from this because \(\epsilon \) is replaced by \(\epsilon ^2\), and a bound on the density of \(X_i\) doesn't give a bound on the density of \(X_i^2\).} i.e., first we bound \(\mathbb{E}_{}[\exp (-t X_i^2)] \) for all \(t > 0\). We have
+	\[
+		\mathbb{E}_{}[\exp (-t X_i^2)]
+		= \int_{0}^{\infty} e^{-t x^2} f_{X_i}(x) \,\mathrm{d}x
+		\leq \int_{0}^{\infty} e^{-t x^2} \,\mathrm{d}x
+		= \frac{1}{2}\sqrt{\frac{\pi }{t}}
+	\]
+	from the Gaussian integral. Then, from the MGF trick, we have
+	\[
+		\mathbb{P} (\lVert X \rVert _2 \leq \epsilon \sqrt{n} )
+		= \mathbb{P} (- \lVert X \rVert _2^2 \geq - \epsilon ^2 n)
+		\leq \inf _{t > 0} \frac{\mathbb{E}_{}[\exp (-t \lVert X \rVert _2^2)] }{\exp (-t \epsilon ^2 n)}
+		\leq \inf _{t > 0} \left( \frac{1}{2} \sqrt{\frac{\pi }{t}} \right) ^n e^{t \epsilon ^2 n}.
+	\]
+	Let \(t = \epsilon ^{-2}\), we have
+	\[
+		\mathbb{P} (\lVert X \rVert _2 \leq \epsilon \sqrt{n} )
+		\leq \left( \frac{\sqrt{\pi } }{2} \epsilon \cdot e \right) ^n
+		\eqqcolon (C \epsilon )^n
+	\]
+	by letting \(C \coloneqq \sqrt{\pi }e / 2 \).
+\end{answer}
+
+\section{Covariance matrices and principal component analysis}
+\begin{problem*}[Exercise 3.2.2]\label{ex3.2.2}
+	\begin{enumerate}[(a)]
+		\item\label{ex3.2.2:a} Let \(Z\) be a mean zero, isotropic random vector in \(\mathbb{R} ^n\). Let \(\mu \in \mathbb{R} ^n\) be a fixed vector and \(\Sigma \) be a fixed \(n \times n\) symmetric positive semidefinite matrix. Check that the random vector
+		      \[
+			      X \coloneqq \mu + \Sigma ^{1 / 2} Z
+		      \]
+		      has mean \(\mu \) and covariance matrix \(\Cov_{}[X] = \Sigma \).
+		\item\label{ex3.2.2:b} Let \(X\) be a random vector with mean \(\mu \) and invertible covariance matrix \(\Sigma = \Cov_{}[X] \). Check that the random vector
+		      \[
+			      Z \coloneqq \Sigma ^{-1 / 2}(X - \mu )
+		      \]
+		      is an isotropic, mean zero random vector.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Firstly,
+		      \[
+			      \mathbb{E}_{}[X]
+			      = \mathbb{E}_{}[\mu ] + \mathbb{E}_{}[\Sigma ^{1 / 2} Z]
+			      = \mu + \Sigma ^{1 / 2} \mathbb{E}_{}[Z]
+			      = \mu
+		      \]
+		      Moreover,
+		      \[
+			      \begin{split}
+				      \Cov_{}[X]
+				       & = \Cov_{}[\mu + \Sigma ^{1 / 2} Z]                                                                                            \\
+				       & = \mathbb{E}_{}[(\mu + \Sigma ^{1 / 2} Z) (\mu + \Sigma ^{1 / 2} Z)^{\top} ] - \mu \mu ^{\top}                                \\
+				       & = \mathbb{E}_{}[(\mu + \Sigma ^{1 / 2}Z) Z^{\top} (\Sigma ^{1 / 2})^{\top} ]                                                  \\
+				       & = \mathbb{E}_{}[\mu Z^{\top} (\Sigma ^{1 / 2})^{\top} ] + \mathbb{E}_{}[\Sigma ^{1 / 2} Z Z^{\top} (\Sigma ^{1 / 2})^{\top} ] \\
+				       & = 0 + \Sigma ^{1 / 2} \mathbb{E}_{}[Z Z^{\top} ] (\Sigma ^{1 / 2})^{\top}                                                     \\
+				       & = \Sigma ^{1 / 2} I_n (\Sigma ^{1 / 2})^{\top}                                                                                \\
+				       & = \Sigma
+			      \end{split}
+		      \]
+		      as \(\Sigma \) is positive-semidefinite.
+		\item Similarly,
+		      \[
+			      \mathbb{E}_{}[Z]
+			      = \Sigma ^{-1 / 2} \mathbb{E}_{}[X - \mu ]
+			      = \Sigma ^{-1 / 2} (\mu - \mu )
+			      = 0,
+		      \]
+		      and moreover,
+		      \[
+			      \begin{split}
+				      \Cov_{}[Z]
+				       & = \Cov_{}[\Sigma ^{-1 / 2} (X - \mu )]                                                          \\
+				       & = \mathbb{E}_{}\left[(\Sigma ^{-1 / 2} (X - \mu )) (\Sigma ^{-1 / 2} (X - \mu ))^{\top} \right] \\
+				       & = \Sigma ^{-1 / 2} \mathbb{E}_{}[(X - \mu )(X - \mu )^{\top} ] (\Sigma ^{-1 / 2}) ^{\top}       \\
+				       & = \Sigma ^{-1 / 2} \Sigma (\Sigma ^{-1 / 2}) ^{\top}                                            \\
+				       & = I_n,
+			      \end{split}
+		      \]
+		      hence \(Z\) is also isotropic.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.2.6]\label{ex3.2.6}
+	Let \(X\) and \(Y\) be independent, mean zero, isotropic random vectors in \(\mathbb{R} ^n\). Check that
+	\[
+		\mathbb{E}_{}[\lVert X - Y \rVert _2^2]
+		= 2n.
+	\]
+\end{problem*}
+\begin{answer}
+	This directly follows from
+	\[
+		\mathbb{E}_{}[\lVert X - Y \rVert _2^2]
+		= \mathbb{E}_{}[\langle X-Y, X-Y \rangle ]
+		= \mathbb{E}_{}[\langle X, X \rangle ] - 2 \mathbb{E}_{}[\langle X, Y \rangle ] + \mathbb{E}_{}[\langle Y, Y \rangle ]
+		= n - 0 + n
+		= 2n.
+	\]
+\end{answer}

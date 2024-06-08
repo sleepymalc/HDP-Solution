@@ -1,0 +1,355 @@
+\chapter{Concentration of sums of independent random variables}
+\week{3}{2 Feb.\ 2024}{More Powerful Concentration Inequalities}
+
+\section{Why concentration inequalities?}
+\begin{problem*}[Exercise 2.1.4]\label{ex2.1.4}
+	Let \(g \sim \mathcal{N} (0, 1)\). Show that for all \(t \geq 1\), we have
+	\[
+		\mathbb{E}_{}[g^2 \mathbbm{1}_{g > t}]
+		= t \cdot \frac{1}{\sqrt{2 \pi } } e^{-t^2 / 2} + \mathbb{P} (g > t)
+		\leq \left( t - \frac{1}{t} \right) \frac{1}{\sqrt{2\pi } } e^{-t^2 / 2}.
+	\]
+\end{problem*}
+\begin{answer}
+	Denote the standard normal density as
+	\[
+		\Phi (x)
+		= \frac{1}{\sqrt{2\pi } } e^{-x^2 / 2}.
+	\]
+	Since we have \(\Phi ^{\prime} (x) = -x \Phi (x)\), by integration by part,
+	\[
+		\begin{split}
+			\mathbb{E}_{}\left[g^2 \mathbbm{1}_{g > t}  \right]
+			 & = \int_{0}^{\infty} x^2 \mathbbm{1}_{x > t} \Phi (x) \,\mathrm{d}x         \\
+			 & = -\int_{t}^{\infty} x \Phi ^{\prime} (x)\,\mathrm{d}x                     \\
+			 & = - \at{x \Phi (x)}{t}{\infty } + \int_{t}^{\infty} \Phi (x) \,\mathrm{d}x \\
+			 & = t\cdot \frac{1}{\sqrt{2\pi } } e^{-t^2 / 2} + \mathbb{P} (g > t),
+		\end{split}
+	\]
+	which gives the first equality. Furthermore, as \(t \geq 1\), we trivially have
+	\[
+		\int_{t}^{\infty} \Phi (x) \,\mathrm{d}x
+		\leq \int_{t}^{\infty} \frac{x}{t} \Phi (x) \,\mathrm{d}x
+		= \frac{1}{t} \int_{t}^{\infty} - \Phi ^{\prime} (x) \,\mathrm{d}x
+		= \frac{\Phi (t)}{t},
+	\]
+	implying that
+	\[
+		\mathbb{E}_{}\left[g^2 \mathbbm{1}_{g > t}  \right]
+		= t\cdot \frac{1}{\sqrt{2\pi } }e^{-t^2 / 2} + \int_{t}^{\infty} \Phi (x) \,\mathrm{d}x
+		\leq \left( t + \frac{1}{t} \right) \frac{1}{\sqrt{2\pi } }e^{-t^2 / 2},
+	\]
+	which gives the second inequality.
+\end{answer}
+
+\section{Hoeffding's inequality}
+\begin{problem*}[Exercise 2.2.3]\label{ex2.2.3}
+	Show that
+	\[
+		\cosh (x)
+		\leq \exp (x^2 / 2)
+		\text{ for all } x \in \mathbb{R} .
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+The next exercise is to prove Theorem 2.2.5 (\hyperref[thm:Hoeffding-inequality]{Hoeffding's inequality for general bounded random variables}), which we restate it for convenience.
+
+\begin{theorem}[Hoeffding's inequality for general bounded random variables]\label{thm:Hoeffding-inequality}
+	Let \(X_1, \dots , X_N\) be independent random variables. Assume that \(X_i \in [m_i, M_i]\) for every \(i\). Then, for any \(t > 0\), we have
+	\[
+		\mathbb{P} \left( \sum_{i=1}^{N} (X_i - \mathbb{E}_{}[X_i] ) \geq t \right)
+		\leq \exp (- \frac{2t^2}{\sum_{i=1}^{N} (M_i - m_i)^2}).
+	\]
+\end{theorem}
+
+\begin{problem*}[Exercise 2.2.7]\label{ex2.2.7}
+	Prove the \hyperref[thm:Hoeffding-inequality]{Hoeffding's inequality for general bounded random variables}, possibly with some absolute constant instead of \(2\) in the tail.
+\end{problem*}
+\begin{answer}
+	Since raising both sides to \(p\)-th power doesn't work since we're now working with sum of random variables, so we instead consider the MGF trick (also known as Crarmer-Chernoff method):
+
+	\begin{lemma}[Crarmer-Chernoff method]\label{lma:Crarmer-Chernoff}
+		Given a random variable \(X\),
+		\[
+			\mathbb{P} (X - \mu \geq t) = \mathbb{P} (e^{\lambda (X - \mu )} \geq e^{\lambda t}) \leq \inf _{\lambda > 0} \frac{\mathbb{E}_{}\left[e^{\lambda (X-\mu )} \right] }{e^{\lambda t}}.
+		\]
+	\end{lemma}
+	\begin{proof}
+		This directly follows from the Markov's inequality.
+	\end{proof}
+
+	Hence, we see that
+	\[
+		\begin{split}
+			\mathbb{P} \left( \sum_{i=1}^{N} (X_i - \mathbb{E}_{}\left[X_i \right] ) \geq t \right)
+			 & \leq \inf _{\lambda  > 0} e^{-\lambda t} \mathbb{E}_{}\left[\exp (\lambda \sum_{i=1}^{N} (X_i - \mathbb{E}_{}\left[X_i \right] )) \right] \\
+			 & = \inf _{\lambda > 0} e^{-\lambda t} \prod_{i=1}^{N} \exp (\lambda (X_i - \mathbb{E}_{}\left[X_i \right] )).
+		\end{split}
+	\]
+	So now everything left is to bound \(\mathbb{E}_{}\left[ \exp (\lambda (X_i - \mathbb{E}_{}\left[X_i \right] )) \right]\). Before we proceed, we need one lemma.
+
+	\begin{lemma}\label{lma:variance-bound}
+		For any bounded random variable \(Z\in [a, b]\),
+		\[
+			\Var_{}\left[Z \right] \leq \frac{(b-a)^2}{4}.
+		\]
+	\end{lemma}
+	\begin{proof}
+		Since
+		\[
+			\Var_{}\left[Z \right]
+			= \Var_{}\left[Z - \frac{a+b}{2} \right]
+			\leq \mathbb{E}_{}\left[\left( Z - \frac{a+b}{2} \right) ^2 \right]
+			\leq \frac{(b-a)^2}{4}.
+		\]
+	\end{proof}
+
+	\begin{claim}
+		Given \(X \in [a, b]\) such that \(\mathbb{E}_{}\left[X  \right] = 0\), for all \(\lambda \in \mathbb{R} \),
+		\[
+			\mathbb{E}_{}\left[e^{\lambda X} \right] \leq \exp (\lambda ^2 \frac{(b-a)^2}{8}).
+		\]
+	\end{claim}
+	\begin{explanation}
+		We first define \(\psi (\lambda ) = \ln \mathbb{E}_{}\left[e^{\lambda X} \right] \), and compute
+		\[
+			\psi ^{\prime} (\lambda ) = \frac{\mathbb{E}_{}\left[X e^{\lambda X} \right] }{\mathbb{E}_{}\left[e^{\lambda X} \right] },\quad
+			\psi ^{\prime\prime} (\lambda ) = \frac{\mathbb{E}_{}\left[X^2 e^{\lambda X} \right] }{\mathbb{E}_{}\left[e^{\lambda X} \right] } - \left( \frac{\mathbb{E}_{}\left[X e^{\lambda X} \right] }{\mathbb{E}_{}\left[e^{\lambda X} \right] } \right) ^2.
+		\]
+		Now, observe that \(\psi ^{\prime\prime} \) is the variance under the law of \(X\) re-weighted by \(\frac{e^{\lambda X}}{\mathbb{E}_{}\left[e^{\lambda X} \right] }\), i.e., by a change of measure, consider a new distribution \(\mathbb{P} _\lambda \) (w.r.t.\ the original distribution \(\mathbb{P} \) of \(X\)) as
+		\[
+			\,\mathrm{d} \mathbb{P} _\lambda (x) \coloneqq \frac{e^{\lambda X}}{\mathbb{E}_{\mathbb{P} }\left[e^{\lambda X} \right] }\,\mathrm{d} \mathbb{P} (x),
+		\]
+		then
+		\begin{align*}
+			\psi ^{\prime} (\lambda )
+			 & = \frac{\mathbb{E}_{\mathbb{P} }\left[X e^{\lambda X} \right] }{\mathbb{E}_{\mathbb{P} }\left[e^{\lambda X} \right] }
+			= \int \frac{x e^{\lambda x}}{\mathbb{E}_{\mathbb{P} }\left[ e^{\lambda X}\right] } \,\mathrm{d} \mathbb{P} (x)
+			= \mathbb{E}_{\mathbb{P} _\lambda }\left[ X \right]                                                                                                                                                                                                                   \\
+			\shortintertext{and}
+			\psi ^{\prime\prime} (\lambda )
+			 & = \frac{\mathbb{E}_{\mathbb{P} }\left[ X^2 e^{\lambda X} \right] }{\mathbb{E}_{\mathbb{P} }\left[ e^{\lambda X} \right] } - \left( \frac{\mathbb{E}_{\mathbb{P} }\left[ X e^{\lambda X} \right] }{\mathbb{E}_{\mathbb{P} }\left[ e^{\lambda X}\right] } \right) ^2
+			= \mathbb{E}_{\mathbb{P} _\lambda }\left[ X^2 \right] - \mathbb{E}_{\mathbb{P} _\lambda }\left[ X \right] ^2
+			= \Var_{\mathbb{P} _\lambda }\left[X \right] .
+		\end{align*}
+
+		From \autoref{lma:variance-bound}, since \(X\) under the new distribution \(\mathbb{P} _\lambda \) is still bounded between \(a\) and \(b\),
+		\[
+			\psi ^{\prime\prime} (\lambda ) = \Var_{\mathbb{P} _\lambda }\left[X \right] \leq \frac{(b-a)^2}{4}.
+		\]
+		Then by Taylor's theorem, there exists some \(\widetilde{\lambda} \in [0, \lambda ]\) such that
+		\[
+			\psi (\lambda )
+			= \psi (0) + \psi ^{\prime} (0) \lambda + \frac{1}{2} \psi ^{\prime\prime} (\widetilde{\lambda} )\lambda ^{2}
+			= \frac{1}{2} \psi ^{\prime\prime} (\widetilde{\lambda} )\lambda ^{2}
+		\]
+		since \(\psi (0) = \psi ^{\prime} (0) = 0\). By bounding \(\psi ^{\prime\prime} (\widetilde{\lambda} )\lambda ^{2} / 2\), we finally have
+		\[
+			\ln \mathbb{E}_{}\left[e^{\lambda X} \right] = \psi (\lambda ) \leq \frac{1}{2}\cdot \frac{(b-a)^{2} }{4}\lambda ^{2} = \lambda ^{2} \frac{(b-a)^2}{8},
+		\]
+		raising both sides by \(e\) shows the desired result.
+	\end{explanation}
+
+	Say given \(X_i \in [m_i, M_i]\) for every \(i\), then \(X_i - \mathbb{E}_{}\left[X_i \right] \in [m_i - \mathbb{E}_{}\left[X_i \right] , M_i - \mathbb{E}_{}\left[X_i \right] ]\) with mean \(0\) for every \(i\). Then given any of the two bounds, for all \(\lambda \in \mathbb{R} \),
+	\[
+		\mathbb{E}_{}\left[e^{\lambda (X_i - \mathbb{E}_{}\left[X_i \right]) } \right]
+		\leq \exp (\lambda ^2 \frac{(M_i - m_i)^2}{8}).
+	\]
+	Then we simply recall that
+	\[
+		\begin{split}
+			\mathbb{P} \left( \sum_{i=1}^{N} (X_i - \mathbb{E}_{}\left[X_i \right] ) \geq t \right)
+			 & = \inf _{\lambda > 0} e^{-\lambda t} \prod_{i=1}^{N} \exp (\lambda (X_i - \mathbb{E}_{}\left[X_i \right] )) \\
+			 & \leq \inf _{\lambda > 0} \exp (-\lambda t + \sum_{i=1}^{N} \lambda ^2 \frac{(M_i - m_i)^2}{8})              \\
+			 & = \exp (- \frac{4t^2}{\sum_{i=1}^{N} (M_i - m_i)^2} + \frac{2t^2}{\sum_{i=1}^{N} (M_i - m_i)^2})            \\
+			 & = \exp (- \frac{2t^2}{\sum_{i=1}^{N} (M_i - m_i)^2})
+		\end{split}
+	\]
+	since infimum is achieved at \(\lambda = 4t / (\sum_{i=1}^{N} (M_i - m_i)^2)\).
+\end{answer}
+
+\begin{problem*}[Exercise 2.2.8]\label{ex2.2.8}
+	Imagine we have an algorithm for solving some decision problem (e.g., is a given number \(p\) a prime?). Suppose the algorithm makes a decision at random and returns the correct answer with probability \(\frac{1}{2} + \delta \) with some \(\delta > 0\), which is just a bit better than a random guess. To improve the performance, we run the algorithm \(N\) times and take the majority vote. Show that, for any \(\epsilon \in (0, 1)\), the answer is correct with probability at least \(1 - \epsilon \), as long as
+	\[
+		N
+		\geq \frac{1}{2\delta ^2} \ln (\frac{1}{\epsilon }).
+	\]
+\end{problem*}
+\begin{answer}
+	Consider \(X_1, \dots , X_N \overset{\text{i.i.d.} }{\sim } \operatorname{Ber}(\frac{1}{2} + \delta ) \), which is a series of indicators indicting whether the random decision is correct or not. Note that \(\mathbb{E}_{}\left[X_i \right] = \frac{1}{2} + \delta \).
+
+	We see that by taking majority vote over \(N\) times, the algorithm makes a mistake if \(\sum_{i=1}^{N} X_i \leq N / 2\) (let's not consider tie). This happens with probability
+	\[
+		\mathbb{P} \left( \sum_{i=1}^{N} X_i \leq \frac{N}{2} \right)
+		= \mathbb{P} \left( \sum_{i=1}^{N} (X_i - \mathbb{E}_{}\left[X_i \right] ) \leq - N \delta  \right)
+		\leq \exp (- \frac{2(N \delta )^2}{N})
+		= e^{-2 N \delta ^2}
+	\]
+	from Hoeffding's inequality.\footnote{Note that the sign is flipped. However, Hoeffding's inequality still holds (why?).} Requiring \(e^{-2 N \delta ^2} \leq \epsilon \) is equivalent to requiring \(N \geq \frac{1}{2 \delta ^2} \ln (1 / \epsilon )\).
+\end{answer}
+
+\begin{problem*}[Exercise 2.2.9]\label{ex2.2.9}
+	Suppose we want to estimate the mean \(\mu \) of a random variable \(X\) from a sample \(X_1, \dots , X_N\) drawn independently from the distribution of \(X\). We want an \(\epsilon \)-accurate estimate, i.e., one that falls in the interval \((\mu - \epsilon , \mu + \epsilon )\).
+	\begin{enumerate}[(a)]
+		\item\label{ex2.2.9:a} Show that a sample of size \(N = O(\sigma ^2 / \epsilon ^2)\) is sufficient to compute an \(\epsilon \)-accurate estimate with probability at least \(3 / 4\), where \(s;^2 = \Var_{}[X] \).
+		\item\label{ex2.2.9:b} Show that a sample of size \(N = O(\log (\delta ^{-1} ) \sigma ^2 / \epsilon ^2)\)  is sufficient to compute an \(\epsilon \)-accurate estimate with probability at least \(1 - \delta \).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Consider using the sample mean \(\hat{\mu} = \frac{1}{N} \sum_{i=1}^{N} X_i\) as an estimator of \(\mu \). From the Chebyshev's inequality,
+		      \[
+			      \mathbb{P} \left( \vert \hat{\mu} - \mu \vert > \epsilon \right)
+			      \leq \frac{\sigma ^2 / N}{\epsilon ^2}.
+		      \]
+		      By requiring \(\sigma ^2 / (N\epsilon ^2) \leq 1 / 4\), i.e., \(N \geq 4\sigma ^2 / \epsilon ^2 = O(\sigma ^2 / \epsilon ^2)\), suffices.
+		\item Consider gathering \(k\) estimator from the above procedure, i.e., we now have \(\hat{\mu} _1, \dots , \hat{\mu} _k\) such that each are an \(\epsilon \)-accurate mean estimator with probability at least \(3 / 4\). This requires \(k \cdot 4 \sigma ^2 / \epsilon ^2 = O(k \sigma ^2 / \epsilon ^2)\) samples. We claim that the median \(\hat{\mu} \coloneqq \operatorname{median}(\hat{\mu} _1, \dots , \hat{\mu} _k) \) is an \(\epsilon \)-accurate mean estimator with probability at least \(1 - \delta \) for some \(k\) (depends on \(\delta \)). Consider a series of indicators \(X_i = \mathbbm{1}_{\vert \hat{\mu} _i - \mu \vert > \epsilon } \), indicating if \(\hat{\mu} _i\) is not \(\epsilon \)-accurate. Then \(X_i \sim \operatorname{Ber}(1 / 4) \). Then, our median estimator \(\hat{\mu} \) fails with probability
+		      \[
+			      \mathbb{P} \left( \vert \hat{\mu} - \mu  \vert > \epsilon \right)
+			      = \mathbb{P} \left( \sum_{i=1}^{k} X_i > \frac{k}{2} \right)
+			      = \mathbb{P} \left( \sum_{i=1}^{k} (X_i - \mathbb{E}_{}\left[X_i \right] ) > \frac{k}{4} \right)
+		      \]
+		      as \(\mathbb{E}_{}\left[X_i \right] = 1 / 4\). From Hoeffding's inequality, the above probability is bounded above by \(\exp (- 2 (k / 4)^2 / k)\), setting it to be less than \(\delta \) we have
+		      \[
+			      \exp (- \frac{2 (k / 4)^2}{k}) \leq \delta
+			      \iff \ln \left( \frac{1}{\delta } \right) \geq \frac{k}{8}
+			      \iff k = O(\ln (\delta ^{-1} )),
+		      \]
+		      i.e., the total number of samples required is \(O(k \sigma ^2 / \epsilon ^2) = O(\ln (\delta ^{-1} ) \sigma ^2 / \epsilon ^2)\).
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 2.2.10]\label{ex2.2.10}
+	Let \(X_1, \dots , X_N\) be \emph{non-negative} independent random variables with continuous distributions. Assume that the densities of \(X_i\) are uniformly bounded by \(1\).
+	\begin{enumerate}[(a)]
+		\item\label{ex2.2.10:a} Show that the MGF of \(X_i\) satisfies
+		      \[
+			      \mathbb{E}_{}[\exp (- tX_i)]
+			      \leq \frac{1}{t}
+			      \text{ for all } t > 0.
+		      \]
+		\item\label{ex2.2.10:b} Deduce that, for any \(\epsilon > 0\), we have
+		      \[
+			      \mathbb{P} \left( \sum_{i=1}^{N} X_i \leq \epsilon N \right)
+			      \leq (e \epsilon )^N.
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Since \(X_i\)'s are non-negative and the densities \(f_{X_i} \leq 1\) uniformly, for every \(t > 0\),
+		      \[
+			      \mathbb{E}_{}\left[\exp (-t X_i) \right]
+			      = \int_{0}^{\infty} e^{-t x} f_{X_i}(x) \,\mathrm{d}x
+			      \leq \int_{0}^{\infty} e^{-t x} \,\mathrm{d}x
+			      = \at{-\frac{1}{t} e^{-tx}}{0}{\infty }
+			      = \frac{1}{t}.
+		      \]
+		\item From \hyperref[lma:Crarmer-Chernoff]{Chernoff's inequality}, for any \(\epsilon > 0\),
+		      \begin{align*}
+			      \mathbb{P} \left( \sum_{i=1}^{N} X_i \leq \epsilon N \right)
+			       & = \mathbb{P} \left( \sum_{i=1}^{N} - \frac{X_i}{\epsilon } \geq -N \right)                                                                                                                        \\
+			       & \leq \inf _{\lambda > 0} e^{\lambda N} \mathbb{E}_{}\left[ \exp (\lambda \sum_{i=1}^{N} - \frac{X_i}{\epsilon } ) \right]                                                                         \\
+			       & = \inf _{\lambda > 0} e^{\lambda N} \prod_{i=1}^{N} \mathbb{E}_{}\left[ \exp ( - \lambda \frac{X_i}{\epsilon } ) \right]                                                                          \\
+			       & \leq \inf _{\lambda > 0} e^{\lambda N} \prod_{i=1}^{N} \frac{\epsilon}{\lambda }                                          \tag*{Part \hyperref[ex2.2.10:a]{(a)} with \(t = \lambda / \epsilon \)} \\
+			       & = \inf _{\lambda >0} \left( e^\lambda \frac{\epsilon}{\lambda } \right) ^N                                                                                                                        \\
+			       & = (e \epsilon )^N
+		      \end{align*}
+		      since the infimum is achieved when \(\lambda = 1\).
+	\end{enumerate}
+\end{answer}
+
+\section{Chernoff's inequality}
+\begin{problem*}[Exercise 2.3.2]\label{ex2.3.2}
+	Modify the proof of Theorem 2.3.1 to obtain the following bound on the lower tail. For any \(t < \mu \) , we have
+	\[
+		\mathbb{P}(S_N \leq t)
+		\leq e^{-\mu } \left( \frac{e \mu }{t} \right) ^t.
+	\]
+\end{problem*}
+\begin{answer}
+	A direct modification is that considering for any \(\lambda > 0\),
+	\[
+		\mathbb{P} (S_N \leq t)
+		= \mathbb{P} (-S_N \geq -t)
+		= \mathbb{P} (e^{-\lambda S_n} \geq e^{-\lambda t})
+		\leq e^{\lambda t} \prod_{i=1}^{N} \mathbb{E}_{}\left[\exp (-\lambda X_i) \right] .
+	\]
+	A direct computation gives
+	\[
+		\mathbb{E}_{}\left[\exp (-\lambda X_i) \right]
+		= e^{-\lambda} p_i + (1 - p_i)
+		= 1 + (e^{-\lambda } - 1) p_i
+		\leq \exp ((e^{-\lambda } - 1)p_i),
+	\]
+	hence
+	\[
+		\mathbb{P} (S_N \leq t)
+		\leq e^{\lambda t} \prod_{i=1}^{N} \exp ((e^{-\lambda } - 1) p_i)
+		= e^{\lambda t} \exp ((e^{-\lambda } - 1) \mu )
+		= \exp (\lambda t + (e^{-\lambda } - 1) \mu ).
+	\]
+	Minimizing the right-hand side, we see that
+	\[
+		t + (- \mu e^{-\lambda } ) = 0
+		\iff t = \mu e^{-\lambda }
+		\iff \lambda = \ln \frac{\mu }{t}
+	\]
+	achieves the infimum. And since \(t < \mu \), \(\lambda > 0\) as required, which gives
+	\[
+		\mathbb{P} (S_N \leq t)
+		\leq \exp (t\ln \frac{\mu}{t} + \left( \frac{t}{\mu } - 1 \right) \mu )
+		= \exp (t \ln \frac{\mu}{t} + t - \mu )
+		= e^{-\mu } \left( \frac{e \mu }{t} \right) ^t.
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 2.3.3]\label{ex2.3.3}
+	Let \(X \sim \operatorname{Pois}(\lambda ) \). Show that for any \(t > \lambda \), we have
+	\[
+		\mathbb{P} (X \geq t)
+		\leq e^{-\lambda } \left( \frac{e \lambda }{t} \right) ^t.
+	\]
+\end{problem*}
+\begin{answer}
+	From \hyperref[lma:Crarmer-Chernoff]{Chernoff's inequality}, for any \(\theta > 0\), we have
+	\[
+		\mathbb{P} (X \geq t)
+		\leq e^{-\theta t} \mathbb{E}_{}\left[\exp (\theta X) \right].
+	\]
+	Then the Poisson moment can be calculated as
+	\[
+		\mathbb{E}_{}\left[\exp (\theta X) \right]
+		= \sum_{k=0}^{\infty} e^{\theta k} \cdot e^{-\lambda } \frac{\lambda ^k}{k!}
+		= e^{- \lambda } \sum_{k=0}^{\infty} \frac{(e^{\theta } \lambda )^k}{k!}
+		= e^{-\lambda } \exp (e^\theta \lambda )
+		= \exp ((e^\theta - 1)\lambda ),
+	\]
+	hence
+	\[
+		\mathbb{P} (X \geq t)
+		\leq e^{-\theta t} \exp ((e^\theta - 1) \lambda )
+		= \left( \frac{\lambda}{t} \right) ^t \exp (t - \lambda )
+		= e^{-\lambda } \left( \frac{e \lambda }{t} \right) ^t
+	\]
+	where we take the minimizing \(\theta = \ln (t / \lambda) > 0\) as \(t > \lambda \).
+\end{answer}
+
+Alternatively, we can also solve \hyperref[ex2.3.3]{Exercise 2.3.3} directly as follows.
+\begin{answer}
+	Consider a series of independent Bernoulli random variables \(X_{N, i}\) for a fixed \(N\) such that the Poisson limit theorem applies to approximate \(X \sim \operatorname{Pois}(\lambda ) \), i.e., as \(N \to \infty \), \(\max _{i \leq N} p_{N, i} \to 0\) and \(\lambda _N \coloneqq \mathbb{E}_{}\left[S_N \right] \to \lambda < \infty \), \(S_N \to \operatorname{Pois}(\lambda ) \). From Chernoff's inequality, for any \(t > \lambda _N\),
+	\[
+		\mathbb{P} (S_N > t) \leq e^{-\lambda _N} \left( \frac{e \lambda _N}{t} \right) ^t.
+	\]
+	We then see that
+	\[
+		\mathbb{P} (X > t)
+		= \lim_{N \to \infty} \mathbb{P} (S_N > t)
+		\leq \lim_{N \to \infty} e^{-\lambda _N} \left( \frac{e \lambda _N}{t} \right) ^t
+		= e^{-\lambda } \left( \frac{e \lambda }{t} \right) ^t
+	\]
+	since \(\lambda _N \to \lambda \) as \(N \to \infty \).
+\end{answer}

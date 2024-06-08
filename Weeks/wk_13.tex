@@ -1,0 +1,113 @@
+\week{13}{12 Apr.\ 2024}{Covering and Packing Numbers}
+\section{Nets, covering numbers and packing numbers}
+
+\begin{problem*}[Exercise 4.2.5]\label{ex4.2.5}
+	\begin{enumerate}[(a)]
+		\item\label{ex4.2.5:a} Suppose \(T\) is a normed space. Prove that \(\mathcal{P} (K, d, \epsilon )\) is the largest number of closed disjoint balls with centers in \(K\) and radii \(\epsilon / 2\).
+		\item\label{ex4.2.5:b} Show by example that the previous statement may be false for a general metric space \(T\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Consider any \(\epsilon \)-separated subset of \(K\). Then, \(\overline{B} (x_i, \epsilon / 2)\)'s are disjoint since if not, then there exists \(y \in \overline{B} (x_i , \epsilon / 2) \cap \overline{B} (x_j, \epsilon / 2)\) such that
+		      \[
+			      \epsilon < d(x_i, x_j) \leq d(x_i, y) + d(x_j , y) \leq \frac{\epsilon}{2} + \frac{\epsilon }{2} = \epsilon ,
+		      \]
+		      a contradiction. On the other hand, if \(d(x_i, x_j) \leq \epsilon \) then
+		      \[
+			      \frac{x_i + x_j}{2} \in \overline{B} (x_i, \epsilon / 2) \cap \overline{B} (x_j, \epsilon / 2),
+		      \]
+		      hence, there is a one-to-one correspondence between \(\epsilon \)-separated subset of \(K\) and families of closed disjoint balls with centers in \(K\) and radii \(\epsilon / 2\), proving the result.
+		\item Let \(T = \mathbb{Z} \) and \(d(x, y) = \mathbbm{1}_{x \neq y} \). For \(K = \{ 0, 1 \} \) and \(\epsilon = 1\), we have \(\mathcal{P} (K, d, 1) = 1\). On the other hand, \(\overline{B} (0, 1 / 2) = \{ 0 \} \) and \(\overline{B} (1, 1 / 2) = \{ 1 \} \) are disjoint. If the result of \hyperref[ex4.2.5:a]{(a)} holds, then at least \(\mathcal{P} (K, d, 1) = 2\) as there are exactly two such disjoint closed balls.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 4.2.9]\label{ex4.2.9}
+	In our definition of the covering numbers of \(K\), we required that the centers \(x_i\) of the balls \(B(x_i, \epsilon )\) that form a covering lie in \(K\). Relaxing this condition, define the \emph{exterior covering number} \(\mathcal{N}^{\mathrm{ext} } (K, d, \epsilon )\) similarly but without requiring that \(x_i \in K\). Prove that
+	\[
+		\mathcal{N} ^{\mathrm{ext} }(K, d, \epsilon )
+		\leq \mathcal{N} (K, d, \epsilon )
+		\leq \mathcal{N} ^{\mathrm{ext} }(K, d, \epsilon / 2).
+	\]
+\end{problem*}
+\begin{answer}
+	The lower bound is trivial. We focus on the upper bound. Consider an exterior cover \(\{ \overline{B} (x_i, \epsilon / 2) \} \) of \(K\) where \(x_i\) might not lie in \(K\). Now, for every \(i\), choose exactly one \(y_i\) from \(\overline{B} (x_i, \epsilon / 2) \cap K\) is it's non-empty. Then, \(\{ \overline{B} (y_i, \epsilon ) \} \) covers \(K\) since
+	\[
+		\overline{B} (x_i, \epsilon / 2) \cap K \subseteq \overline{B} (y_i, \epsilon )
+	\]
+	from \(d(x, y_i) \leq d(x, x_i) + d(x_i, y_i) \leq \epsilon / 2 + \epsilon / 2 = \epsilon \) for any \(x\in \overline{B} (x_i, \epsilon / 2)\). Hence, by taking the union over \(i\), \(\{ \overline{B} (y_i, \epsilon ) \} \) indeed cover \(K\), so the upper bound is proved.
+\end{answer}
+
+\begin{problem*}[Exercise 4.2.10]\label{ex4.2.10}
+	Give a counterexample to the following monotonicity property:
+	\[
+		L \subseteq K
+		\text{ implies } \mathcal{N} (L, d, \epsilon ) \leq \mathcal{N} (K, d, \epsilon ).
+	\]
+	Prove an approximate version of monotonicity:
+	\[
+		L \subseteq K
+		\text{ implies } \mathcal{N} (L, d, \epsilon ) \leq \mathcal{N} (K, d, \epsilon / 2).
+	\]
+\end{problem*}
+\begin{answer}
+	The problem lies in the fact that we're not allowing exterior covering. Consider \(K= [-1, 1]\) and \(L = \{ -1, 1 \} \). Then, \(\mathcal{N} (L, d, 1) = 2 > 1 = \mathcal{N} (K, d, 1)\) for \(d (x, y) = \lvert x - y\rvert \).
+
+	The approximate version of monotonicity can be proved with a similar argument as \hyperref[ex4.2.9]{Exercise 4.2.9}: specifically, consider an \(\epsilon / 2\)-covering \(\{ x_i \} \) of \(K\) with size exactly \(\mathcal{N} (K, d, \epsilon / 2)\). Now, for every \(i\), choose one \(y_i \in \overline{B} (x_i, \epsilon / 2) \cap L\) if the latter is non-empty. It turns out that \(\{ \overline{B} (y_i, \epsilon ) \} \) covers \(L\). Indeed, \(\overline{B} (x_i, \epsilon / 2) \cap L \subseteq \overline{B} (y_i, \epsilon )\) since
+	\[
+		d(x, y_i)
+		\leq d(x, x_i) + d(x_i, y_i)
+		\leq \frac{\epsilon }{2} + \frac{\epsilon }{2}
+		= \epsilon
+	\]
+	for all \(x \in \overline{B} (x_i, \epsilon / 2)\).
+\end{answer}
+
+\begin{intuition}
+	The fundamental idea is just every such \(\overline{B} (y_i, \epsilon )\) can cover \(\overline{B} (x_i, \epsilon / 2)\).
+\end{intuition}
+
+\begin{problem*}[Exercise 4.2.15]\label{ex4.2.15}
+	Check that \(d_H\) is indeed a metric.
+\end{problem*}
+\begin{answer}
+	We check the following.
+	\begin{itemize}
+		\item \(d_H(x, x) = 0\) for all \(x\) and \(d_H(x, y) > 0\) for all \(x \neq y\): Trivial.
+		\item \(d_H(x, y) = d_H(y, x)\) for all \(x, y\): Trivial.
+		\item \(d_H(x, y) \leq d_H(x, z) + d_H(y, z)\) for all \(x, y, z\): Suppose \(x\) and \(y\) initially disagrees at \(d_H(x, y)\) places, and denote the set of those disagreeing indices as \(I\). Then for any \(z\), as long as \(z\) and \(x\) (hence \(y\)) disagrees at an index outside \(I\), \(d_H(x, z) + d_H(y, z) \) increases by \(2\). There's no way to exist a \(z\) such that \(d_H(x, z) + d_H(y, z)\) can decrease, at best \(z\) and \(x\) (or \(y\)) disagrees at an index in \(I\), then it'll coincide with \(y\) (or \(x\)), contributing the same amount to \(d_H(x, y)\).
+	\end{itemize}
+\end{answer}
+
+\begin{problem*}[Exercise 4.2.16]\label{ex4.2.16}
+	Let \(K = \{ 0, 1 \} ^n\). Prove that for every integer \(m \in [0, n]\), we have
+	\[
+		\frac{2^n}{\sum_{k=0}^{m} \binom{n}{k}}
+		\leq \mathcal{N} (K, d_H, m)
+		\leq \mathcal{P} (K, d_H, m)
+		\leq \frac{2^n}{\sum_{k=0}^{\lfloor m / 2 \rfloor } \binom{n}{k}}.
+	\]
+\end{problem*}
+\begin{answer}
+	The middle inequality follows from Lemma 4.2.8. Now, for \(K = \{ 0, 1 \} ^n\), we first note that we have \(\lvert K \rvert = 2^n\). Furthermore, observe the following.
+
+	\begin{claim}
+		For any \(x \in K\), we have
+		\[
+			\lvert \{ y \in K \colon d_H(x, y) \leq m\}  \rvert
+			= \sum_{k=0}^{m} \lvert \{ y \in K \colon d_H(x, y) = k\}  \rvert
+			= \sum_{k=0}^{m} \binom{n}{k}.
+		\]
+	\end{claim}
+
+	We then see the following.
+	\begin{itemize}
+		\item Lower bound: observe that \(\lvert K \rvert \leq \mathcal{N} (K, d_H, m) \lvert \{ y \in K \colon d_H(x_i, y) \leq m \}  \rvert \) where \(\{ x_i \} \) is an \(m\)-net of \(K\) of size \(\mathcal{N} (K, d_H, m)\).
+		\item Upper bound: observe that \(\lvert K \rvert \geq \mathcal{P} (K, d_H, m) \lvert \{ y \in K \colon d_H(x_i, y) \leq \lfloor m / 2 \rfloor \} \rvert \) where \(\{ x_i \} \) is \(m\)-packing of size \(\mathcal{P} (K, d_H, m)\).
+	\end{itemize}
+	Plugging the above calculation complete the proof of both bounds.
+\end{answer}
+
+\begin{remark}
+	Unlike Proposition 4.2.12, we don't have the issue of ``going outside \(K\)'' since we're working with a hamming cube, i.e., the entire universe is exactly the collection of \(n\)-bits string. Moreover, for the upper bound, we use \(\lfloor m / 2 \rfloor \) since \(m \in \mathbb{N} \), and taking the floor makes sure that \(\{ y \in K \colon d_H(x, y) \leq \lfloor m / 2 \rfloor  \} \)'s are disjoint for \(\{ x_i \} \) being \(m\)-separated. Hence, the total cardinality is upper bounded by \(\lvert K \rvert \).
+\end{remark}

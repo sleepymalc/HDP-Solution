@@ -1,0 +1,209 @@
+\week{11}{29 Mar.\ 2024}{High-Dimensional Sub-Gaussian Distributions}
+\section{Sub-gaussian distributions in higher dimensions}
+\begin{problem*}[Exercise 3.4.3]\label{ex3.4.3}
+	This exercise clarifies the role of independence of coordinates in Lemma 3.4.2.
+	\begin{enumerate}[1.]
+		\item\label{ex3.4.3:1} Let \(X = (X_1, \dots , X_n) \in \mathbb{R} ^n\) be a random vector with sub-gaussian coordinates \(X_i\). Show that \(X\) is a sub-gaussian random vector.
+		\item\label{ex3.4.3:2} Nevertheless, find an example of a random vector \(X\) with
+		      \[
+			      \lVert X \rVert _{\psi _2}
+			      \gg \max _{i \leq n} \lVert X_i \rVert _{\psi _2}.
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[1.]
+		\item We see that
+		      \[
+			      \lVert X \rVert _{\psi _2}
+			      = \sup _{x \in S^{n-1}} \lVert \langle X, x \rangle  \rVert _{\psi _2}
+			      \leq \sup _{x \in S^{n-1}} \sum_{i=1}^{n} \lVert x_i X_i \rVert _{\psi _2}
+			      \leq \sup _{x \in S^{n-1}} \lVert X_i \rVert _{\psi _2}
+			      < \infty .
+		      \]
+		\item Just consider \(X_i = Z\) are the same where \(Z \sim \mathcal{N} (0, 1)\). Then, we see that
+		      \[
+			      \max _{i} \lVert X_i \rVert _{\psi _2} = \lVert Z \rVert _{\psi _2} = \sqrt{8 / 3}
+		      \]
+		      as \(\mathbb{E}_{}[\exp (Z^2 / t^2)] = 1 / \sqrt{1 - 2 / t^2} \). On the other hand,
+		      \[
+			      \lVert X \rVert _{\psi _2}
+			      \geq \left\lVert \langle X, \mathbbm{1}_{n} / \sqrt{n}  \rangle  \right\rVert _{\psi _2}
+			      = \lVert \sqrt{n} Z \rVert _{\psi _2}
+			      = \sqrt{8n / 3}.
+		      \]
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.4.4]\label{ex3.4.4}
+	Show that
+	\[
+		\lVert X \rVert _{\psi _2}
+		\asymp \sqrt{\frac{n}{\log n}} .
+	\]
+\end{problem*}
+\begin{answer}
+	Since we not only want an upper-bound, but a tight, non-asymptotic behavior, we need to calculate \(\lVert X \rVert _{\psi _2}\) as precise as possible. We note that
+	\[
+		\lVert X \rVert _{\psi _2}
+		= \sup _{x \in S^{n-1}} \lVert \langle X, x \rangle \rVert _{\psi _2}
+		= \sup _{x \in S^{n-1}} \inf \{ t > 0 \colon \mathbb{E}_{}[\exp (\langle X, x \rangle ^2 / t^2)] \leq 2 \},
+	\]
+	and clearly the supremum is attained when \(x = e_i\) for some \(i\). In this case,
+	\[
+		\lVert X \rVert _{\psi _2}
+		= \inf \{ t > 0 \colon \mathbb{E}_{}[\exp (X_i^2 / t^2)] \leq 2 \}.
+	\]
+	Note that since \(X \sim \mathcal{U} (\{ \sqrt{n} e_i \} _i)\), we see if we focus on a particular coordinate \(i\),
+	\[
+		X_i = \begin{dcases}
+			0,         & \text{ w.p. } \frac{n-1}{n} ; \\
+			\sqrt{n} , & \text{ w.p. } \frac{1}{n} .
+		\end{dcases}
+	\]
+	Hence, for any \(t > 0\),
+	\[
+		\mathbb{E}_{}[\exp (X_i^2 / t^2)]
+		= \frac{n-1}{n} + \frac{1}{n} \exp (\frac{n}{t^2}).
+	\]
+	Equating the above to be exactly \(2\) and solve it w.r.t.\ \(t\), we have
+	\[
+		\frac{n-1 + e^{n / t^2}}{n} = 2
+		\iff n-1 + e^{n / t^2} = 2n
+		\iff \ln (n + 1) = \frac{n}{t^2}
+		\iff t = \sqrt{\frac{n}{\ln (n+1)}},
+	\]
+	meaning that
+	\[
+		\lVert X \rVert _{\psi _2}
+		= \inf \{ t > 0 \colon \mathbb{E}_{}[\exp (X_i^2 / t^2)] \leq 2 \}
+		= \sqrt{\frac{n}{\ln (n+1)}}
+		\asymp \sqrt{\frac{n}{\log n}}.
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 3.4.5]\label{ex3.4.5}
+	Let \(X\) be an isotropic random vector supported in a finite set \(T \subseteq \mathbb{R} ^n\). Show that in order for \(x\) to be sub-gaussian with \(\lVert X \rVert _{\psi _2} = O(1)\), the cardinality of the set must be exponentially large in \(n\):
+	\[
+		\lvert T \rvert
+		\geq e^{cn}.
+	\]
+\end{problem*}
+\begin{answer}
+	This is a hard one. See \href{https://mathoverflow.net/a/326050/525170}{here} for details.
+\end{answer}
+
+\begin{problem*}[Exercise 3.4.7]\label{ex3.4.7}
+	Extend Theorem 3.4.6 for the uniform distribution on the Euclidean ball \(B(0, \sqrt{n} )\) in \(\mathbb{R} ^n\) centered at the origin and with radius \(\sqrt{n} \). Namely, show that a random vector
+	\[
+		X \sim \mathcal{U} (B(0, \sqrt{n} ))
+	\]
+	is sub-gaussian, and
+	\[
+		\lVert X \rVert _{\psi _2}
+		\leq C.
+	\]
+\end{problem*}
+\begin{answer}
+	For \(X \sim \mathcal{U} (B(0, \sqrt{n} ))\), consider \(R \coloneqq \lVert X \rVert _2 / \sqrt{n} \) and \(Y \coloneqq X / R = \sqrt{n} X / \lVert X \rVert _2 \sim \mathcal{U} (\sqrt{n} S^{n-1})\). From Theorem 3.4.6, \(\lVert Y \rVert _{\psi _2} \leq C\). It's clear that \(R \leq 1\), hence for any \(x\in S^{n-1}\),
+	\[
+		\mathbb{E}_{}[\exp (\langle X, x \rangle ^2 / t^2)]
+		= \mathbb{E}_{}[\exp (R^2\langle Y, x \rangle ^2 / t^2)]
+		\leq \mathbb{E}_{}[\exp (\langle Y, x \rangle ^2 / t^2)] ,
+	\]
+	which implies \(\lVert \langle X, x \rangle \rVert _{\psi _2} \leq \lVert \langle Y, x \rangle \rVert _{\psi _2}\). Hence, \(\lVert X \rVert _{\psi _2} \leq \lVert Y \rVert _{\psi _2} \leq C\).
+\end{answer}
+
+\begin{problem*}[Exercise 3.4.9]\label{ex3.4.9}
+	Consider a ball of the \(\ell _1\) norm in \(\mathbb{R} ^n\):
+	\[
+		K
+		\coloneqq \{ x \in \mathbb{R} ^n \colon \lVert x \rVert _1 \leq r \}.
+	\]
+	\begin{enumerate}[(a)]
+		\item\label{ex3.4.9:a} Show that the uniform distribution on \(K\) is isotopic for some \(r \asymp n\).
+		\item\label{ex3.4.9:b} Show that the subgaussian norm of this distribution is \emph{not} bounded by an absolute constant as the dimension \(n\) grows.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Observe that for \(i \neq j\), \((X_i, X_j) \overset{D}{=} (X_i, -X_j)\), hence \(\mathbb{E}_{}[X_i] = 0\) and \(\mathbb{E}_{}[X_i X_j] = 0\) for \(i \neq j\). Hence, for \(X\) to be isotropic, we need \(\mathbb{E}_{}[X_i^2] = 1\). Now, we note that \(\mathbb{P} (\vert X_i \vert > x) = (r-x)^n / r^n = (1 - x / r)^n\) for \(x \in [0, r]\), hence
+		      \[
+			      \mathbb{E}_{}[X_i^2]
+			      = \int_{0}^{\infty} 2x \mathbb{P} (\vert X_i \vert > x) \,\mathrm{d}x
+			      = 2r^2 \int_{0}^{r} \frac{x}{r} \left( 1 - \frac{x}{r} \right)^n \,\frac{\mathrm{d}x }{r}
+			      = 2r^2 \int_{0}^{1} t (1 - t)^n \,\mathrm{d}t,
+		      \]
+		      which with some calculation is \(2r^2 / (n^2 + 3n +2)\). Equating this with \(1\) gives \(r \asymp n\).
+		\item It suffices to show that \(\lVert X_i \rVert _{L^p} > C \sqrt{p} \), which in turns blow up the sub-Gaussian property in terms of \(L^p\) norm. We see that
+		      \[
+			      \begin{split}
+				      \lVert X_i \rVert _{L^p}^p
+				       & = \int_{0}^{\infty} p x^{p-1} \mathbb{P} (\vert X_i \vert > x) \,\mathrm{d}x                                     \\
+				       & = p r^p \int_{0}^{r} \left( \frac{x}{r} \right) ^{p-1} \left( 1 - \frac{x}{r} \right)^n \,\frac{\mathrm{d}x }{r}
+				      = p r^p \int_{0}^{1} t^{p-1} (1 - t)^n \,\mathrm{d}t
+				      = p r^p \cdot B(p, n+1),
+			      \end{split}
+		      \]
+		      where \(B\) is the Beta function. From the Beta function,
+		      \[
+			      \lVert X_i \rVert _{L^p}^p
+			      = p r^p \cdot \frac{\Gamma (p) \Gamma (n+1)}{\Gamma (p + n + 1)},
+		      \]
+		      hence \(\lVert X_i \rVert _{L^p} > C \sqrt{p} \) is evident from the Stirling's formula.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.4.10]\label{ex3.4.10}
+	Show that the concentration inequality in Theorem 3.1.1 may not hold for a general isotropic sub-gaussian random vector \(X\). Thus, independence of the coordinates of \(X\) is an essential requirement in that result.
+\end{problem*}
+\begin{answer}
+	We want to show that \(\lVert \lVert X \rVert _2 - \sqrt{n} \rVert _{\psi _2} \leq C \max \lVert X_i \rVert _{\psi _2}^2\) does not hold for a general isotropic sub-Gaussian random vector \(X\) with \(\mathbb{E}_{}[X_i^2 ] = 1\). Let \(0 < a < 1 < b\) such that \(a^2 + b^2  = 2\), and define
+	\[
+		X \coloneqq (aZ)^{\epsilon}(bZ)^{1 - \epsilon},
+	\]
+	where \(\epsilon \sim \operatorname{Bern}(1 / 2) \) and \(Z \sim \mathcal{N} (0, I_n)\). In human language, consider \(X\) has a distribution
+	\[
+		F_X \coloneqq \frac{1}{2} F_{aZ} + \frac{1}{2} F_{bZ}.
+	\]
+	With this construction, \(X\) is isotropic since
+	\[
+		\begin{split}
+			\mathbb{E}_{}[X X^{\top} ]
+			 & = \frac{1}{2} \mathbb{E}_{}[(aZ)(aZ)^{\top} ] + \frac{1}{2} \mathbb{E}_{}[(bZ)(bZ)^{\top} ] \\
+			 & = \frac{1}{2} a^2 \mathbb{E}_{}[Z Z^{\top} ] + \frac{1}{2} b^2 \mathbb{E}_{}[Z Z^{\top} ]
+			= \left( \frac{a^2}{2} + \frac{b^2}{2} \right) I_n
+			= I_n,
+		\end{split}
+	\]
+	and \(\mathbb{E}_{}[X_i^2] = 1\) with a similar calculation. Moreover, for any vector \(x \in S^{n-1}\),
+	\[
+		\mathbb{E}_{}[\exp (\langle X, x \rangle ^2 / t^2)]
+		= \frac{1}{2 \sqrt{1 - 2 a^2 / t^2} } + \frac{1}{2 \sqrt{1 - 2b^2 / t^2} }
+		< 2
+	\]
+	when \(t\) is large enough (compared to \(a, b\)). This shows \(\lVert \langle X, x \rangle \rVert _{\psi _2} \leq t\), and since \(a, b\) is taken to be constants, \(X\) is indeed a sub-Gaussian random vector.
+
+	Now, we show that the norm of \(X \) actually deviates away from \(\sqrt{n} \) at a non-vanishing rate of \(n\). In particular, conciser \(t = (b - 1) \sqrt{n} / 2\), then
+	\begin{align*}
+		2 \mathbb{E}_{}[\exp (\lVert X \rVert _2 - \sqrt{n} )^2 / t^2]
+		 & > \mathbb{E}_{}[\exp ((\lVert b Z \rVert _2 - \sqrt{n} )^2 / t^2)]                                         \\
+		 & > \mathbb{E}_{}[\exp ((\lVert b Z \rVert _2 - \sqrt{n} )^2 / t^2) \mathbbm{1}_{\lVert Z \rVert _2^2 > n} ] \\
+		 & > \exp ((b \sqrt{n} - \sqrt{n} )^2 / t^2) \mathbb{P} (\lVert Z \rVert _2^2 > n) \tag*{since \(b > 1\)}     \\
+		 & = e^4 \mathbb{P} (\lVert Z \rVert _2^2 > n)                                                                \\
+		 & \to e^4 / 2 > 4
+	\end{align*}
+	since \(\mathbb{P} (\lVert Z \rVert _2^2 > n) = \mathbb{P} \left( \sum_{i=1}^{n} Z_i^2 > n \right)\), and with \(\mathbb{E}_{}[Z_i^2] = \Var_{}[Z_i] = 1\), and \(\Var_{}[Z_i^2] = \mathbb{E}_{}[Z_i^4] - \mathbb{E}_{}[Z_i] ^2 = 3 - 1 = 2 < \infty \),
+	\[
+		\frac{\frac{1}{n} \sum_{i=1}^{n} Z_i^2 - 1}{\sqrt{2} / \sqrt{n} }
+		= \frac{1}{\sqrt{2 n} } \left( \sum_{i=1}^{n} Z_i^2 - n \right)
+		\overset{D}{\to} \mathcal{N} (0, 1)
+	\]
+	by the central limit theorem, hence, the asymptotic distribution of \(\sum_{i=1}^{n} Z_i^2 - n\) is symmetric around \(0\), meaning that \(\mathbb{P} (\sum_{i=1}^{n} Z_i^2 > n) = \mathbb{P} (\sum_{i=1}^{n} Z_i^2 - n > 0) = 1 / 2\). This implies that for all large enough \(n\),
+	\[
+		\lVert \lVert X \rVert _2 - \sqrt{n}  \rVert _{\psi _2}
+		\geq t
+		= (b-1) \frac{\sqrt{n}}{2}
+		\to \infty.
+	\]
+\end{answer}

@@ -1,0 +1,162 @@
+\week{6}{21 Feb.\ 2024}{Hoeffding's and Khintchine's Inequalities}
+\section{General Hoeffding's and Khintchine's inequalities}
+\begin{problem*}[Exercise 2.6.4]\label{ex2.6.4}
+	Deduce Hoeffding's inequality for bounded random variables (Theorem 2.2.6) from Theorem 2.6.3, possibly with some absolute constant instead of \(2\) in the exponent.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 2.6.5]\label{ex2.6.5}
+	Let \(X_1, \dots, X_N \) be independent sub-gaussian random variables with zero means and unit variances, and let \(a = (a_1, \dots , a_N) \in \mathbb{R} ^N\). Prove that for every \(p \in [2, \infty )\) we have
+	\[
+		\left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}
+		\leq \left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\leq CK \sqrt{p} \left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}
+	\]
+	where \(K = \max _i \lVert X_i \rVert _{\psi _2}\) and \(C\) is an absolute constant.
+\end{problem*}
+\begin{answer}
+	From Jensen's inequality,
+	\[
+		\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\geq \left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^2}
+		= \left[ \mathbb{E}_{}\left[ \left( \sum_{i=1}^{N} a_i X_i \right) ^2 \right] \right] ^{1 / 2}.
+	\]
+	Then, observe that since \(\mathbb{E}_{}[X_i] = 0\),
+	\[
+		\Var_{}\left[\sum_{i=1}^{N} a_i X_i\right]
+		= \mathbb{E}_{}\left[ \left( \sum_{i=1}^{N} a_i X_i \right) ^2 \right] - \left( \mathbb{E}_{}\left[\sum_{i=1}^{N} a_i X_i\right] \right) ^2
+		= \mathbb{E}_{}\left[ \left( \sum_{i=1}^{N} a_i X_i \right) ^2 \right],
+	\]
+	and at the same time, as \(\Var_{}[X_i] = 1\), \(\Var_{}\left[\sum_{i=1}^{N} a_i X_i\right] = \sum_{i=1}^{N} a_i^2 \Var_{}[X_i] = \sum_{i=1}^{N} a_i^2 = \lVert a \rVert ^2\), hence we have
+	\[
+		\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\geq \left[ \lVert a \rVert ^2 \right] ^{1 / 2}
+		= \lVert a \rVert,
+	\]
+	which is the desired lower-bound. For the upper-bound, we see that
+	\[
+		\begin{split}
+			\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L_p}^2
+			 & \leq C^2 \sqrt{p}^2 \left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{\psi _2}^2 \\
+			 & \leq C^{\prime} p \sum_{i=1}^{N} \lVert a_i X_i \rVert _{\psi _2}^2
+			= C^{\prime\prime} p \sum_{i=1}^{N} a_i^2 \lVert X_i \rVert _{\psi ^2}^2
+			\leq C^{\prime\prime} K^2 p \lVert a \rVert ^2,
+		\end{split}
+	\]
+	where \(C, C^{\prime} , C^{\prime\prime} \) are all absolute constant (might depend on each other). Taking square root on both sides, we obtain the desired result.
+\end{answer}
+
+\begin{problem*}[Exercise 2.6.6]\label{ex2.6.6}
+	Show that in the setting of \hyperref[ex2.6.5]{Exercise 2.6.5}, we have
+	\[
+		c(K) \left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}
+		\leq \left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^1}
+		\leq \left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}.
+	\]
+	Here \(K g \max _i \lVert X_i \rVert _{\psi _2}\) and \(c(K) > 0\) is a quantity which may depend only on \(K\).
+\end{problem*}
+\begin{answer}
+	Skip, as this is a special case of \hyperref[ex2.6.7]{Exercise 2.6.7}.
+\end{answer}
+
+\begin{problem*}[Exercise 2.6.7]\label{ex2.6.7}
+	State and prove a version of Khintchine's inequality for \(p \in (0, 2)\).
+\end{problem*}
+\begin{answer}
+	The Khintchine's inequality for \(p \in (0, 2)\) can be stated as
+	\[
+		c(K, p) \left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}
+		\leq \left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\leq \left( \sum_{i=1}^{N} a_i^2 \right) ^{1 / 2}.
+	\]
+	Here \(K = \max _i \lVert X_i \rVert _{\psi _2}\) and \(c(K, p) > 0\) is a quantity which depends on \(K\) and \(p\). We first recall the generalized Hölder inequality.
+	\begin{theorem}[Generalized Hölder inequality]\label{thm:generalized-Holder-inequality}
+		For \(1 / p + 1 / q = 1 / r\) where \(p, q\in (0, \infty ]\),
+		\[
+			\lVert f g \rVert _{L^r}
+			\leq \lVert f \rVert _{L^p} \lVert g \rVert _{L^q}.
+		\]
+	\end{theorem}
+	\begin{proof}
+		The classical case is when \(r = 1\). By considering \(\vert f \vert ^r \in L^{p / r}\) and \(\vert g \vert ^r \in L^{q / r}\), \(r / p + r / q = 1\). Then the standard Hölder inequality implies
+		\[
+			\begin{split}
+				\lVert fg \rVert _{L^r}^r
+				= \int \vert fg \vert ^r
+				= \lVert \vert fg \vert ^r \rVert _{L^1}
+				 & \leq \lVert \vert f \vert ^r \rVert _{L^{p / r}} \lVert \vert g \vert ^r \rVert _{L^{q / r}}                                                  \\
+				 & = \left( \int \left( \vert f \vert ^r \right) ^{p / r} \right) ^{r / p} \left( \int \left( \vert g \vert ^r \right) ^{q / r} \right) ^{r / q}
+				= \lVert f \rVert _{L^p}^r \lVert g \rVert _{L^q}^r,
+			\end{split}
+		\]
+		implying the result.
+	\end{proof}
+
+	Now, take \(r = 2\), \(p = q = 4\), we get
+	\[
+		\lVert XY \rVert _{L^2}
+		\leq \lVert X \rVert _{L^4} \lVert Y \rVert _{L^4}
+		= \left( \mathbb{E}_{}[\vert X \vert ^4] \right) ^{1 / 4} \left( \mathbb{E}_{}[\vert Y \vert ^4] \right) ^{1 / 4}.
+	\]
+	Let \(X = \vert Z \vert ^{p / 4}\) and \(Y = \vert Z \vert ^{(4 - p) / 4}\), we see that
+	\[
+		\lVert Z \rVert _{L^2}
+		\leq \left( \mathbb{E}_{}[\vert Z \vert ^p] \right) ^{1 / 4} \left( \mathbb{E}_{}[\vert Z \vert ^{4 - p}]  \right) ^{1 / 4}
+		= \lVert Z \rVert _{L^p} ^{p / 4} \lVert Z \rVert _{L^{4 - p}}^{(4 - p) / 4},
+	\]
+	implying
+	\[
+		\lVert Z \rVert _{L^p}
+		\geq \left( \frac{\lVert Z \rVert _{L^2}}{\lVert Z \rVert _{L^{4 - p}}^{(4 - p) / 4}} \right) ^{4 / p}
+		= \frac{\lVert Z \rVert _{L^2}^{4 / p}}{\lVert Z \rVert _{L^{4 - p}}^{(4 - p) / p}}.
+	\]
+	Finally, by letting \(Z = \sum_{i=1}^{N} a_i X_i\),
+	\[
+		\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\geq \quotient{\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^2}^{4 / p}}{\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^{4 - p}}^{(4 - p) / p}}.
+	\]
+	Observe that from \hyperref[ex2.6.5]{Exercise 2.6.5}:
+	\begin{itemize}
+		\item \(\lVert \sum_{i=1}^{N} a_i X_i \rVert _{L^2} = \lVert a \rVert \);
+		\item \(\lVert \sum_{i=1}^{N} a_i X_i \rVert _{L^{4 - p}} \leq CK \sqrt{4 - p} \lVert a \rVert \) (as \(4 - p > 2\) from \(p \in (0, 2)\)),
+	\end{itemize}
+	hence
+	\[
+		\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert _{L^p}
+		\geq \quotient{\lVert a \rVert ^{4 / p}}{\left( CK \sqrt{4 - p} \lVert a \rVert \right) ^{(4 - p) / p} }
+		= \left( CK \sqrt{4 - p}  \right) ^{- \frac{p}{4-p}} \lVert a \rVert.
+	\]
+	Hence, we see that by letting \(c(K, p) \coloneqq (CK\sqrt{4 - p} )^{- p / (4 - p)}\), the lower-bound is established. The upper-bound is essentially the same as \hyperref[ex2.6.5]{Exercise 2.6.5} (in there we use have the lower-bound since \(p \geq 2\)), where this time we use \(\lVert \cdot \rVert _{L^p} \leq \lVert \cdot \rVert _{L^2}\) since \(p \leq 2\).\footnote{Note that although \(\lVert \cdot \rVert _{L^p}\) for \(p \in [0, 1)\) is not a norm, this inequality still holds.} Hence, we're done.
+\end{answer}
+
+\begin{remark}
+	\hyperref[ex2.6.6]{Exercise 2.6.6} is just a special case with \(c(K, 1) = (CK \sqrt{3} )^{- 1 / 3}\).
+\end{remark}
+
+\begin{problem*}[Exercise 2.6.9]\label{ex2.6.9}
+	Show that unlike (2.19), the centering inequality in Lemma 2.6.8 does not hold with \(C = 1\).
+\end{problem*}
+\begin{answer}
+	Consider the random variable \(X \coloneqq \sqrt{\log 2} \cdot \epsilon \) where \(\epsilon \) is a Rademacher random variable with parameter \(p\), i.e.,
+	\[
+		X = \begin{dcases}
+			\sqrt{\log 2} ,  & \text{ w.p.\ }p  ;     \\
+			-\sqrt{\log 2} , & \text{ w.p.\ } 1 - p .
+		\end{dcases}
+	\]
+	Since \(\mathbb{E}_{}[\exp (X^2)] = 2\), we know that \(\lVert X \rVert _{\psi _2}\) is exactly \(1\). We now want to show that \(\lVert X - \mathbb{E}_{}[X] \rVert _{\psi _2} > \lVert X \rVert _{\psi _2} = 1\) for some \(p\). It amounts to show that \(\mathbb{E}_{}[\exp (\vert X - \mathbb{E}_{}[X] \vert ^2 )] > 2\). Now, we know that \(\mathbb{E}_{}[X] = \sqrt{\log 2} (2p - 1) \), and hence
+	\[
+		X - \mathbb{E}_{}[X] = \begin{dcases}
+			2 (1 - p) \sqrt{\log 2} , & \text{ w.p.\ } p ;    \\
+			-2p \sqrt{\log 2} ,       & \text{ w.p.\ } 1 - p.
+		\end{dcases}
+	\]
+	Hence, we have that
+	\[
+		\mathbb{E}_{}[\exp (\vert X - \mathbb{E}_{}[X] \vert ^2 )]
+		= p\cdot 2^{4(1 - p)^2} + (1 - p) 2^{4p^2}.
+	\]
+	A quick numerical optimization gives the desired result with \(p \approx 0.236\).
+\end{answer}

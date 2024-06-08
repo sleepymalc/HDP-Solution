@@ -1,0 +1,223 @@
+\week{10}{20 Mar.\ 2024}{Common High-Dimensional Distributions}
+\section{Examples of high-dimensional distributions}
+\begin{problem*}[Exercise 3.3.1]\label{ex3.3.1}
+	Show that the spherically distributed random vector \(X\) is isotropic. Argue that the coordinates of \(X\) are not independent.
+\end{problem*}
+\begin{answer}
+	Firstly, from the spherical symmetry of \(X\), for any \(x\in \mathbb{R} ^n\), \(\langle X, x \rangle \overset{D}{=} \langle X, \lVert x \rVert _2 e \rangle \) for all \(e \in S^{n-1}\). Hence, to show \(X\) is isotropic, from Lemma 3.2.3, it suffices to show that for any \(x \in \mathbb{R} ^n\),
+	\[
+		\mathbb{E}_{}[\langle X, x \rangle ^2]
+		= \frac{1}{n} \sum_{i=1}^{n} \mathbb{E}_{}[\langle X, \lVert x \rVert _2 e_i \rangle ^2]
+		= \frac{1}{n} \mathbb{E}_{}\left[\sum_{i=1}^{n} (\lVert x \rVert _2 X_i )^2\right]
+		= \lVert x \rVert _2^2 \mathbb{E}_{}\left[\frac{1}{n} \sum_{i=1}^{n} X_i^2\right]
+		= \lVert x \rVert _2^2,
+	\]
+	where \(e_i\) denotes the \(i^{\text{th} }\) standard unit vector. The last equality holds from the fact that
+	\[
+		\mathbb{E}_{}\left[\frac{1}{n} \sum_{i=1}^{n} X_i^2\right]
+		= \frac{1}{n} \mathbb{E}_{}[\lVert X \rVert _2^2]
+		= \frac{1}{n} n
+		= 1
+	\]
+	as \(X \sim \mathcal{U} (\sqrt{n} S^{n-1})\). On the other hand, clearly \(X_i\)'s can't be independent since the first \(n-1\) coordinates determines the last coordinate.
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.3]\label{ex3.3.3}
+	Deduce the following properties from the rotation invariance of the normal distribution.
+	\begin{enumerate}[(a)]
+		\item\label{ex3.3.3:a} Consider a random vector \(g \sim \mathcal{N} (0, I_n)\) and a fixed vector \(u \in \mathbb{R} ^n\). Then
+		      \[
+			      \langle g, u \rangle
+			      \sim \mathcal{N} (0, \lVert u \rVert _2^2).
+		      \]
+		\item\label{ex3.3.3:b} Consider independent random variables \(X_i \sim \mathcal{N} (0, \sigma _i^2)\). Then
+		      \[
+			      \sum_{i=1}^{n} X_i \sim \mathcal{N} (0, \sigma ^2)
+			      \text{ where } \sigma ^2 = \sum_{i=1}^{n} \sigma _i^2.
+		      \]
+		\item\label{ex3.3.3:c} Let \(G\) be an \(m \times n\) Gaussian random matrix, i.e., the entries of \(G\) are independent \(\mathcal{N} (0, 1)\) random variables. Let \(u \in \mathbb{R} ^n\) be a fixed unit vector. Then
+		      \[
+			      Gu
+			      \sim \mathcal{N} (0, I_m).
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Without loss of generality, we may assume \(\lVert u \rVert _2 = 1\) and prove
+		      \[
+			      \langle g, u \rangle \sim \mathcal{N} (0, 1)
+		      \]
+		      for any fixed unit vector \(u \in \mathbb{R} ^n\). But this is clear as there must exist \(u_1, \dots , u_{n-1}\) such that \(\{ u, u_1, \dots , u_{n-1} \} \) forms an orthonormal basis of \(\mathbb{R} ^n\), and \(U \coloneqq (u, u_1, \dots , u_{n-1})^{\top} \) is orthonormal. From Proposition 3.3.2, we have
+		      \[
+			      Ug \sim \mathcal{N} (0, I_n),
+		      \]
+		      which implies \((Ug)_1 \sim \mathcal{N} (0, 1)\). With \((Ug)_1 = u^{\top} g = \langle g, u \rangle \), we're done.
+		\item For independent \(X_i \sim \mathcal{N} (0, \sigma _i^2)\), we have \(X_i / \sigma _i \sim \mathcal{N} (0, 1)\). We want to show
+		      \[
+			      \sum_{i=1}^{n} X_i \sim \mathcal{N} (0, \sigma ^2)
+		      \]
+		      where \(\sigma ^2 = \sum_{i=1}^{n} \sigma _i^2\). Firstly, we have \(g \coloneqq (X_1 / \sigma _1, \dots , X_n / \sigma _n) \sim \mathcal{N} (0, I_n)\), then by considering \(u \coloneqq (\sigma _1, \dots , \sigma _n) \in \mathbb{R} ^n\), we have
+		      \[
+			      \langle g, u \rangle
+			      = \sum_{i=1}^{n} X_i
+			      \sim \mathcal{N} (0, \lVert u \rVert _2^2)
+			      = \mathcal{N} \left( 0, \sum_{i=1}^{n} \sigma _i^2 \right)
+			      = \mathcal{N} (0, \sigma ^2)
+		      \]
+		      from \hyperref[ex3.3.3:a]{(a)}.
+		\item For any fixed unit vector \(u\), \((Gu)_i = \sum_{j=1}^{n} g_{ij} u_j = \langle g_i, u \rangle \) where \(g_i = (g_{i1}, g_{i2}, \dots , g_{in})\) for all \(i \in [m]\). It's clear that \(g_i \sim \mathcal{N} (0, I_n)\), and from \hyperref[ex3.3.3:a]{(a)}, \(\langle g_i, u \rangle \sim \mathcal{N} (0, 1)\). This implies
+		      \[
+			      Gu = (\langle g_1, u \rangle , \dots , \langle g_m, u \rangle )
+			      \sim \mathcal{N} (0, I_m)
+		      \]
+		      as desired.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.4]\label{ex3.3.4}
+	Let \(X\) be a random vector in \(\mathbb{R} ^n\). Show that \(X\) has a multivariate normal distribution if and only if every one-dimensional marginal \(\langle X, \theta  \rangle \), \(\theta \in \mathbb{R} ^n\), has a (univariate) normal distribution.
+\end{problem*}
+\begin{answer}
+	This is an application of Cramér-Wold device and \hyperref[ex3.3.3:a]{Exercise 3.3.3 (a)}. Omit the details.
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.5]\label{ex3.3.5}
+	Let \(X \sim \mathcal{N} (0, I_n)\).
+	\begin{enumerate}[(a)]
+		\item\label{ex3.3.5:a} Show that, for any fixed vectors \(u, v \in \mathbb{R} ^n\), we have
+		      \[
+			      \mathbb{E}_{}[\langle X, u \rangle \langle X, v \rangle ]
+			      = \langle u, v \rangle .
+		      \]
+		\item\label{ex3.3.5:b} Given a vector \(u \in \mathbb{R} ^n\), consider the random variable \(X_u \coloneqq \langle X, u \rangle \). From \hyperref[ex3.3.3]{Exercise 3.3.3} we know that \(X_u \sim \mathcal{N} (0, \lVert u \rVert _2^2)\). Check that
+		      \[
+			      \lVert X_u - X_v \rVert _{L^2}
+			      = \lVert u - v \rVert _2
+		      \]
+		      for any fixed vectors \(u, v \in \mathbb{R} ^n\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item It's because
+		      \[
+			      \mathbb{E}_{}[\langle X, u \rangle \langle X, v \rangle ]
+			      = \mathbb{E}_{}[(u ^{\top} X) (X^{\top} v)]
+			      = u^{\top} \mathbb{E}_{}[X X^{\top} ] v
+			      = u^{\top} I_n v
+			      = \langle u, v \rangle
+		      \]
+		      from the fact that \(X\) is isotropic.
+		\item Since \(X_u - X_v = \langle X, u \rangle - \langle X, v \rangle = \langle X, u-v \rangle = X_{u-v}\) from linearity of inner product. Hence,
+		      \[
+			      \lVert X_u - X_v \rVert _{L^2}
+			      = \sqrt{\langle X_{u-v}, X_{u-v} \rangle }
+			      = \sqrt{\mathbb{E}_{}[X_{u-v} ^2] }
+			      = \sqrt{\mathbb{E}_{}[\langle X, u-v \rangle ^2] }.
+		      \]
+		      From \hyperref[ex3.3.5:a]{(a)}, \(\mathbb{E}_{}[\langle X, u-v \rangle ^2] = \langle u-v, u-v \rangle = \lVert u-v \rVert _2^2\), hence \
+		      \[
+			      \lVert X_u - X_v \rVert _{L^2} = \sqrt{\lVert u-v \rVert _2^2} = \lVert u-v \rVert _2.
+		      \]
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.6]h\label{ex3.3.6}
+	Let \(G\) be an \(m \times n\) Gaussian random matrix, i.e., the entries of \(G\) are independent \(\mathcal{N} (0, 1)\) random variables. Let \(u, v \in \mathbb{R} ^n\) be unit orthogonal vectors. Prove that \(Gu\) and \(Gv\) are independent \(\mathcal{N} (0, I_m)\) random vectors.
+\end{problem*}
+\begin{answer}
+	It's clear that \(Gu\) and \(Gv\) are both \(\mathcal{N} (0, I_m)\) random vectors from \hyperref[ex3.3.3:c]{Exercise 3.3.3 (c)}. It remains to show that \(Gu\) and \(Gv\) are independent, i.e., \((Gu)_i\) and \((Gv)_j\) are independent random variables.
+
+	For \(i \neq j\), this is clear since \((Gu)_i = e_i ^{\top} (Gu)\) and \((Gv)_j = e_j ^{\top} (Gv)\), and \(e_i ^{\top} G\) gives the \(i^{\text{th} } \) row of \(G\), while \(e_j ^{\top} G\) gives the \(j^{\text{th} } \) row of \(G\). The fact that \(G\) has independent rows proves the result for the case of \(i \neq j\).
+
+	For \(i = j\), let \(e_i ^{\top} G \eqqcolon g^{\top} \) where \(g \sim \mathcal{N} (0, I_n)\), and we want to show independence of \((Gu)_i = g^{\top} u\) and \((Gv)_j = g^{\top} v\). This is still easy since
+	\[
+		\begin{pmatrix}
+			g^{\top} u \\
+			g^{\top} v \\
+		\end{pmatrix}
+		= (u, v)^{\top} g
+		\sim \mathcal{N} (0, (u, v)^{\top} I_n (u, v))
+		= \mathcal{N} (0, I_2)
+	\]
+	as \(u, v\) are unit orthogonal vectors.
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.7]\label{ex3.3.7}
+	Let us represent \(g \sim \mathcal{N} (0, I_n)\) in polar form as
+	\[
+		g = r \theta
+	\]
+	where \(r = \lVert g \rVert _2\) is the length and \(\theta = g / \lVert g \rVert _2\) is the direction of \(g\). Prove the following:
+	\begin{enumerate}[(a)]
+		\item\label{ex3.3.7:a} The length \(r\) and direction \(\theta \) are independent random variables.
+		\item\label{ex3.3.7:b} The direction \(\theta \) is uniformly distributed on the unit sphere \(S^{n-1}\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	For any measurable \(M \subseteq \mathbb{R} ^n\), given the normal density \(f_G(g)\) of \(g\), some elementary calculus gives the polar coordinate transformation \(\mathrm{d} g = r^{n-1} \,\mathrm{d} r \,\mathrm{d} \sigma (\theta )\), hence
+	\begin{equation}\label{eq:ex3.3.7}
+		\begin{split}
+			\mathbb{P} (g \in M)
+			= \int _M f_G(g) \,\mathrm{d} g
+			 & = \int _A \int _B f_G(r \theta ) \,\mathrm{d} \sigma (\theta ) r^{n-1} \,\mathrm{d} r                                     \\
+			 & = \frac{\omega _{n-1}}{(2\pi )^{n / 2}} \int _A r^{n-1} e^{- r^2 / 2} \,\mathrm{d} r \int _B \,\mathrm{d}\sigma (\theta )
+			= \mathbb{P} (r \in A, \theta \in B)
+		\end{split}
+	\end{equation}
+	for some \(A \subseteq [0, \infty )\) and \(B \subseteq S^{n-1}\) generating \(M\), where \(\sigma \) is the surface area element on \(S^{n-1}\) such that \(\int _{S^{n-1}} \,\mathrm{d} \sigma = \omega _{n-1}\), i.e., \(\omega _{n-1}\) is the surface area of the unit sphere \(S^{n-1} \).
+	\begin{enumerate}[(a)]
+		\item From \autoref{eq:ex3.3.7}, it's possible to write
+		      \[
+			      \mathbb{P} (g\in M)
+			      = \mathbb{P} (r \in A, \theta \in B)
+			      \eqqcolon f(A) g(B)
+		      \]
+		      such that \(g(S^{n-1}) = 1\) with appropriate constant manipulation. Hence, with \(B = S^{n-1}\),
+		      \[
+			      \mathbb{P} (r \in A, \theta \in S^{n-1})
+			      = \mathbb{P} (r \in A)
+			      = f(A),
+		      \]
+		      implying \(f([0, \infty ))= 1\) as well. This further shows that by considering \(A = [0, \infty )\),
+		      \[
+			      \mathbb{P} (r \in [0, \infty ), \theta \in B)
+			      = \mathbb{P} (\theta \in B)
+			      = g(B).
+		      \]
+		      Such a separation of probability proves the independence.
+		\item From \autoref{eq:ex3.3.7}, we see that for any \(B \subseteq S^{n-1}\), the density is uniform among \(\,\mathrm{d} \sigma (\theta )\), hence \(\theta \) is uniformly distributed on \(S^{n-1}\).
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.3.9]\label{ex3.3.9}
+	Show that \(\{ u_i \} _{i = 1}^N\) is a tight frame in \(\mathbb{R} ^n\) with bound \(A\) if and only if
+	\[
+		\sum_{i=1}^{N} u_i u_i ^{\top}
+		= A I_n.
+	\]
+\end{problem*}
+\begin{answer}
+	Recall that for two symmetric matrices \(A, B \in \mathbb{R} ^{n\times n}\), \(A = B\) if and only if \(x^{\top} A x = x^{\top} B x\) for all \(x\in \mathbb{R} ^n\). Hence,
+	\[
+		\sum_{i=1}^{N} u_i u_i ^{\top} = A I_n \iff
+		x^{\top} \left( \sum_{i=1}^{N} u_i u_i ^{\top} \right) x = x ^{\top} (A I_n) x
+	\]
+	for all \(x \in \mathbb{R} ^n\). We see that
+	\begin{itemize}
+		\item The left-hand side:
+		      \[
+			      x^{\top} \left( \sum_{i=1}^{N} u_i u_i ^{\top} \right) x
+			      = \sum_{i=1}^{N} (x^{\top} u_i) (u_i ^{\top} x)
+			      = \sum_{i=1}^{N} \langle u_i, x \rangle ^2,
+		      \]
+		\item The right-hand side:
+		      \[
+			      x^{\top} A I_n x
+			      = A x^{\top} x
+			      = A \lVert x \rVert _2^2.
+		      \]
+	\end{itemize}
+	Hence, \(\sum_{i=1}^{N} u_i u_i ^{\top} = AI_n\) if and only if \(\sum_{i=1}^{N} \langle u_i , x \rangle ^2 = A \lVert x \rVert _2^2\), i.e., \(\{ u_i \} _{i=1}^N\) being a tight frame.
+\end{answer}

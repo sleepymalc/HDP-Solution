@@ -1,0 +1,107 @@
+\week{16}{13 Jun.\ 2024}{Tighter Bounds on Sub-Gaussian Matrices}
+\section{Two-sided bounds on sub-gaussian matrices}
+\begin{problem*}[Exercise 4.6.2]\label{ex4.6.2}
+	Deduce from (4.22) that
+	\[
+		\mathbb{E}_{}\left[\left\lVert \frac{1}{m}A ^{\top} A - I_n \right\rVert \right]
+		\leq CK^2 \left( \sqrt{\frac{n}{m}} + \frac{n}{m} \right) .
+	\]
+\end{problem*}
+\begin{answer}
+	We have that for any \(t \geq 0\), with probability at least \(1 - 2 \exp (- t^2)\),
+	\[
+		\left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert
+		\leq K^2 \max (\delta , \delta ^2), \text{ where }
+		\delta = C \left( \sqrt{\frac{n}{m}} + \frac{t}{\sqrt{m} } \right),
+	\]
+	and we want to prove
+	\[
+		\mathbb{E}_{}\left[\left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert \right]
+		\leq C K^2 \left( \sqrt{\frac{n}{m}} + \frac{n}{m} \right) .
+	\]
+	Let \(X \coloneqq \lVert \frac{1}{m}A^{\top} A - I_n \rVert / K^2\), from the integral identity, and note that \(\delta = 1\) as \(t = \sqrt{m} / C - \sqrt{n} \), we have
+	\[
+		\begin{split}
+			 & \mathbb{E}_{}\left[\frac{1}{K^2} \left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert \right]                                                                                                                                                              \\
+			 & = \int_{0}^{1} \mathbb{P} (X \geq \delta ) \,\mathrm{d}\delta + \int_{1}^{\infty} \mathbb{P} (X \geq \delta ^2) 2 \delta \,\mathrm{d}\delta                                                                                                                \\
+			 & \leq \int_{-\sqrt{n} }^{\sqrt{m} / C - \sqrt{n} } 2 \exp (- t^2) \frac{C}{\sqrt{m} } \,\mathrm{d}t + \int_{\sqrt{m} / C - \sqrt{n} }^{\infty} 2 \exp (- t^2) 2 C \left( \sqrt{\frac{n}{m}} + \frac{t}{\sqrt{m} } \right) \frac{C}{\sqrt{m} } \,\mathrm{d}t \\
+			 & \leq \frac{2C}{\sqrt{m} } \int_{-\infty}^{\infty} e^{-t^2} \,\mathrm{d}t + \frac{4C^2}{m} \int_{-\infty}^{\infty} e^{-t^2} (\sqrt{n} + \lvert t \rvert ) \,\mathrm{d}t                                                                                     \\
+			 & = \frac{2C \sqrt{\pi } }{\sqrt{m} }+ \frac{4C^2}{m} \left( \sqrt{n} \sqrt{\pi } + 1 \right),
+		\end{split}
+	\]
+	which is slightly stronger than the desired result (by \(\sqrt{n} \)).
+\end{answer}
+
+\begin{problem*}[Exercise 4.6.3]\label{ex4.6.3}
+	Deduce from Theorem 4.6.1 the following bounds on the expectation:
+	\[
+		\sqrt{m} - CK^2 \sqrt{n}
+		\leq \mathbb{E}_{}[s_n(A)]
+		\leq \mathbb{E}_{}[s_1(A)]
+		\leq \sqrt{m} + CK^2 \sqrt{n} .
+	\]
+\end{problem*}
+\begin{answer}
+	From Theorem 4.6.1, for any \(t \geq 0\),
+	\[
+		\sqrt{m} - CK^2 (\sqrt{n} + t)
+		\leq s_n(A)
+		\leq s_1(A)
+		\leq \sqrt{m} + CK^2 (\sqrt{n} + t)
+	\]
+	with probability at least \(1 - 2 \exp (-t^2)\). We want to show that
+	\[
+		\sqrt{m} - CK^2 \sqrt{n}
+		\leq \mathbb{E}_{}[s_n(A)]
+		\leq \mathbb{E}_{}[s_1(A)]
+		\leq \sqrt{m} + CK^2 \sqrt{n}.
+	\]
+	Consider
+	\[
+		\xi
+		\coloneqq \frac{\max \left( 0, \sqrt{m} - CK^2 \sqrt{n} - s_n (A) , s_1(A) - \sqrt{m} - CK^2 \sqrt{n}  \right) }{CK^2}
+		\geq 0,
+	\]
+	then from the integral identity,
+	\[
+		\mathbb{E}_{}[\xi ]
+		= \int_{0}^{\infty} \mathbb{P} (\xi > t) \,\mathrm{d}t
+		\leq \int_{0}^{\infty} 2 e^{-t^2} \,\mathrm{d}t
+		= \sqrt{\pi },
+	\]
+	which proves the result.
+\end{answer}
+
+\begin{problem*}[Exercise 4.6.4]\label{ex4.6.4}
+	Give a simpler proof of Theorem 4.6.1, using Theorem 3.1.1 to obtain a concentration bound for \(\lVert Ax \rVert _2\) and \hyperref[ex4.4.4]{Exercise 4.4.4} to reduce to a union bound over a net.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Application: covariance estimation and clustering}
+\begin{problem*}[Exercise 4.7.3]\label{ex4.7.3}
+	Our argument also implies the following high-probability guarantee. Check that for any \(u \geq 0\), we have
+	\[
+		\lVert \Sigma _m - \Sigma  \rVert
+		\leq CK^2 \left( \sqrt{\frac{n + u}{m}} + \frac{n+u}{m} \right) \lVert \Sigma \rVert
+	\]
+	with probability at least \(1 - 2 e^{-u}\).
+\end{problem*}
+\begin{answer}
+	Omit
+\end{answer}
+
+\begin{problem*}[Exercise 4.7.6]\label{ex4.7.6}
+	Prove Theorem 4.7.5 for the spectral clustering algorithm applied for the Gaussian mixture model. Proceed as follows.
+	\begin{enumerate}[(a)]
+		\item Compute the covariance matrix \(\Sigma \) of \(X\); note that the eigenvector corresponding to the largest eigenvalue is parallel to \(\mu \).
+		\item Use results about covariance estimation to show that the sample covariance matrix \(\Sigma _m\) is close to \(\Sigma \), if the sample size \(m\) is relatively large.
+		\item Use the Davis-Kahan Theorem 4.5.5 to deduce that the first eigenvector \(v = v_1(\Sigma _m)\) is close to the direction of \(\mu \).
+		\item Conclude that the signs of \(\langle \mu , X_i \rangle \) predict well which community \(X_i\) belongs to.
+		\item Since \(v \approx \mu \), conclude the same for \(v\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit
+\end{answer}

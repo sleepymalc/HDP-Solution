@@ -1,0 +1,248 @@
+\week{4}{7 Feb.\ 2024}{Chernoff's Inequality and Degree Concentration}
+\begin{problem*}[Exercise 2.3.5]\label{ex2.3.5}
+	Show that, in the setting of Theorem 2.3.1, for \(\delta \in (0, 1]\) we have
+	\[
+		\mathbb{P} (\lvert S_N - \mu \rvert \geq \delta \mu )
+		\leq 2 e^{- c \mu \delta ^2}
+	\]
+	where \(c > 0\) is an absolute constant.
+\end{problem*}
+\begin{answer}
+	From Chernoff's inequality (right-tail), for \(t = (1 + \delta ) \mu \), we have
+	\[
+		\begin{split}
+			\ln \mathbb{P} (S_N \geq (1 + \delta )\mu )
+			 & \leq -\mu + (1+\delta )\mu \left( 1 + \ln \mu - \ln (1 + \delta ) - \ln \mu \right) \\
+			 & = \delta \mu - (1+\delta )\mu (\ln (1 + \delta ))                                   \\
+			 & = \mu (\delta - (1+\delta ) \ln (1+\delta )).
+		\end{split}
+	\]
+	A classic bound for \(\ln (1 + \delta )\) is the following.
+
+	\begin{claim}
+		For all \(x > 0\),
+		\[
+			\frac{2x }{2 + x } \leq \ln (1+x ).
+		\]
+	\end{claim}
+	\begin{explanation}
+		As \((1+x/2)^{2}=1+x+x^{2}/4\geq1+x\),
+		\[
+			[ \log(1+x) ]^{\prime}
+			= \frac{1}{1 + x}
+			\geq \frac{1}{(1 + x / 2)^{2}}
+			=\left(\frac{x}{1 + x / 2}\right)^{\prime} .
+		\]
+		Note that \(\log(1+x) = x / (1 + x / 2) = 0\) at \(x=0\), so for all \(x > 0\)
+		\[
+			\log(1+x) \geq \frac{x}{1 + x / 2}.
+		\]
+	\end{explanation}
+
+	Hence, as our \(\delta \in (0, 1]\), we have
+	\[
+		\ln \mathbb{P} (S_N \geq (1+\delta ) \mu )
+		\leq \mu (\delta - (1+\delta ) \ln (1+\delta ))
+		\leq \mu \delta - \mu (1+\delta ) \frac{2\delta }{2 + \delta }
+		= - \frac{\mu \delta ^2}{2 + \delta }
+		\leq - \frac{\mu \delta ^2}{3}.
+	\]
+
+	Similarly, from Chernoff's inequality (left-tail), for \(t = (1 - \delta ) \mu \), we have
+	\[
+		\begin{split}
+			\ln \mathbb{P} (S_N \leq (1-\delta )\mu )
+			 & \leq -\mu + (1-\delta )\mu (1 + \ln \mu - \ln (1-\delta ) - \ln \mu ) \\
+			 & = -\delta \mu - (1-\delta )\mu \ln (1-\delta )                        \\
+			 & = \mu (-\delta - (1-\delta ) \ln (1-\delta )).
+		\end{split}
+	\]
+	Another classic bound for \(\ln (1 - \delta )\) is the following.
+
+	\begin{claim}
+		For all \(x \in [-1, 1)\),
+		\[
+			-x - \frac{x^2}{2} \leq \ln (1 - x).
+		\]
+	\end{claim}
+	\begin{explanation}
+		This one is even easier: since \(\ln (1 - x) = -x - x^2 / 2 - x^3 / 3 - \dots \).
+	\end{explanation}
+
+	Hence, if \(\delta \in (0, 1]\),\footnote{When \(\delta = 1\), \(\ln \mathbb{P} (S_N \leq (1 - \delta )\mu ) \leq - \frac{\mu \delta ^2}{2}\) holds trivially since \(\mathbb{P} (S_N = 0) \leq \exp (- \mu / 2)\).} we have
+	\[
+		\ln \mathbb{P} (S_N \leq (1-\delta )\mu )
+		\leq \mu (-\delta -(1-\delta )\ln (1-\delta ))
+		\leq - \mu \delta - \mu (1-\delta ) \left( -\delta - \frac{\delta^2}{2} \right)
+		\leq - \frac{\mu \delta ^2}{2}.
+	\]
+	Combining two tails, we then see that
+	\[
+		\begin{split}
+			\mathbb{P} (\vert S_N - \mu \vert > \delta \mu )
+			 & \leq \mathbb{P} (S_N \geq (1 + \delta )\mu ) + \mathbb{P} (S_N \leq (1 - \delta )\mu ) \\
+			 & \leq \exp (- \frac{\mu \delta ^2}{3}) + \exp (- \frac{\mu \delta ^2}{2})               \\
+			 & \leq 2 \exp (- \frac{\mu \delta ^2}{3}),
+		\end{split}
+	\]
+	which almost complete the proof for \(c = 1 / 3\).
+\end{answer}
+
+\begin{problem*}[Exercise 2.3.6]\label{ex2.3.6}
+	Let \(X \sim \operatorname{Pois}(\lambda ) \). Show that for \(t \in (0, \lambda ]\), we have
+	\[
+		\mathbb{P} (\lvert X - \lambda \rvert \geq t)
+		\leq 2 \exp (- \frac{ct^2}{\lambda }).
+	\]
+\end{problem*}
+\begin{answer}
+	Fix some \(t \eqqcolon \delta \lambda \in (0, \lambda ]\) for some \(\delta \in (0, 1]\) first. Consider a series of independent Bernoulli random variables \(X_{N, i}\) for a fixed \(N\) such that the Poisson limit theorem applies to approximate \(X \sim \operatorname{Pois}(\lambda ) \), i.e., as \(N \to \infty \), \(\max _{i \leq N} p_{N, i} \to 0\) and \(\lambda _N \coloneqq \mathbb{E}_{}\left[S_N \right] \to \lambda < \infty \), \(S_N \to \operatorname{Pois}(\lambda ) \). From multiplicative form of Chernoff's inequality, for \(t_N \coloneqq \delta \lambda _N\),
+	\[
+		\mathbb{P} (\vert S_N - \lambda _N \vert \geq t_N = \delta \lambda _N)
+		\leq 2 \exp ( - \frac{c t_N^2}{\lambda _N}).
+	\]
+	It then follows that from the Poisson limit theorem,
+	\[
+		\mathbb{P} (\vert X - \lambda  \vert \geq t)
+		= \lim_{N \to \infty} \mathbb{P} (\vert S_N - \lambda _N \vert \geq t_N)
+		= \lim_{N \to \infty} 2 \exp (- \frac{c t^2_N}{\lambda _N})
+		= 2 \exp (- \frac{c t^2}{\lambda })
+	\]
+	since \(t_N = \delta \lambda _N \to \delta \lambda = t\).
+\end{answer}
+
+\begin{problem*}[Exercise 2.3.8]\label{ex2.3.8}
+	Let \(X \sim \operatorname{Pois}(\lambda ) \). Show that, as \(\lambda \to \infty \), we have
+	\[
+		\frac{X - \lambda }{\sqrt{\lambda } }
+		\overset{D}{\to} \mathcal{N} (0, 1).
+	\]
+\end{problem*}
+\begin{answer}
+	Since \(X \coloneqq \sum_{i=1}^{\lambda } X_i \sim \operatorname{Pois}(\lambda ) \) if \(X_i \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \) for all \(i\), from Lindeberg-Lévy central limit theorem, we have
+	\[
+		\frac{X - \mathbb{E}_{}\left[X \right] }{\sqrt{\Var_{}\left[X\right] } }
+		= \frac{X - \lambda }{\sqrt{\lambda } }
+		\overset{d}{\to } \mathcal{N} (0, 1)
+	\]
+	as \(\mathbb{E}_{}\left[X_i \right] = \Var_{}\left[X_i \right] = 1\).
+\end{answer}
+
+\section{Application: degrees of random graphs}
+\begin{problem*}[Exercise 2.4.2]\label{ex2.4.2}
+	Consider a random graph \(G \sim G(n, p)\) with expected degrees \(d = O(\log n)\). Show that with high probability (say, \(0.9\)), all vertices of \(G\) have degrees \(O(\log n)\).
+\end{problem*}
+\begin{answer}
+	Since \(d = O(\log n)\), there exists an absolute constant \(M >0\) such that \(d = (n - 1) p \leq M \log n\) for all large enough \(n\). Now, consider some \(C > 0\) such that \(e M / C \eqqcolon \alpha < 1\). From Chernoff's inequality,
+	\[
+		\mathbb{P} (d_i \geq C \log n)
+		\leq e^{-d} \left( \frac{e d}{C \log n} \right) ^{C \log n}
+		\leq e^{-d} \left( \frac{e M}{C} \right) ^{C \log n}
+		\leq \alpha ^{C \log n}.
+	\]
+	Hence, from union bound, we have
+	\[
+		\mathbb{P} (\forall i \colon d_i \leq C \log n)
+		\geq 1 - n \alpha ^{C \log n},
+	\]
+	which can be arbitrarily close to \(1\) as \(C\) is sufficiently large.
+\end{answer}
+
+\begin{problem*}[Exercise 2.4.3]\label{ex2.4.3}
+	Consider a random graph \(G \sim G(n, p)\) with expected degrees \(d = O(1)\). Show that with high probability (say, \(0.9\)), all vertices of \(G\) have degrees
+	\[
+		O\left( \frac{\log n}{\log \log n} \right) .
+	\]
+\end{problem*}
+\begin{answer}
+	Since now \(d = (n-1)p \leq M\) for some absolute constant \(M > 0\) for all large \(n\), from Chernoff's inequality,
+	\[
+		\mathbb{P} \left( d_i \geq C \frac{\log n}{\log \log n} \right)
+		\leq e^{-d} \left( \frac{ed}{C \frac{\log n}{\log \log n}} \right) ^{C \frac{\log n}{\log \log n}}
+		\leq e^{-d} \left( \frac{e M \log \log n}{C \log n} \right) ^{C \frac{\log n}{\log \log n}}
+	\]
+	for some \(C > 0\). This implies that
+	\[
+		\mathbb{P} \left( \forall i \colon d_i \leq C \frac{\log n}{\log \log n} \right)
+		\geq 1 - n e^{-d} \left( \frac{e M \log \log n}{C \log n} \right) ^{C \frac{\log n}{\log \log n}}.
+	\]
+	Now, considering \(C = M\), we have
+	\[
+		n e^{-d} \left( \frac{e M \log \log n}{C \log n} \right) ^{C \frac{\log n}{\log \log n}}
+		\leq n e^{-d} \left( \frac{e \log \log n}{\log n} \right) ^{M \frac{\log n}{\log \log n}}.
+	\]
+	Taking logarithm, we observe that
+	\[
+		\begin{split}
+			 & \log n - d + M \frac{\log n}{\log \log n} \left( 1 + \log \log \log n - \log \log n\right)                        \\
+			 & = (1 - M) \log n - d + M \frac{\log n}{\log \log n} (1 + \log \log \log n)                                        \\
+			 & = \left[ 1 - M \left( 1 + \frac{1}{\log \log n} + \frac{\log \log \log n}{\log \log n} \right) \right] \log n - d
+			\to -\infty
+		\end{split}
+	\]
+	as \(n \to \infty \), i.e.,
+	\[
+		n e^{-d} \left( \frac{e M \log \log n}{C \log n} \right) ^{C \frac{\log n}{\log \log n}}
+		\to 0,
+	\]
+	which is what we want to prove.
+\end{answer}
+
+\begin{problem*}[Exercise 2.4.4]\label{ex2.4.4}
+	Consider a random graph \(G \sim G(n, p)\) with expected degrees \(d = o(\log n)\). Show that with high probability, (say, \(0.9\)), \(G\) has a vertex with degree \(10d\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 2.4.5]\label{ex2.4.5}
+	Consider a random graph \(G \sim G(n, p)\) with expected degrees \(d = O(1)\). Show that with high probability, (say, \(0.9\)), \(G\) has a vertex with degree
+	\[
+		\Omega \left( \frac{\log n}{\log \log n} \right) .
+	\]
+\end{problem*}
+\begin{answer}
+	Firstly, note that the question is ill-defined in the sense that if \(d = (n - 1) p = O(1)\), it can be \(d = 0\) (with \(p = 0\)), which is impossible to prove the claim. Hence, consider the non-degenerate case, i.e., \(d = \Theta (1)\).
+
+	We want to prove that there exists some absolute constant \(C > 0\) such that with high probability \(G\) has a vertex with degree at least \(C \log n / \log \log n\). First, consider separate the graph randomly into two parts \(A, B\), each of size \(n / 2\). It's then easy to see by dropping every inner edge in \(A\) and \(B\), the graph becomes bipartite such that now \(A\) and \(B\) forms independent sets. Consider working on this new graph (with degree denoted as \(d^{\prime} \)), we have
+	\[
+		\begin{split}
+			\mathbb{P} (d_i^{\prime} = k)
+			= \binom{n / 2}{k} \left( \frac{d}{n-1} \right) ^k \left( 1 - \frac{d}{n-1} \right) ^{n / 2 - k}
+			 & \geq \left( \frac{n}{2k} \right) ^k \cdot \frac{d^k}{n^k} \cdot e^{-d} \\
+			 & = d^{k} n^{- k} \left( \frac{n}{2 k} \right) ^{k} e^{- d}
+			= \left( \frac{d}{2k} \right) ^k e^{-d}.
+		\end{split}
+	\]
+	Let \(k = C \log n / \log \log n\) such that \(d / 2k > 1 / \log n\) for large enough \(n\),\footnote{Since this is equivalent as \(k < d \log n / 2\). As \(k\) has a \(\log \log n \to \infty \) factor in the denominator, the claim holds.} we have
+	\[
+		\begin{split}
+			\mathbb{P} \left( d_i^{\prime} = \frac{C \log n}{\log \log n} \right)
+			\geq e^{-d} \left( \frac{d}{2k} \right) ^k
+			\geq e^{-d} (\log n)^{-k}
+			 & = \exp (-d - k \log \log n) \\
+			 & = \exp (-d - C \log n)
+			= e^{-d} n^{-C}.
+		\end{split}
+	\]
+	Let this probability be \(q\), and focus on \(A\). We can then define \(X_i = \mathbbm{1}_{d_i^{\prime} = k} \) for \(i \in A\), and note that \(X_i\) are all independent as \(A\) being an independent set. Then, the number of vertices in \(A\), denoted as \(X\), with degree exactly \(k\) follows \(\operatorname{Bin}(n / 2, q) \) with \(X = \sum_{i\in A} X_i\) and mean \(n q / 2\), variance \(nq (1 - q) / 2\). From Chebyshev's inequality,
+	\[
+		\mathbb{P} (X = 0)
+		\leq \mathbb{P} (\vert X - \mu \vert \geq \mu )
+		\leq \frac{\sigma ^2}{\mu ^2}
+		= \frac{nq(1-q) / 2}{(nq / 2)^2}
+		= 2 \frac{1 - q}{nq}
+		\leq \frac{2}{nq}
+		\leq \frac{2}{n e^{-d} n^{-C}}
+		= \frac{2e^d}{n^{1 - C}}.
+	\]
+	Now, by setting \(C < 1\), say \(1 / 2\), then
+	\[
+		\mathbb{P} (X=0) \leq 2e^d n^{-1 / 2} \to 0
+	\]
+	as \(n \to \infty \), which means \(\mathbb{P} (X \geq 1) \to 1\), i.e., with probability \(1\), there are at least one point with degree \(\log n / 2 \log \log n \). Now, by considering the deleting edges in the beginning, we conclude that there will be a vertex with degree
+	\[
+		\Omega \left( \frac{\log n}{\log \log n} \right)
+	\]
+	with overwhelming probability.
+\end{answer}

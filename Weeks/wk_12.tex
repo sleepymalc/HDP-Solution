@@ -1,0 +1,335 @@
+\week{12}{3 Apr.\ 2024}{High-Dimensional Sub-Gaussian Distributions}
+\section{Application: Grothendieck's inequality and semidefinite programming}
+\begin{problem*}[Exercise 3.5.2]\label{ex3.5.2}
+	\begin{enumerate}
+		\item\label{ex3.5.2:a} Check that the assumption of Grothendieck's inequality can be equivalently stated as follows:
+		      \[
+			      \left\lvert \sum_{i, j} a_{ij} x_i y_i \right\rvert
+			      \leq \max _i \lvert x_i \rvert \cdot \max _j \lvert y_j \rvert
+		      \]
+		      for any real numbers \(x_i\) and \(y_j\).
+		\item\label{ex3.5.2:b} Show that the conclusion of Grothendieck's inequality can be equivalently stated as follows:
+		      \[
+			      \left\lvert \sum_{i, j} a_{ij} \langle u_i, v_j \rangle \right\rvert
+			      \leq K \max _i \lVert u_i \rVert \cdot \max _j \lVert v_j \rVert
+		      \]
+		      for any Hilbert space \(H\) and any vectors \(u_i, v_j \in H\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 3.5.3]\label{ex3.5.3}
+	Deduce the following version of Grothendieck's inequality for symmetric \(n \times n\) matrices \(A = (a_{ij})\) with real entries. Suppose that \(A\) is either positive semidefinie or has zero diagonal. Assume that, for any numbers \(x_i \in \{ -1, 1 \} \), we have
+	\[
+		\left\lvert \sum_{i, j} a_{ij} x_i x_j \right\rvert
+		\leq 1.
+	\]
+	Then, for any Hilbert space \(H\) and any vectors \(u_i, v_j \in H\) satisfying \(\lVert u_i \rVert = \lVert v_j \rVert = 1\), we have
+	\[
+		\left\lvert \sum_{i, j} a_{ij} \langle u_i, v_j \rangle  \right\rvert
+		\leq 2K,
+	\]
+	where \(K\) is the absolute constant from Grothendieck's inequality.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 3.5.5]\label{ex3.5.5}
+	Show that the optimization (3.21) is equivalent to the following semidefinite program:
+	\[
+		\max \langle A, X \rangle \colon X \succeq 0, \quad X_{ii} = 1 \text{ for } i = 1, \dots , n.
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 3.5.7]\label{ex3.5.7}
+	Let \(A\) be an \(m \times n\) matrix. Consider the optimization problem
+	\[
+		\max \sum_{i, j} A_{ij} \langle X_i, Y_j \rangle \colon \lVert X_i \rVert _2 = \lVert Y_j \rVert _2 = 1 \text{ for all } i, j
+	\]
+	over \(X_i, Y_j \in \mathbb{R} ^k\) and \(k \in \mathbb{N} \). Formulate this problem as a semidefinite program.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Application: Maximum cut for graphs}
+\begin{problem*}[Exercise 3.6.4]\label{ex:3.6.4}
+	For any \(\epsilon > 0\), given an \((0.5 - \epsilon )\)-approximation algorithm for maximum cut, which is always \emph{guaranteed} to give a suitable cut, but may have a random running time. Give a bound on the expected running time.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 3.6.7]\label{ex3.6.7}
+	Prove Grothendieck's identity.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Kernel trick, and tightening of Grothendieck's inequality}
+\begin{problem*}[Exercise 3.7.4]\label{ex3.7.4}
+	Show that for any vectors \(u, v \in \mathbb{R} ^n\) and \(k \in \mathbb{N} \), we have
+	\[
+		\left\langle u^{\otimes k}, v^{\otimes k} \right\rangle
+		= \langle u, v \rangle ^k.
+	\]
+\end{problem*}
+\begin{answer}
+	This is immediate from the definition, i.e.,
+	\[
+		\langle u ^{\otimes k}, v^{\otimes k}\rangle
+		= \sum_{i_1, \dots , i_k} u_{i_1 \dots i_k} v_{i_1 \dots i_k}
+		= \sum_{i_1, \dots , i_k} u_{i_1} \dots u_{i_k} v_{i_1} \dots v_{i_k}
+		= \left( \sum_{i=1}^{n} u_i v_i \right)  ^k
+	\]
+	by observation (and probably term-matching).
+\end{answer}
+
+\begin{problem*}[Exercise 3.7.5]\label{ex3.7.5}
+	\begin{enumerate}[(a)]
+		\item\label{ex3.7.5:a} Show that there exist a Hilbert space \(H\) and a transformation \(\Phi \colon \mathbb{R} ^n \to H\) such that
+		      \[
+			      \langle \Phi (u), \Phi (v) \rangle
+			      = 2 \langle u, v \rangle ^2 + 5 \langle u, v \rangle ^3
+			      \text{ for all } u, v \in \mathbb{R} ^n.
+		      \]
+		\item\label{ex3.7.5:b} More generally, consider a polynomial \(f \colon \mathbb{R} \to \mathbb{R} \) with non-negative coefficients, and construct \(H\) and \(\Phi \) such that
+		      \[
+			      \langle \Phi (u), \Phi (v) \rangle
+			      = f(\langle u, v \rangle )
+			      \text{ for all } u, v \in \mathbb{R} ^n.
+		      \]
+		\item\label{ex3.7.5:c} Show the same for any \emph{real analytic function} \(f\colon \mathbb{R} \to \mathbb{R} \) with non-negative coefficients, i.e., for any function that can be represented as a convergent series
+		      \begin{equation}\label{eq:ex3.7.5}
+			      f(x)
+			      = \sum_{k=0}^{\infty} a_k x^k, \quad
+			      x \in \mathbb{R}
+		      \end{equation}
+		      and such that \(a_k \geq 0\) for all \(k\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item Consider \(H = \mathbb{R} ^{n\times n} \oplus \mathbb{R} ^{n \times n \times n}\). Then, consider \(\Phi (x) \coloneqq (\sqrt{2} x^{\otimes 2}, \sqrt{5} x^{\otimes 3} )\), and we have
+		      \[
+			      \begin{split}
+				      \langle \Phi (u), \Phi (v) \rangle
+				       & = \langle (\sqrt{2} u^{\otimes 2}, \sqrt{5} u^{\otimes 3} ) , (\sqrt{2} v^{\otimes 2} , \sqrt{5} v^{\otimes 3}) \rangle \\
+				       & = 2 \langle u^{\otimes 2}, v^{\otimes 2} \rangle + 5\langle u^{\otimes 3}, v^{\otimes 3} \rangle
+				      = 2\langle u, v \rangle ^2 + 5\langle u, v \rangle ^3,
+			      \end{split}
+		      \]
+		      where the last equality follows from \hyperref[ex3.7.4]{Exercise 3.7.4}.
+		\item Consider an \(m\)-order polynomial of \(\langle u, v \rangle \), which we write \(f(\langle u, v \rangle ) \eqqcolon \sum_{k=0}^{m} a_k \langle u, v \rangle ^k\). Then, by noting that \(a_k \geq 0\), we may define
+		      \[
+			      H\coloneqq \bigoplus_{k=0}^m \mathbb{R} ^{n^k}, \text{ and }
+			      \Phi (x) \coloneqq \bigoplus_{k=0}^{m} \sqrt{a_k} x^{\otimes k} = (\sqrt{a_0} , \sqrt{a_1} x, \sqrt{a_2} x^{\otimes 2}, \dots , \sqrt{a_m} x^{\otimes m}).
+		      \]
+		      Then by a similar calculation as \hyperref[ex3.7.5:a]{(a)}, we have \(\langle \Phi (u), \Phi (v) \rangle = f(\langle u, v \rangle )\) for all \(u, v \in \mathbb{R} ^n\).
+		\item In this case, we just let \(m = \infty \) in \hyperref[ex3.7.5:b]{\autoref{ex4.1.4:b}}, i.e., consider
+		      \[
+			      H\coloneqq \bigoplus_{k=0}^{\infty} \mathbb{R} ^{n^k}, \text{ and }
+			      \Phi (x) \coloneqq \bigoplus_{k=0}^{\infty } \sqrt{a_k} x^{\otimes k} ,
+		      \]
+		      where the limit is allowed as \(f\) converges everywhere. Note that \(a_k \geq 0\), hence \(\sqrt{a_k} \) is also well-defined.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 3.7.6]\label{ex3.7.6}
+	Let \(f \colon \mathbb{R} \to \mathbb{R} \) be any real analytic function (with possibly negative coefficients in \autoref{eq:ex3.7.5}). Show that there exist a Hilbert space \(H\) and transformation \(\Phi , \Psi \colon \mathbb{R} ^n \to H\) such that
+	\[
+		\langle \Phi (u), \Psi (v) \rangle
+		= f(\langle u, v \rangle )
+		\text{ for all } u, v \in \mathbb{R} ^n.
+	\]
+	Moreover,  check that
+	\[
+		\lVert \Phi (u) \rVert ^2
+		= \lVert \Psi (u) \rVert ^2
+		= \sum_{k=0}^{\infty} \lvert a_k \rvert \lVert u \rVert _2^{2k}.
+	\]
+\end{problem*}
+\begin{answer}
+	Again, similar to \hyperref[ex3.7.5:c]{Exercise 3.7.5 \autoref{ex4.1.4:c}}, we construct
+	\[
+		H\coloneqq \bigoplus_{k=0}^{\infty} \mathbb{R} ^{n^k}, \text{ and }
+		\Phi (x) \coloneqq \bigoplus_{k=0}^{\infty} \sqrt{a_k} x^{\otimes k}, \text{ and }
+		\Psi (x) \coloneqq \bigoplus_{k=0}^{\infty} \sgn (a_k) \sqrt{\lvert a_k \rvert } x^{\otimes k}.
+	\]
+	Then, \(\langle \Phi (u), \Psi _v \rangle = f(\langle u, v \rangle )\) since the sign of \(a_k\) is now taking care by \(\Psi \). The norm can be calculated as
+	\[
+		\begin{split}
+			\lVert \Phi (u) \rVert ^2 = \langle \Phi (u), \Phi _u \rangle
+			 & = \sum_{k=0}^{\infty} \langle \sqrt{\lvert a_k \rvert } u^{\otimes k} , \sqrt{\lvert a_k \rvert } u^{\otimes k} \rangle \\
+			 & = \sum_{k=0}^{\infty} \lvert a_k \rvert \langle u^{\otimes k}, u^{\otimes k} \rangle
+			= \sum_{k=0}^{\infty} \lvert a_k \rvert \langle u, u \rangle ^k
+			= \sum_{k=0}^{\infty} \lvert a_k \rvert \lVert u \rVert _2^{2k},
+		\end{split}
+	\]
+	where the last equality follows from \hyperref[ex3.7.4]{Exercise 3.7.4}. A similar calculation can be carried out for \(\lVert \Psi (u) \rVert ^2\).
+\end{answer}
+
+\chapter{Random matrices}
+\section{Preliminaries on matrices}
+\begin{problem*}[Exercise 4.1.1]\label{ex4.1.1}
+	Suppose \(A\) is an invertible matrix with singular value decomposition
+	\[
+		A
+		= \sum_{i=1}^{n} s_i u_i v_i ^{\top} .
+	\]
+	Check that
+	\[
+		A^{-1}
+		= \sum_{i=1}^{n} \frac{1}{s_i} v_i u_i ^{\top} .
+	\]
+\end{problem*}
+\begin{answer}
+	Let \(A = U \Sigma V^{\ast} \), and it suffices to check that
+	\[
+		A \left( \sum_{i=1}^{n} \frac{1}{s_i} v_i u_i ^{\top}  \right) = I_n.
+	\]
+	Indeed, by plugging \(A\), we have
+	\[
+		\left( \sum_{i=1}^{n} s_i u_i v_i ^{\top} \right) \left( \sum_{i=1}^{n} \frac{1}{s_i} v_i u_i ^{\top} \right)
+		= \sum_{i=1}^{n} \frac{s_i}{s_i} u_i v_i ^{\top} v_i u_i ^{\top}
+		= \sum_{i=1}^{n} u_i u_i ^{\top}
+		= U U^{\top}
+		= I_n,
+	\]
+	where all the cross-terms vanish since \(v_i ^{\top} v_j = 0\) as \(V\) is orthonormal, and \(\sum_{i=1}^{n} u_i u_i ^{\top} = U U^{\top} = I_n\) since \(U\) is again orthonormal.
+\end{answer}
+
+\begin{problem*}[Exercise 4.1.2]\label{ex4.1.2}
+	Prove the following bound on the singular values \(s_i\) of any matrix \(A\):
+	\[
+		s_i
+		\leq \frac{1}{\sqrt{i} } \lVert A \rVert _F.
+	\]
+\end{problem*}
+\begin{answer}
+	We have seen that \(\lVert A \rVert _F = \lVert s \rVert _2 = \sqrt{\sum_{k} s_k^2} \), hence
+	\[
+		\lVert A \rVert _F^2 = \sum_{k=1}^{r} s_i^2 \geq \sum_{k \leq i} s_k^2 \geq i s_i^2
+	\]
+	since we arrange \(s_k\)'s in the decreasing order. This proves the result.
+\end{answer}
+
+\begin{problem*}[Exercise 4.1.3]\label{ex4.1.3}
+	Let \(A_k\) be the best rank \(k\) approximation of a matrix \(A\). Express \(\lVert A - A_k \rVert ^2\) and \(\lVert A - A_k \rVert _F^2\) in terms of the singular values \(s_i\) of \(A\).
+\end{problem*}
+\begin{answer}
+	From Eckart-Young-Mirsky theorem, we have
+	\[
+		A_k = \sum_{i=1}^{k} s_i u_i v_i ^{\top} ,
+	\]
+	hence
+	\[
+		A - A_k
+		= \sum_{i=k+1}^{n} s_i u_i v_i ^{\top} .
+	\]
+	This implies, the singular values of the matrix \(A - A_k\) are just \(s_{k+1}, \dots , s_n\),\footnote{This can be seen from the fact that the same \(U\) and \(V\) still work, but now \(s_i = 0\) for all \(1 \leq i \leq k\).} implying
+	\[
+		\lVert A - A_k \rVert ^2
+		= s_{k+1}^2,
+	\]
+	and
+	\[
+		\lVert A - A_k \rVert _F^2
+		= \sum_{i=k+1}^{n} s_i^2.
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 4.1.4]\label{ex4.1.4}
+	Let \(A\) be an \(m \times n\) matrix with \(m \geq n\). Prove that the following statements are equivalent.
+	\begin{enumerate}[(a)]
+		\item\label{ex4.1.4:a} \(A ^{\top} A = I_n\).
+		\item\label{ex4.1.4:b} \(P \coloneqq A A^{\top} \) is an \emph{orthogonal projection}\footnote{Recall that \(P\) is a projection if \(P^2 = P\), and \(P\) is called orthogonal if the image and kernel of \(P\) are orthogonal subspaces.} in \(\mathbb{R} ^m\) onto a subspace of dimension \(n\).
+		\item\label{ex4.1.4:c} \(A\) is an \emph{isometry}, or isometric embedding of \(\mathbb{R} ^n\) into \(\mathbb{R} ^m\), which means that
+		      \[
+			      \lVert Ax \rVert _2
+			      = \lVert x \rVert _2
+			      \text{ for all } x \in \mathbb{R} ^n.
+		      \]
+		\item\label{ex4.1.4:d} All singular values of \(A\) equal \(1\); equivalently
+		      \[
+			      s_n (A)
+			      = s_1 (A)
+			      = 1.
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	It's easy to see that \autoref{ex4.1.4:a}, \autoref{ex4.1.4:c}, and \autoref{ex4.1.4:d} are all equivalent. Indeed, for \autoref{ex4.1.4:a} and \autoref{ex4.1.4:c}, we want \(\lVert Ax \rVert _2^2 = (Ax)^{\top} (Ax) = x A^{\top} A x = x^{\top} x = \lVert x \rVert _2^2\), and the equivalency lies in the equality \(x A^{\top} A x = x^{\top} x\). If \(\lVert Ax \rVert _2 = \lVert x \rVert _2\) holds for all \(x\), since \(A^{\top} A\) is a symmetric matrix, we know that this means \(A^{\top} A = I_n\). On the other hand, if \(A^{\top} A = I_n\), then we clearly have the equality. For \autoref{ex4.1.4:c} and \autoref{ex4.1.4:d}, noting the Equation 4.5 suffices. Now, we focus on proving the equivalence between \autoref{ex4.1.4:a} and \autoref{ex4.1.4:b}.
+
+	\begin{itemize}
+		\item \autoref{ex4.1.4:a}\(\implies \)\autoref{ex4.1.4:b}: Suppose \(A^{\top} A = I_n\). Then \(P = A A^{\top} \) is a projection since \(P^2 = A A^{\top} A A^{\top} = A I_n A^{\top} = A A^{\top} = P\). Moreover, observe that \(P^{\top} = P\), hence \(P\) is also an orthogonal projection.\footnote{Note that such a characterization is standard. See \href{https://math.stackexchange.com/questions/2485525/why-is-orthogonal-projection-matrix-has-property-that-p-pt/2485644\#2485644}{here} for example.}
+
+		      Finally, we need to show that \(\rank (P) = \rank (A A^{\top} ) = n\). But since \(A^{\top} A = I_n\),
+		      \[
+			      n
+			      = \rank (I_n)
+			      = \rank (A^{\top} A)
+			      \leq \rank (A)
+			      \leq n
+		      \]
+		      as matrix multiplication can only reduce the rank, hence \(\rank (A) = n\). This also implies \(\rank (A^{\top} ) = n\), hence we're left to check whether \(\im A^{\top} \cap \ker A = \varnothing \). If this is true, then \(\rank (A A^{\top} ) = n\) as well, and we're done. But it's well-known that \(\im A^{\top} = (\ker A)^{\top} \), which completes the proof.
+		\item \autoref{ex4.1.4:b}\(\implies \)\autoref{ex4.1.4:a}: We want to show that if \(P = A A^{\top} \) is an orthogonal projection on a subspace of dimension \(n\), then \(A^{\top} A=I_n\). Observe that since \(P^2 = P\),
+		      \[
+			      (A A^{\top} )(A A^{\top} ) = A A^{\top}
+			      \iff A(A^{\top} A - I_n)A^{\top} = 0.
+		      \]
+		      Now, we use the fact that \(\rank (P) = \rank (A A^{\top} )=n\). From the previous argument, we know that \(\rank (A) = \rank (A^{\top} ) =n\), and hence
+		      \[
+			      A(A^{\top} A - I_n)A^{\top} = 0
+			      \implies A(A^{\top} A - I_n) = 0
+		      \]
+		      as \(A^{\top} \) spans all \(\mathbb{R} ^n\). Taking the transpose, we again have
+		      \[
+			      (A^{\top} A - I_n)^{\top} A^{\top} = 0
+			      \implies (A^{\top} A - I_n)^{\top} = 0
+		      \]
+		      since again, \(A^{\top} \) spans all \(\mathbb{R} ^n\). We hence have \(A^{\top} A = I_n\) as desired.
+	\end{itemize}
+\end{answer}
+
+\begin{problem*}[Exercise 4.1.6]\label{ex4.1.6}
+	Prove the following converse to Lemma 4.1.5: if (4.7) holds, then
+	\[
+		\lVert A ^{\top} A - I_n \rVert
+		\leq 3 \max (\delta , \delta ^2).
+	\]
+\end{problem*}
+\begin{answer}
+	Firstly, by the quadratic maximizing characterization, we have
+	\[
+		\begin{split}
+			\lVert A^{\top} A - I_n \rVert
+			 & = \max _{x \in S^{n-1} , y \in S^{n-1}} \langle (A^{\top} A - I_n) x, y \rangle \\
+			 & \leq \max _{x \in S^{n-1}} \lvert x^{\top} (A^{\top} A - I_n) x \rvert
+			= \max _{x \in S^{n-1}} \lvert \lVert Ax \rVert _2^2 - 1 \rvert .
+		\end{split}
+	\]
+	Since we assume that \(\lVert Ax \rVert _2 \in [1 - \delta , 1 + \delta ]\) (with \(x \in S^{n-1}\) now),
+	\[
+		\lVert A^{\top} A - I_n \rVert
+		\leq \max \lvert (1 \pm \delta )^2 - 1 \rvert
+		= \max \lvert \delta ^2 \pm 2\delta  \rvert
+		\leq 3 \max (\delta , \delta ^2).
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 4.1.8]\label{ex4.1.8}
+	Canonical examples of isometries and projections can be constructed from a fixed unitary matrix \(U\). Check that any sub-matrix of \(U\) obtained by selecting a subset of columns is an isometry, and any sub-matrix obtained by selecting a subset of rows is a projection.
+\end{problem*}
+\begin{answer}
+	Consider a tall sub-matrix \(A_{n\times k}\) of \(U_{n \times n}\) for some \(k < n\). We know that \(A\) is an isometry if and only if \(A^{\top} \) is a projection. From Remark 4.1.7, it suffices to check \(A^{\top} A = I_k\). But this is trivial since \(U\) is unitary, and we're basically computing pair-wise inner products between some columns (selected in \(A\)) of \(U\).
+
+	On the other hand, consider a fat sub-matrix \(B_{k \times n}\) of \(U_{n \times n}\) for some \(k < n\). We want to show that \(B ^{\top} B\) is an orthogonal projection (of dimension \(k\)). From \hyperref[ex4.1.4]{Exercise 4.1.4}, it's equivalent to showing \(B^{\top} \) is an isometry, and from the above, it reduces to show that \(U^{\top} \) is also unitary since \(B^{\top} \) can be viewed as a tall sub-matrix of \(U^{\top} \). But this is true by definition.
+\end{answer}

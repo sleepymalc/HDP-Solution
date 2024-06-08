@@ -1,0 +1,127 @@
+\chapter*{Appetizer: using probability to cover a geometric set}
+\addcontentsline{toc}{chapter}{Appetizer: using probability to cover a geometric set}
+\week{1}{19 Jan.\ 2024}{Appetizer and Basic Inequalities}
+
+\begin{problem*}[Exercise 0.0.3]\label{ex0.0.3}
+	Check the following variance identities that we used in the proof of Theorem 0.0.2.
+	\begin{enumerate}[(a)]
+		\item\label{ex0.0.3:a} Let \(Z_1, \dots , Z_k\) be independent mean zero random vectors in \(\mathbb{R} ^n\). Show that
+		      \[
+			      \mathbb{E}_{}\left[\left\lVert \sum_{j=1}^{k} Z_j \right\rVert _2^2\right]
+			      = \sum_{j=1}^{k} \mathbb{E}_{}[\lVert Z_j \rVert _2^2] .
+		      \]
+		\item\label{ex0.0.3:b} Let \(Z\) be a random vector in \(\mathbb{R} ^n\). Show that
+		      \[
+			      \mathbb{E}_{}[\lVert Z - \mathbb{E}_{}[Z] \rVert _2^2]
+			      = \mathbb{E}_{}[\lVert Z \rVert _2^2] - \lVert \mathbb{E}_{}[Z] \rVert _2^2.
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item If \(Z_1, \dots , Z_k\) are independent mean zero random vectors in \(\mathbb{R} ^n\), then
+		      \[
+			      \mathbb{E}_{}\left[\left\lVert \sum_{j=1}^{k} Z_j \right\rVert _2^2 \right]
+			      = \mathbb{E}_{}\left[ \sum_{i=1}^{n} \left( \sum_{j=1}^{k} (Z_j)_i \right) ^2 \right]
+			      = \sum_{i=1}^{n} \mathbb{E}_{}\left[ \left( \sum_{j=1}^{k} (Z_j)_i \right) ^2 \right].
+		      \]
+		      From the assumption, \(\mathbb{E}_{}\left[(Z_j)_i (Z_{j^{\prime} })_i \right] = \mathbb{E}_{}\left[(Z_j)_i \right] \mathbb{E}_{}\left[(Z_{j^{\prime} })_i \right] = 0\), hence
+		      \[
+			      \sum_{i=1}^{n} \mathbb{E}_{}\left[ \left( \sum_{j=1}^{k} (Z_j)_i \right) ^2 \right]
+			      = \sum_{i=1}^{n} \mathbb{E}_{}\left[ \sum_{j=1}^{k} (Z_j)_i^2 \right]
+			      = \sum_{j=1}^{k} \mathbb{E}_{}\left[ \sum_{i=1}^{n} (Z_j)_i^2 \right]
+			      = \sum_{j=1}^{k} \mathbb{E}_{}\left[ \lVert Z_j \rVert _2^2 \right],
+		      \]
+		      proving the result.
+		\item If \(Z\) is a random vector in \(\mathbb{R} ^n\), then
+		      \[
+			      \begin{split}
+				      \mathbb{E}_{}\left[\lVert Z - \mathbb{E}_{}\left[Z \right] \rVert _2^2 \right]
+				       & = \mathbb{E}_{}\left[ \sum_{i=1}^{n} \left( Z_i - \mathbb{E}_{}\left[Z_i \right] \right) ^2 \right]                                                                                     \\
+				       & = \sum_{i=1}^{n} \mathbb{E}_{}\left[ Z_i^2 - 2 Z_i \mathbb{E}_{}\left[Z_i \right] + (\mathbb{E}_{}\left[Z_i \right] )^2 \right]                                                         \\
+				       & = \sum_{i=1}^{n} \mathbb{E}_{}\left[ Z_i^2 \right] - 2 \sum_{i=1}^{n} \mathbb{E}_{}\left[ Z_i \right] \mathbb{E}_{}\left[Z_i \right] + \sum_{i=1}^{n} \mathbb{E}_{}\left[Z_i \right] ^2 \\
+				       & = \mathbb{E}_{}\left[\lVert Z \rVert _2^2 \right] - \lVert \mathbb{E}_{}\left[Z \right] \rVert _2^2.
+			      \end{split}
+		      \]
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 0.0.5]\label{ex0.0.5}
+	Prove the inequalities
+	\[
+		\left( \frac{n}{m} \right) ^m
+		\leq \binom{n}{m}
+		\leq \sum_{k=0}^{m} \binom{n}{k}
+		\leq \left( \frac{en}{m} \right) ^m
+	\]
+	for all integers \(m \in [1, n]\).
+\end{problem*}
+\begin{answer}
+	Fix some \(m\in [1, n]\). We first show \((n / m)^m \leq \binom{n}{m}\). This is because
+	\[
+		\frac{(n / m)^m}{\binom{n}{m}}
+		= \prod_{j=0}^{m-1} \left( \frac{n}{m} \frac{m-j}{n-j} \right)
+		\leq 1
+	\]
+	as \(\frac{n-j}{m-j} \geq \frac{n}{m}\) for all \(j\). The second inequality \(\binom{n}{m} \leq \sum_{k=0}^{m} \binom{n}{k}\) is trivial since \(\binom{n}{k} \geq 1\) for all \(k\). The last inequality is due to
+	\[
+		\frac{\sum_{k=0}^{m} \binom{n}{k}}{\left( \frac{n}{m} \right) ^m}
+		\leq \sum_{k=0}^{n} \binom{n}{k} \left( \frac{m}{n} \right) ^k
+		= \left( 1 + \frac{m}{n} \right) ^n
+		\leq e^m.
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 0.0.6]\label{ex0.0.6}
+	Check that in Corollary 0.0.4,
+	\[
+		(C + C \epsilon ^2 N)^{\lceil 1 / \epsilon ^2 \rceil }
+	\]
+	suffice. Here \(C\) is a suitable absolute constant.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\chapter{Preliminaries on random variables}
+\section{Basic quantities associated with random variables}
+No Exercise!
+
+\section{Some classical inequalities}
+\begin{problem*}[Exercise 1.2.2]\label{ex1.2.2}
+	Prove the following extension of Lemma 1.2.1, which is valid for any random variable \(X\) (not necessarily non-negative):
+	\[
+		\mathbb{E}_{}[X]
+		= \int_{0}^{\infty} \mathbb{P} (X > t) \,\mathrm{d}t - \int_{-\infty}^{0} \mathbb{P} (X < t) \,\mathrm{d}t.
+	\]
+\end{problem*}
+\begin{answer}
+	Separating \(X\) into the plus and minus parts would do the job. Specifically, let \(X = X_+ - X_-\) where \(X_+ = \max (X, 0)\) and \(X_- = \max (-X, 0)\), both are non-negative. Then, we see that by applying Lemma 1.2.1,
+	\[
+		\begin{split}
+			\mathbb{E}_{}\left[X \right]
+			 & = \mathbb{E}_{}\left[X_+ \right] - \mathbb{E}_{}\left[X_- \right]                                    \\
+			 & = \int_{0}^{\infty} \Pr_{}(t < X_+)  \,\mathrm{d}t - \int_{0}^{\infty} \Pr_{}(t < X_-) \,\mathrm{d}t \\
+			 & = \int_{0}^{\infty} \Pr_{}(X > t) \,\mathrm{d}t - \int_{0}^{\infty} \Pr_{}(X < -t) \,\mathrm{d}t     \\
+			 & = \int_{0}^{\infty} \Pr_{}(X > t) \,\mathrm{d}t - \int_{-\infty}^{0} \Pr_{}(X < t) \,\mathrm{d}t.
+		\end{split}
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 1.2.3]\label{ex1.2.3}
+	Let \(X\) be a random variable and \(p \in (0, \infty )\). Show that
+	\[
+		\mathbb{E}_{}[\lvert X \rvert ^p]
+		= \int_{0}^{\infty} p t^{p-1} \mathbb{P} (\lvert X \rvert > t) \,\mathrm{d}t
+	\]
+	whenever the right-hand side is finite.
+\end{problem*}
+\begin{answer}
+	Since \(\vert X \vert \) is non-negative, from Lemma 1.2.1, we have
+	\[
+		\mathbb{E}_{}\left[\vert X \vert ^p \right]
+		= \int_{0}^{\infty} \Pr_{}(t < \vert X \vert ^p) \,\mathrm{d}t
+		= \int_{0}^{\infty} p t^{p-1} \Pr_{}(\vert X \vert > t) \,\mathrm{d}t
+	\]
+	where we let \(t \gets t^p\), hence \(\mathrm{d} t \gets p t^{p-1} \mathrm{d} t\).
+\end{answer}

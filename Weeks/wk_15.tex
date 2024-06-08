@@ -1,0 +1,137 @@
+\week{15}{8 Jun.\ 2024}{Stochastic Block Model and Community Detection}
+\section{Application: community detection in networks}
+\begin{problem*}[Exercise 4.5.2]\label{ex4.5.2}
+	Check that the matrix \(D\) has rank \(2\), and the non-zero eigenvalues \(\lambda _i\) and the corresponding eigenvectors \(u_i\) are
+	\[
+		\lambda _1 = \left( \frac{p+q}{2} \right) n, \quad
+		u_1 = \begin{bmatrix}
+			\mathbbm{1}_{n / 2 \times 1} \\
+			\mathbbm{1}_{n / 2 \times 1} \\
+		\end{bmatrix} ,\quad
+		\lambda _2 = \left( \frac{p-q}{2} \right) n,\quad
+		u_2 = \begin{bmatrix}
+			\mathbbm{1}_{n / 2 \times 1}   \\
+			- \mathbbm{1}_{n / 2 \times 1} \\
+		\end{bmatrix}.
+	\]
+\end{problem*}
+\begin{answer}
+	Let \(n\) be an even number. Firstly, for any \(D \in \mathbb{R} ^{n \times n}\), columns \(1\) to \(n / 2\) are identical, same for columns \(n / 2 + 1\) to \(n\). Furthermore, since \(p > q\), column \(1\) and \(n / 2 + 1\) are linear independent, so \(\rank (D) = 2\).
+
+	Instead of solving the characteristic equation and find the eigenvalues, and find the corresponding eigenvectors later, since we know that \(\rank (D) = 2\), it's immediate that there are only \(2\) non-zero eigenvalues. Hence, we directly verify that
+	\[
+		\lambda _1 = \left( \frac{p + q}{2} \right) n, \quad
+		u_1 = \mathbbm{1}_{n \times 1}, \quad
+		\lambda _2 = \left( \frac{p-q}{2} \right) n, \quad
+		u_2 = \begin{pmatrix}
+			\mathbbm{1}_{1 \times n / 2}   \\
+			- \mathbbm{1}_{1 \times n / 2} \\
+		\end{pmatrix}^{\top}.
+	\]
+	For \(\lambda _1\), indeed, since
+	\[
+		D u_1
+		= \lambda _1 u_1
+		\implies \begin{pmatrix}
+			\frac{p+q}{2}n \\
+			\frac{p+q}{2}n \\
+			\vdots         \\
+			\frac{q+p}{2}n \\
+			\frac{q+p}{2}n \\
+		\end{pmatrix}
+		= \left( \frac{p+q}{2} \right) n \cdot \begin{pmatrix}
+			1      \\
+			1      \\
+			\vdots \\
+			1      \\
+			1      \\
+		\end{pmatrix}.
+	\]
+	On the other hand, for \(\lambda _2\), we have
+	\[
+		D u_2
+		= \lambda _2 u_2
+		\implies \begin{pmatrix}
+			\frac{p-q}{2}n \\
+			\frac{p-q}{2}n \\
+			\vdots         \\
+			\frac{q-p}{2}n \\
+			\frac{q-p}{2}n \\
+		\end{pmatrix}
+		= \left( \frac{p-q}{2} \right) n \cdot \begin{pmatrix}
+			1      \\
+			1      \\
+			\vdots \\
+			-1     \\
+			-1     \\
+		\end{pmatrix},
+	\]
+	which again holds.
+\end{answer}
+
+\begin{problem*}[Exercise 4.5.4]\label{ex4.5.4}
+	Deduce Weyl's inequality from the Courant-Fisher's min-max characterization of eigenvalues.
+\end{problem*}
+\begin{answer}
+	We have that from the Courant-Fisher's min-max characterization,
+	\[
+		\lambda _i (A)
+		= \max _{\dim E = i} \min _{x \in S(E)} \langle Ax, x \rangle .
+	\]
+	Now, as \(\lambda _i (A) = - \lambda _{n-i+1} (-A)\), we see that
+	\[
+		\lambda _i(A)
+		= - \lambda _{n-i+1}(-A)
+		= - \max _{\dim E = n-i+1} \min _{x \in S(E)} \langle -Ax, x \rangle
+		= \min _{\dim E = n-i+1} \max _{x \in S(E)} \langle Ax, x \rangle.
+	\]
+	We now show the \hyperref[thm:Weyl-inequality]{Weyl's inequality}.
+
+	\begin{theorem}[Weyl's inequality]\label{thm:Weyl-inequality}
+		\(\lambda _{i+j-1}(A+B) \leq \lambda _i(A) + \lambda _j(B) \leq \lambda _{i+j-n}(A+B)\).
+	\end{theorem}
+	\begin{proof}
+		We first show the lower-bound. From the Courant-Fisher's min-max characterization, it suffices to show that for any \(E\) with \(\dim E = i+j-1\), there exists some \(x \in S(E)\) such that \(\langle (A+B)x, x \rangle \leq \lambda _i(A) + \lambda _j(B)\).
+
+		We first analyze \(\lambda _i(A)\). We know that from the max-min characterization,
+		\[
+			\lambda _i(A)
+			= \min _{\dim E = n-i+1} \max _{x \in S(E)} \langle Ax, x \rangle ,
+		\]
+		i.e., there exists some \(E_A\) with \(\dim E_A = n-i+1\) such that \(\lambda _i(A) = \max _{x \in S(E_A)} \langle Ax, x \rangle \). Similarly, there exists some \(E_B\) with \(\dim E_B = n-j+1\) satisfying the same property. Hence, it suffices to find some unit vector \(x\) in \(E_A \cap E_B \cap E\). We see that
+		\[
+			\dim (E_A \cap E_B)
+			\geq \dim E_A + \dim E_B - n
+			= n-i-j+2,
+		\]
+		which implies that \(E_A \cap E_B\) will have a non-trivial intersection with \(E\) since \(\dim E = i+j-1\), hence we're done. For the upper-bound, taking the negative gives the result.
+	\end{proof}
+
+	To obtain the spectral stability, we see that from \hyperref[thm:Weyl-inequality]{Weyl's inequality}, we have
+	\[
+		\begin{dcases}
+			\lambda _i(A+B) \leq \lambda _i(A) + \lambda _1(B) ; \\
+			\lambda _i(A+B) \geq \lambda _i(A) + \lambda _n(B) ;
+		\end{dcases}
+		\implies \lambda _n(B) \leq \lambda _i(A+B) - \lambda _i(A) \leq \lambda _1(B).
+	\]
+	Given any symmetric \(S, T\), by setting \(A \coloneqq T\) and \(B \coloneqq S - T\), the upper-bound yields
+	\[
+		\lambda _i(S) - \lambda _i(T)
+		\leq \lambda _1(S - T)
+		= \lVert S - T \rVert.
+	\]
+	On the other hand, by setting \(A \coloneqq S\) and \(B\coloneqq T - S\), the upper-bound again yields
+	\[
+		\lambda _i(T) - \lambda _i(S)
+		\leq \lambda _1(T - S)
+		= \lVert T - S \rVert
+		= \lVert S - T \rVert.
+	\]
+	As this holds for every \(i\), we have
+	\[
+		\max _i \lvert \lambda _i(S) - \lambda _i(T) \rvert
+		\leq \lVert S - T \rVert
+	\]
+	as we desired.
+\end{answer}

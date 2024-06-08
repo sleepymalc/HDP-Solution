@@ -1,0 +1,252 @@
+\week{5}{16 Feb.\ 2024}{Sub-Gaussian Random Variables}
+\section{Sub-gaussian distributions}
+\begin{problem*}[Exercise 2.5.1]\label{ex2.5.1}
+	Show that for each \(p \geq 1\), the random variable \(X \sim \mathcal{N} (0, 1)\) satisfies
+	\[
+		\lVert X \rVert _{L^p}
+		= (\mathbb{E}_{}[\lvert X \rvert ^p] )^{1 / p}
+		= \sqrt{2} \left( \frac{\Gamma ((1 + p) / 2)}{\Gamma (1 / 2)} \right) ^{1 / p}.
+	\]
+	Deduce that
+	\[
+		\lVert X \rVert _{L^p}
+		= O(\sqrt{p} )
+		\text{ as } p \to \infty .
+	\]
+\end{problem*}
+\begin{answer}
+	We see that for \(p \geq 1\), we have
+	\begin{align*}
+		(\mathbb{E}[\vert X \vert ^p] )^{1 / p}
+		 & = \left( \int_{-\infty}^{\infty} \vert x \vert ^p \cdot \frac{1}{\sqrt{2\pi } } e^{-x^2 / 2} \,\mathrm{d}x \right) ^{1 / p}
+		= \left( 2 \int_{0}^{\infty} \vert x \vert ^p \cdot \frac{1}{\sqrt{2\pi } } e^{-x^2 / 2} \,\mathrm{d}x \right) ^{1 / p}              \\
+		\shortintertext{from the symmetry around \(0\). Next, consider a change of variable \(x^2 \eqqcolon u\), we have}
+		 & = \left( 2 \frac{1}{\sqrt{2\pi } } \int_{0}^{\infty} u^{p / 2} e^{-u / 2} \frac{1}{2 \sqrt{u} }\,\mathrm{d}u \right) ^{1 / p}
+		= \left( \frac{1}{\sqrt{2\pi } } \int_{0}^{\infty} u^{(p-1) / 2} e^{-u / 2} \,\mathrm{d}u \right) ^{1 / p}
+		\shortintertext{with another change of variable \(u / 2 \eqqcolon t\),}
+		 & = \left( \frac{1}{\sqrt{2\pi } } \int_{0}^{\infty} (2t)^{(p-1) / 2} e^{-t} 2\,\mathrm{d}t \right) ^{1 / p}
+		= \left( \frac{1}{\sqrt{2\pi } } \cdot 2^{(p - 1) / 2} \cdot 2 \int_{0}^{\infty} t^{(p-1) / 2} e^{-t} \,\mathrm{d}t \right) ^{1 / p} \\
+		 & = \left( \frac{1}{\sqrt{2\pi } } 2^{(p + 1) / 2} \Gamma \left( \frac{p+1}{2} \right)  \right) ^{1 / p}
+		= \left( \frac{1}{\sqrt{2} } \sqrt{2} ^{p + 1} \frac{\Gamma((p + 1) / 2)}{\Gamma (1 / 2)}  \right) ^{1 / p}  \shortintertext{as \(\Gamma(1 / 2) = \sqrt{\pi } \), we finally have}
+		 & = \sqrt{2} \left( \frac{\Gamma((p + 1) / 2)}{\Gamma (1 / 2)}  \right) ^{1 / p} ,
+	\end{align*}
+	where we recall that
+	\[
+		\Gamma (z) = \int_{0}^{\infty} t^{z - 1} e^{-t} \,\mathrm{d}t.
+	\]
+
+	To show that \(\lVert X \rVert _{L^p} = O(\sqrt{p} )\) as \(p \to \infty \), we first note the following.
+
+	\begin{lemma}
+		We have that for \(p \geq 1\),
+		\[
+			\Gamma \left( \frac{1+p}{2} \right) = \begin{dcases}
+				2^{-p / 2}\sqrt{\pi } (p-1)!!, & \text{ if \(p\) is even}  ; \\
+				2^{-(p-1) / 2} (p-1)!!,        & \text{ if \(p\) is odd} .
+			\end{dcases}
+		\]
+	\end{lemma}
+	\begin{proof}
+		Consider the Legendre duplication formula, i.e.,
+		\[
+			\Gamma (z) \Gamma (z + 1 / 2) = 2^{1 - 2z} \sqrt{\pi } \Gamma (2z).
+		\]
+		We see that for \(p\) being even, \((1 + p) / 2 = p / 2 + 1 / 2\), by letting \(z \coloneqq p / 2 \in \mathbb{N} \),
+		\[
+			\begin{split}
+				\Gamma ((1 + p) / 2)
+				= \frac{2^{1 - p} \sqrt{\pi } \Gamma (p)}{\Gamma (p / 2)}
+				 & = 2^{1 - p} \sqrt{\pi } \frac{(p-1)!}{(p / 2 - 1)!}                  \\
+				 & = 2^{1 - p} \sqrt{\pi } \frac{(p-1)!}{(1 / 2)^{p / 2 - 1} (p - 2)!!}
+				=2^{-p / 2} \sqrt{\pi } (p-1)!!.
+			\end{split}
+		\]
+		For odd \(p\), recall the identity \(\Gamma (z + 1) = z \Gamma (z)\). We then have
+		\begin{align*}
+			\Gamma ((1 + p) / 2)
+			= & \frac{p-1}{2} \cdot \Gamma ((p - 1) / 2)                                                           \\
+			= & \frac{(p-1) (p-3)}{2^2} \cdot \Gamma ((p - 3) / 2)                                                 \\
+			  & \vdots                                                                                             \\
+			= & \frac{(p-1)(p-3) \dots (p - (p - 2))}{2^{(p-1) / 2}} \cdot \Gamma (1) \tag*{\(2 = (p - (p - 2))\)} \\
+			= & 2^{-(p-1) / 2} (p-1)(p-3) \dots (2)                                                                \\
+			= & 2^{-(p-1) / 2} (p-1)!!.
+		\end{align*}
+	\end{proof}
+
+	We then see that as \(p \to \infty \),
+	\[
+		\lVert X \rVert _{L^p}
+		= \sqrt{2} \left( \frac{\Gamma ((1 + p) / 2)}{\Gamma (1 / 2)} \right) ^{1 / p}
+		\lesssim \left( (p-1)!! \right) ^{1 / p}
+		= O(\sqrt{p!}^{1 / p} )
+		= O(\sqrt{p} ).
+	\]
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.4]\label{ex2.5.4}
+	Show that the condition \(\mathbb{E}_{}[X] = 0\) is necessary for property v to hold.
+\end{problem*}
+\begin{answer}
+	Since if \(\mathbb{E}[\exp (\lambda X)] \leq \exp (K_5^2 \lambda ^2)\) for all \(\lambda \in \mathbb{R} \), we see that from Jensen's inequality,
+	\[
+		\exp (\mathbb{E}[\lambda X] )
+		\leq \mathbb{E}[\exp (\lambda X)]
+		\leq \exp (K_5^2 \lambda ^2),
+	\]
+	i.e.,
+	\[
+		\lambda \mathbb{E}[X] \leq K_5^2 \lambda ^2.
+	\]
+	Since this holds for every \(\lambda \in \mathbb{R} \), if \(\lambda > 0\), \(\mathbb{E}[X] \leq K_5^2 \lambda  \); on the other hand, if \(\lambda < 0\), \(\mathbb{E}[X] \geq K_5^2 \lambda \). In either case, as \(\lambda \to 0\) (from both sides, respectively), \(0 \leq \mathbb{E}[X] \leq 0\), hence \(\mathbb{E}[X] = 0\).
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.5]\label{ex2.5.5}
+	\begin{enumerate}[(a)]
+		\item\label{ex2.5.5:a} Show that if \(X \sim \mathcal{N} (0, 1)\), the function \(\lambda \mapsto \mathbb{E}_{}[\exp (\lambda ^2 X^2)] \) is only finite in some bounded neighborhood of zero.
+		\item\label{ex2.5.5:b} Suppose that some random variable \(X\) satisfies \(\mathbb{E}_{}[\exp (\lambda ^2 X^2)] \leq \exp (K \lambda ^2)\) for all \(\lambda \in \mathbb{R} \) and some constant \(K\). Show that \(X\) is a bounded random variable, i.e., \(\lVert X \rVert _\infty < \infty \).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item If \(X \sim \mathcal{N} (0, 1)\), we see that
+		      \[
+			      \mathbb{E}[\exp (\lambda ^2 X^2)]
+			      = \int_{-\infty}^{\infty} \exp (\lambda ^2 x^2) \frac{1}{\sqrt{2\pi } }e^{-x^2 / 2} \,\mathrm{d}x
+			      = \frac{1}{\sqrt{2\pi } } \int_{-\infty}^{\infty} \exp ((\lambda ^2 - 1 / 2) x^2) \,\mathrm{d}x .
+		      \]
+		      It's obvious that if \(\lambda ^2 - 1 / 2 \geq 0\), the above integral doesn't converge simply because \(e^{\epsilon x^2}\) for any \(\epsilon \geq 0\) is unbounded. On the other hand, if \(\lambda ^2 - 1 / 2 < 0\), then this is just a (scaled) Gaussian integral, which converges. Hence, this function is only finite in \(\lambda \in (-1 / \sqrt{2} , 1 / \sqrt{2} )\).
+		\item Simply because that for any \(t\), we have that for any \(\lambda \),
+		      \[
+			      \mathbb{P} (\vert X \vert > t)
+			      \leq \frac{\mathbb{E}[\exp (\lambda ^2 X^2)] }{\exp (\lambda ^2 t^2) }
+			      \leq \frac{\exp (K \lambda ^2)}{\exp (\lambda ^2 t^2)}
+			      = \exp (\lambda ^2 (K - t^2)).
+		      \]
+		      Now, let's pick \(t > \sqrt{K}\) (as \(K\) being a constant, \(t\) can be any constant greater than \(t > \sqrt{K} \)), so \(\lambda ^2 (K - t^2) < 0\). By letting \(\lambda \to \infty \), we see that \(\mathbb{P} (\vert X \vert > t) = 0\), i.e., \(\mathbb{P} (\vert X \vert \leq t) = 1\). Since we're in one-dimensional, \(\vert X \vert = \lVert X \rVert _\infty \), hence we're done.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.7]\label{ex2.5.7}
+	Check that \(\lVert \cdot \rVert _{\psi _2}\) is indeed a norm on the space of sub-gaussian random variables.
+\end{problem*}
+\begin{answer}
+	It's clear that \(\lVert X \rVert _{\psi _2} = 0 \) if and only if \(X = 0\). Also, for any \(\lambda > 0\), \(\lVert \lambda X \rVert _{\psi _2} = \lambda \lVert X \rVert _{\psi _2}\) is obvious. Hence, we only need to verify triangle inequality, i.e., for any sub-gaussian random variables \(X\) and \(Y\),
+	\[
+		\lVert X + Y \rVert _{\psi _2}
+		\leq \lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}.
+	\]
+	Firstly, we observe that since \(\exp (x)\) and \(x^2\) are both convex (hence their composition),
+	\[
+		\begin{split}
+			\exp (\left( \frac{X + Y}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}} \right)^2 )
+			\leq & \frac{\lVert X \rVert _{\psi _2}}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}} \exp ((X / \lVert X \rVert _{\psi _2})^2)    \\
+			     & + \frac{\lVert Y \rVert _{\psi _2}}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}} \exp ((Y / \lVert Y \rVert _{\psi _2})^2).
+		\end{split}
+	\]
+	Then, by taking expectation on both sides,
+	\[
+		\mathbb{E}\left[\exp (\left( \frac{X + Y}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}} \right)^2 )\right]
+		\leq 2 \frac{\lVert X \rVert _{\psi _2}}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}} + 2 \frac{\lVert Y \rVert _{\psi _2}}{\lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}}
+		= 2.
+	\]
+	Now, we see that from the definition of \(\lVert X + Y \rVert _{\psi _2}\) and \(t \coloneqq \lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2}\), the above implies
+	\[
+		\lVert X + Y \rVert _{\psi _2} \leq \lVert X \rVert _{\psi _2} + \lVert Y \rVert _{\psi _2},
+	\]
+	hence the triangle inequality is verified.
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.9]\label{ex2.5.9}
+	Check that Poisson, exponential, Pareto and Cauchy distributions are not sub-gaussian.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.10]\label{ex2.5.10}
+	Let \(X_1, X_2, \dots \), be a sequence of sub-gaussian random variables, which are not necessarily independent. Show that
+	\[
+		\mathbb{E}_{}\left[\max _i \frac{\lvert X_i \rvert }{\sqrt{1 + \log i} } \right]
+		\leq C K,
+	\]
+	where \(K = \max _i \lVert X_i \rVert _{\psi _2}\). Deduce that for every \(N \geq 2\) we have
+	\[
+		\mathbb{E}_{}\left[\max _{i \leq N} \lvert X_i \rvert \right]
+		\leq CK \sqrt{\log N} .
+	\]
+\end{problem*}
+\begin{answer}
+	Let \(Y_i \coloneqq \vert X_i \vert / K \sqrt{1 + \log i} \) (which is always positive) for all \(i \geq 1\). Then for all \(t \geq 0\),
+	\[
+		\begin{split}
+			\mathbb{P} (Y_i \geq t)
+			 & = \mathbb{P} \left( \frac{\vert X_i \vert}{K \sqrt{1 + \log i}} \geq t \right) \\
+			 & = \mathbb{P} \left( \vert X_i \vert \geq t K \sqrt{1 + \log i}  \right)        \\
+			 & \leq 2 \exp (- \frac{c t^2 K^2 (1 + \log i)}{\lVert X_i \rVert _{\psi _2}^2})
+			\leq 2 \exp (- c t^2 (1 + \log i))
+			= 2 (ei)^{-ct^2}
+		\end{split}
+	\]
+	as \(K \coloneqq \max _i \lVert X_i \rVert _{\psi _2}^2\). Then, our goal now is to show that \(\mathbb{E}[\max _i Y_i] \leq C \) for some absolute constant \(C\). Consider \(t_0 \coloneqq \sqrt{1 / c} \), then we have
+	\begin{align*}
+		\mathbb{E}\left[ \max _i Y_i \right]
+		 & = \int_{0}^{\infty} \mathbb{P} \left( \max _i Y_i \geq t \right) \,\mathrm{d}t                                                                                                     \\
+		 & \leq \int_{0}^{t_0} \mathbb{P} \left( \max _i Y_i \geq t \right)  \,\mathrm{d}t + \int_{t_0}^{\infty} \sum_{i=1}^{\infty} \mathbb{P} (Y_i \geq t) \,\mathrm{d}t \tag*{union bound} \\
+		 & \leq t_0 + \int_{t_0}^{\infty} \sum_{i=1}^{\infty} 2 (ei)^{-ct^2} \,\mathrm{d}t                                                                                                    \\
+		 & \leq \sqrt{1 / c}  + 2\int_{t_0}^{\infty} e^{-ct^2} \sum_{i=1}^{\infty} i^{-2} \,\mathrm{d}t                                                                                       \\
+		 & \leq \sqrt{1 / c} + 2 \cdot \frac{\pi ^2}{6} \int_{0}^{\infty} e^{-ct^2} \,\mathrm{d}t
+		= \sqrt{1 / c} + \frac{\pi ^2}{3} \cdot \frac{\sqrt{\pi } }{2 \sqrt{c} }
+		= \frac{1 + \frac{\pi^{5 / 2}}{6}}{\sqrt{c}}
+		\eqqcolon C.
+	\end{align*}
+	Finally, for every \(N \geq 2\),
+	\[
+		\mathbb{E}\left[\max _{i \leq N} \frac{\vert X_i \vert }{\sqrt{1 + \log N} }\right]
+		\leq \mathbb{E}\left[\max _{i \leq N} \frac{\vert X_i \vert }{\sqrt{1 + \log i} }\right]
+		\leq \mathbb{E}\left[\max _i \frac{\vert X_i \vert }{\sqrt{1 + \log i} }\right]
+		\leq CK,
+	\]
+	i.e., \(\mathbb{E}[\max _{i \leq N} \vert X_i \vert ] \leq CK \sqrt{1 + \log N} \leq CK \sqrt{2 \log N}  \) for all \(N \geq 2\). By letting \(C^{\prime} \coloneqq \sqrt{2} C\),
+	\[
+		\mathbb{E}\left[\max _{i \leq N} \vert X_i \vert \right]
+		\leq C^{\prime} K \sqrt{\log N} ,
+	\]
+	which is exactly what we want.
+\end{answer}
+
+\begin{problem*}[Exercise 2.5.11]\label{ex2.5.11}
+	Show that the bound in \hyperref[ex2.5.10]{Exercise 2.5.10} is sharp. Let \(X_1, X_2, \dots , X_N\) be independent \(\mathcal{N} (0, 1)\) random variables. Prove that
+	\[
+		\mathbb{E}_{}\left[\max _{i \leq N} X_i\right]
+		\geq c \sqrt{\log N} .
+	\]
+\end{problem*}
+\begin{answer}
+	Again, let's first write
+	\[
+		\mathbb{E}\left[\max _{i \leq N} X_i \right]
+		= \int_{0}^{\infty} \mathbb{P}\left( \max _{i \leq N} X_i \geq t \right) \,\mathrm{d}t,
+	\]
+	and observe that for any \(t \geq 0\),
+	\begin{align*}
+		\mathbb{P}(X_i \geq t)
+		 & = \int_{t}^{\infty} \frac{1}{\sqrt{2\pi } } \exp (-\frac{x^2}{2})\,\mathrm{d}x                                              \\
+		 & = \frac{1}{\sqrt{2\pi } }\int_{0}^{\infty} \exp \left( - \frac{(x + t)^2}{2} \right) \,\mathrm{d}x \tag*{\(x \gets x + t\)} \\
+		 & \geq \frac{1}{\sqrt{2\pi } }\int_{0}^{1} \exp \left( - \frac{(x + t)^2}{2} \right) \,\mathrm{d}x                            \\
+		 & \geq C e^{-t^2}
+	\end{align*}
+	for some constant \(C > 0\). Since \(X_i\)'s are i.i.d.,
+	\[
+		\mathbb{P}\left( \max _{i \leq N} X_i \geq t \right)
+		= 1 - \big(\mathbb{P}(X_1 < t) \big)^N
+		= 1 - \big(1 - \mathbb{P}(X_1 \geq t) \big)^N,
+	\]
+	so
+	\begin{align*}
+		\mathbb{E}\left[\max _{i \leq N} X_i \right]
+		 & = \int_{0}^{\infty} 1 - \big(1 - \mathbb{P}(X_1 \geq t) \big)^N \,\mathrm{d}t                                                        \\
+		 & \geq \int_{0}^{\infty} 1 - (1 - Ce^{-t^2})^N \,\mathrm{d}t                                                                           \\
+		 & = \sqrt{\log N} \int_{0}^{\infty} 1 - \left( 1 - \frac{C}{N^{u^2}} \right) ^N \,\mathrm{d}u \tag*{\(t \eqqcolon \sqrt{\log N} u \)}.
+	\end{align*}
+	Finally, as the final integral can be further bounded below by some absolute constant \(c\) depending only on \(C\), hence we obtain the desired result.
+\end{answer}

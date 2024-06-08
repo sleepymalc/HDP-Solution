@@ -1,0 +1,95 @@
+\week{8}{6 Mar.\ 2024}{Bernstein's Inequality}
+\begin{problem*}[Exercise 2.7.11]\label{ex2.7.11}
+	Show that \(\lVert X \rVert _{\psi }\) is indeed a norm on the space \(L_{\psi } \).
+\end{problem*}
+\begin{answer}
+	Clearly, \(\lVert X \rVert _{\psi } \geq 0\). To check \(\lVert X \rVert _{\psi } = 0\) if and only if \(X = 0\) a.s., we first see that \(\lVert 0 \rVert _{\psi } = 0\) as \(\psi (0) = 0\). On the other hand, if \(\lVert X \rVert _{\psi } = 0\), then by the monotone convergence theorem, we have
+	\[
+		\begin{split}
+			1
+			\geq \lim_{t \to 0} \mathbb{E}_{}[\psi (\vert X \vert / t)]
+			 & = \mathbb{E}_{}\left[ \lim_{t \to 0} \psi (\vert X \vert / t) \right]                                                                                        \\
+			 & = \int_{0}^{\infty} \mathbb{P} \left( \lim_{t \to 0} \psi (\vert X \vert / t) > u \right)  \,\mathrm{d}u                                                     \\
+			 & = \mathbb{P} (\vert X \vert > 0) \int_{0}^{\infty} \mathbb{P} \left( \lim_{t \to 0} \psi (\vert X \vert / t) > u \mid \vert X \vert > 0\right) \,\mathrm{d}u \\
+			 & = \mathbb{P} (\vert X \vert > 0) \int_{0}^{\infty} \,\mathrm{d}u                                                                                             \\
+			 & = \infty \cdot \mathbb{P} (\vert X \vert > 0),
+		\end{split}
+	\]
+	since if \(\vert X \vert = 0\), \(\psi (\vert X \vert / t) = \psi (0) = 0\) for all \(t > 0\), and
+	\[
+		\mathbb{P} \left( \lim_{t \to 0} \psi (\vert X \vert / t) > u \mid \vert X \vert > 0 \right)
+		= 1
+	\]
+	since \(\psi (x) \to \infty \) for \(x \to \infty \), and in this case, \(x = \vert X \vert / t\), which indeed goes to \(\infty \) as \(t \to 0\). Overall, this implies \(\mathbb{P} (\vert X \vert > 0) = 0\), i.e., \(X = 0\) almost surely, hence we conclude that \(\lVert X \rVert _{\psi } = 0 \) if and only if \(X = 0\) a.s. The other two properties follows the same proof of \hyperref[ex2.5.7]{Exercise 2.5.7}.
+\end{answer}
+
+\section{Bernstein's inequality}
+\begin{problem*}[Exercise 2.8.5]\label{ex2.8.5}
+	Let \(X\) be a mean-zero random variable such that \(\lvert X \rvert \leq K\). Prove the following bound on the MGF of \(X\):
+	\[
+		\mathbb{E}_{}[\exp (\lambda X)]
+		\leq \exp (g(\lambda ) \mathbb{E}_{}[X^2] )
+		\text{ where } g(\lambda ) = \frac{\lambda ^2 / 2}{1 - \lvert \lambda \rvert K / 3},
+	\]
+	provided that \(\lvert \lambda \rvert < 3 / K\).
+\end{problem*}
+\begin{answer}
+	From the hint, we first check the following.
+
+	\begin{claim}
+		For all \(\vert x \vert < 3\),
+		\[
+			e^x \leq 1 + x + \frac{x^2 / 2}{1 - \vert x \vert / 3}.
+		\]
+	\end{claim}
+	\begin{explanation}
+		From Taylor's expansion,
+		\[
+			e^x
+			= 1 + x + \frac{x^2}{2} \sum_{k=0}^{\infty} \frac{x^k}{(2 + k)! / 2}
+			\leq 1 + x + \frac{x^2}{2} \sum_{k=0}^{\infty} \frac{x^k}{3^k}
+			= 1 + x + \frac{x^2 / 2}{1 - \vert x \vert / 3}
+		\]
+		where the last equality follows for all \(\vert x \vert < 3\).
+	\end{explanation}
+
+	Now, for a random variable \(X\) such that \(\vert X \vert \leq K\) and \(\vert \lambda \vert < 3 / K\), we have
+	\[
+		\mathbb{E}_{}[\exp (\lambda X)]
+		\leq \mathbb{E}_{}\left[1 + \lambda X + \frac{\lambda ^2 X^2 / 2}{1 - \vert \lambda X \vert / 3}\right]
+		= 1 + \frac{\lambda ^2 \mathbb{E}_{}[X^2] / 2}{1 - \vert \lambda \vert K / 3}
+		\leq \exp (\frac{\lambda ^2 \mathbb{E}_{}[X^2] / 2}{1 - \vert \lambda \vert K / 3}),
+	\]
+	where we let \(x \coloneqq \lambda X\) and apply the claim. Finally, note that the right-hand side is exactly \(\exp (g(\lambda ) \mathbb{E}_{}[X^2] )\), we're done.
+\end{answer}
+
+\begin{problem*}[Exercise 2.8.6]\label{ex2.8.6}
+	Deduce Theorem 2.8.4 from the bound in \hyperref[ex2.8.5]{Exercise 2.8.5}.
+\end{problem*}
+\begin{answer}
+	From Markov's inequality, for every \(t \geq 0\),
+	\[
+		\begin{split}
+			\mathbb{P} \left( \sum_{i=1}^{N} X_i \geq t\right)
+			 & \leq \inf _{\lambda > 0} \frac{\mathbb{E}_{}\left[\exp (\lambda \sum_{i=1}^{N} X_i)\right] }{\exp (\lambda t)} \\
+			 & = \inf _{\lambda  > 0} e^{-\lambda t} \prod_{i=1}^{N} \mathbb{E}_{}[\exp (\lambda X_i)]
+			\leq \inf _{\lambda > 0} e^{-\lambda t} \exp (g(\lambda ) \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] )
+		\end{split}
+	\]
+	from \hyperref[ex2.8.5]{Exercise 2.8.5}, if \(\vert \lambda \vert < 3 / K\). Denote \(\sigma ^2 = \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] \), we further have
+	\[
+		\mathbb{P} \left( \sum_{i=1}^{N} X_i \geq t\right)
+		\leq \inf _{\lambda > 0} \exp (-\lambda t + g(\lambda ) \sigma ^2).
+	\]
+	Let \(0 \leq \lambda = \frac{t}{\sigma ^2 + t K / 3} < 3 / K\), we see that
+	\[
+		\mathbb{P} \left( \sum_{i=1}^{N} X_i \geq t \right)
+		\leq \exp (- \frac{t^2}{\sigma ^2 + t K / 3} + \frac{\sigma ^2 \lambda ^2 / 2}{1 - \vert \lambda \vert K / 3})
+		= \exp (- \frac{t^2 / 2}{\sigma ^2 + t K / 3}).
+	\]
+	Applying the same argument for \(-X_i\), we get
+	\[
+		\mathbb{P} \left( \left\vert \sum_{i=1}^{N} X_i \right\vert \geq t \right)
+		\leq 2 \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}).
+	\]
+\end{answer}
