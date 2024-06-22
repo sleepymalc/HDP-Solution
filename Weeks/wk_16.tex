@@ -19,17 +19,23 @@
 		\mathbb{E}_{}\left[\left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert \right]
 		\leq C K^2 \left( \sqrt{\frac{n}{m}} + \frac{n}{m} \right) .
 	\]
-	Let \(X \coloneqq \lVert \frac{1}{m}A^{\top} A - I_n \rVert / K^2\), from the integral identity, and note that \(\delta = 1\) as \(t = \sqrt{m} / C - \sqrt{n} \), we have
+	Firstly, we know that with \(u \coloneqq K^2 ((\frac{C}{\sqrt{m} } + \frac{2C^2 \sqrt{n} }{m})t + \frac{C^2}{m}t^2)\), we get exactly
 	\[
-		\begin{split}
-			 & \mathbb{E}_{}\left[\frac{1}{K^2} \left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert \right]                                                                                                                                                              \\
-			 & = \int_{0}^{1} \mathbb{P} (X \geq \delta ) \,\mathrm{d}\delta + \int_{1}^{\infty} \mathbb{P} (X \geq \delta ^2) 2 \delta \,\mathrm{d}\delta                                                                                                                \\
-			 & \leq \int_{-\sqrt{n} }^{\sqrt{m} / C - \sqrt{n} } 2 \exp (- t^2) \frac{C}{\sqrt{m} } \,\mathrm{d}t + \int_{\sqrt{m} / C - \sqrt{n} }^{\infty} 2 \exp (- t^2) 2 C \left( \sqrt{\frac{n}{m}} + \frac{t}{\sqrt{m} } \right) \frac{C}{\sqrt{m} } \,\mathrm{d}t \\
-			 & \leq \frac{2C}{\sqrt{m} } \int_{-\infty}^{\infty} e^{-t^2} \,\mathrm{d}t + \frac{4C^2}{m} \int_{-\infty}^{\infty} e^{-t^2} (\sqrt{n} + \lvert t \rvert ) \,\mathrm{d}t                                                                                     \\
-			 & = \frac{2C \sqrt{\pi } }{\sqrt{m} }+ \frac{4C^2}{m} \left( \sqrt{n} \sqrt{\pi } + 1 \right),
-		\end{split}
+		\mathbb{P} \left( \left\lVert \frac{1}{m} A^{\top} A - I_n \right\rVert > K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right) + u \right)
+		\leq 2 e^{-t^2}.
 	\]
-	which is slightly stronger than the desired result (by \(\sqrt{n} \)).
+	Then, from the integral identity with the substitution \(v \coloneqq u + K^2 ( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})\),
+	\begin{align*}
+		 & \mathbb{E}_{}\left[\left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert \right]                                                                                                                                                               \\
+		 & = \left( \int_{0}^{K^2 (C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})} + \int_{K^2 (C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})}^{\infty} \right) \mathbb{P} \left( \left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert > v \right)  \,\mathrm{d}v     \\
+		 & \leq \int_{0}^{K^2 (C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})} 1 \,\mathrm{d}v + \int_{K^2 (C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})}^{\infty} \mathbb{P} \left( \left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert > v \right)  \,\mathrm{d}v \\
+		 & = K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right) + \int_{0}^{\infty} \mathbb{P} \left( \left\lVert \frac{1}{m}A^{\top} A - I_n \right\rVert > K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right) + u \right)  \,\mathrm{d}u \\
+		\shortintertext{plugging back \(v = u + K^2 (C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m})\),}
+		 & \leq K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right) + \int_{0}^{\infty} 2 e^{-t^2} \,\mathrm{d}u                                                                                                                                   \\
+		 & = K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right)  + \int_{0}^{\infty} 2 e^{-t^2} K^2 \left( \frac{C}{\sqrt{m} } + \frac{2C^2 \sqrt{n} }{m} + \frac{2C^2}{m}t \right) \,\mathrm{d}t                                                 \\
+		 & = K^2 \left( C \sqrt{\frac{n}{m}} + C^2 \frac{n}{m} \right) + K^2 \left( \sqrt{\pi } \left( \frac{C}{\sqrt{m} } + \frac{2C^2 \sqrt{n} }{m} \right) + \frac{2C^2}{m} \right),
+	\end{align*}
+	which is asymptotically \(\asymp K^2 ( \sqrt{\frac{n}{m}} + \frac{n}{m} )\).
 \end{answer}
 
 \begin{problem*}[Exercise 4.6.3]\label{ex4.6.3}
@@ -76,7 +82,32 @@
 	Give a simpler proof of Theorem 4.6.1, using Theorem 3.1.1 to obtain a concentration bound for \(\lVert Ax \rVert _2\) and \hyperref[ex4.4.4]{Exercise 4.4.4} to reduce to a union bound over a net.
 \end{problem*}
 \begin{answer}
-	Omit.
+	From the proof of Theorem 4.6.1, we know that \(S^{n-1}\) admits a \(1 / 4\)-net \(\mathcal{N} \) such that \(\lvert \mathcal{N}  \rvert \leq 9^n\). Furthermore, for any \(x \in \mathcal{N} \), we have
+	\begin{itemize}
+		\item \(\mathbb{E}_{}[\langle A_i, x \rangle ] = \langle \mathbb{E}_{}[A_i] , x \rangle = \langle 0, x \rangle = 0\);
+		\item \(\mathbb{E}_{}[\langle A_i, x \rangle ^2] = x^{\top} \mathbb{E}_{}[A_i ^{\top} A_i] x = x^{\top} I_n x = 1\) (\(x \in S^{n-1}\) too);
+		\item \(\lVert \langle A_i, x \rangle  \rVert _{\psi _2} \leq \lVert A_i \rVert _{\psi _2} \leq K\) for all \(i\),
+	\end{itemize}
+	by Theorem 3.1.1, we have \(\left\lVert \lVert Ax \rVert _2 - \sqrt{m} \right\rVert _{\psi _2} \leq CK^2\). From Proposition 2.5.2 (i), for any \(t > 0\),
+	\[
+		\begin{split}
+			 & \mathbb{P} \left( \lvert \lVert Ax \rVert _2 - \sqrt{m} \rvert > CK (\sqrt{n \log 9} + t) \right) \\
+			 & \leq 2\exp (- (\sqrt{n \log 9} + t)^2)
+			\leq 2 \exp (- (n \log 9 + t^2))
+			= 2 \cdot 9^{-n} \cdot e^{-t^2}.
+		\end{split}
+	\]
+	Finally, from \hyperref[ex4.4.4]{Exercise 4.4.4}, with a union bound over \(\mathcal{N} \), we have
+	\begin{align*}
+		 & \mathbb{P} \left( \lnot \left\{ \sqrt{m} - 2CK^2 (\sqrt{n \log 9} + t) \leq s_n(A) \leq s_1(A) \leq \sqrt{m} + 2CK^2(\sqrt{n \log 9} + t )\right\}  \right) \\
+		\shortintertext{by the definition of \(s_n(A)\) and \(s_1(A)\), we have}
+		 & \leq \mathbb{P} \left( \max _{x \in S^{n-1}} \left\lvert \lVert Ax \rVert _2 - \sqrt{m} \right\rvert > 2CK^2 (\sqrt{n \log 9} + t ) \right)                 \\
+		 & \leq \mathbb{P} \left( 2 \max _{x \in \mathcal{N} } \left\lvert \lVert Ax \rVert _2 - \sqrt{m} \right\rvert > 2CK^2 (\sqrt{n \log 9} + t) \right)           \\
+		 & \leq \sum_{x \in \mathcal{N} } \mathbb{P} \left( \left\lvert \lVert Ax \rVert _2 - \sqrt{m} \right\rvert > CK^2 ( \sqrt{n \log 9} + t) \right)              \\
+		 & \leq 9^n \cdot 2 \cdot 9^{-n} \cdot e^{-t^2}
+		= 2e^{-t^2}.
+	\end{align*}
+	Scaling \(C\) accommodates the additional \(\log 9\) factor finishes the proof.
 \end{answer}
 
 \section{Application: covariance estimation and clustering}
