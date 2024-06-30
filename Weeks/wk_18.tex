@@ -1,0 +1,182 @@
+\week{18}{29 Jun.\ 2024}{Tighter Bounds on Sub-Gaussian Matrices}
+\section{Matrix Bernstein’s inequality}
+\begin{problem*}[Exercise 5.4.3]\label{ex5.4.3}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.5]\label{ex5.4.5}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.6]\label{ex5.4.6}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.11]\label{ex5.4.11}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.12]\label{ex5.4.12}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.13]\label{ex5.4.13}
+
+\end{problem*}
+\begin{answer}
+
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.14]\label{ex5.4.14}
+	Let \(X\) be an \(n\times n\) random matrix that takes values \(e_ke_k^{\top}\), \(k=1,\dots,n\), with probability \(1/n\) each. (Here \((e_k)\) denotes the standard basis in \(\mathbb{R}^n\).) Let \(X_1,\dots,X_N\) be independent copies of \(X\). Consider the sum \(S=\sum_{i=1}^N X_i\), which is a diagonal matrix.
+	\begin{enumerate}[(a)]
+		\item\label{ex5.4.14:a} Show that the entry \(S_{ii}\) has the same distribution as the number of balls in \(i\)-th bin when \(N\) balls are thrown into \(n\) bins independently.
+		\item\label{ex5.4.14:b} Relating this to the classical coupon collector's problem, show that if \(N \asymp n\), then
+		      \[
+			      \mathbb{E}\Vert S \Vert\asymp \frac{\log n}{\log\log n}.
+		      \]
+		      Deduce that the bound in \hyperref[ex5.4.11]{Exercise 5.4.11} would fail if the logarithmic factors were removed from it.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item We see that \(X = e_k e_k ^{\top} \) with \(k\) being chosen uniformly randomly among \([n]\), where \(e_k e_k ^{\top} \) is a matrix with all \(0\)'s except the \(k^{\text{th} }\) diagonal element being \(1\). Hence, by interpreting each \(X_i\) as ``throwing a ball into \(n\) bins,'' \(S_{k k}\) records the number of balls in the \(k^{\text{th} }\) bin when \(N\) balls are thrown into \(n\) bins independently.
+		\item We first observe that since \(S\) is diagonal, \(\lVert S \rVert = \lambda _1(S) = \max _k S_{k k}\) as all the diagonal elements are eigenvalues of \(S\). We first answer the question of how this related to the coupon collector's problem. Firstly, let's introduce the problem formally:
+
+		      \begin{problem}[Coupon collector's problem]
+		      Say we have \(n\) different types of coupons to collect, and we buy \(N\) boxes, where each box contains a (uniformly) random type of coupon. The classical \emph{coupon collector problem} asks for the expected number of boxes (i.e., \(N\)) we need in order to collect all coupons.
+		      \end{problem}
+
+		      With the interpretation of \hyperref[ex5.4.14:a]{(a)}, we can view \(S_{k k}\) as the number of coupons we have collected for the \(k^{\text{th}}\) type of the coupon, where \(N\) is the number of boxes we have bought. Hence, the coupon collector's problem asks for the expected \(N\) we need for \(\lambda _n (S) = \min _{k} S_{k k} > 0\).
+
+		      Compared to our original problem, we see that it is \emph{different} from the classical coupon collector's problem: we're asked for the expected number of \emph{the most frequent} coupons (i.e., \(\max_{k} S_{k k}\)) we will see when buying only \(N \asymp n\) boxes.
+
+		      To proceed, we need to recall the following theorems.
+
+		      \begin{theorem}[Poisson limit thoerem]\label{thm:Poisson-limit}
+			      Let \(X_{N, i}\), \(1 \leq i \leq N\), be independent random variables \(X_{N, i} \sim \operatorname{Ber}(p_{N, i}) \), and let \(S_N \coloneqq \sum_{i=1}^{N} X_{N, i}\). Assume that as \(N \to \infty \), \(\max _{i \leq N} p_{N, i} \to 0\) and \(\mathbb{E}_{}[S_N] \to \lambda < \infty \). Then, as \(N \to \infty \), \(S_N \overset{D}{\to} \operatorname{Pois}(\lambda ) \).\footnote{Recall that \(Z \sim \operatorname{Pois}(\lambda ) \) means \(\mathbb{P} (Z = k) = e^{-\lambda } \lambda ^k / k!\) for \(k = 0, 1, \dots \).}
+		      \end{theorem}
+
+		      Also, we need the following.
+
+		      \begin{theorem}[Skorokhod's representation theorem]\label{thm:Skorokhod-representation}
+			      If \(X_N \overset{D}{\to} X\), then there exists \((\Omega , \mathscr{F} , \mathbb{P} )\) on which we can define random variables \((Y_n)\) and \(Y\) such that \(Y_N \overset{D}{=} X_N\) for all \(n\) and \(Y \overset{D}{=} X\), and \(\mathbb{P} (Y_N \to Y) = 1\).
+		      \end{theorem}
+
+		      Now, consider the following random \(n \times n\) matrix (slightly different from \(S\))
+		      \[
+			      T \coloneqq \sum_{i=1}^{N} \sum_{k=1}^{n} b_{ik}^{(N)} e_k e_k ^{\top} ,
+		      \]
+		      where \(b_{ik}^{(N)} \overset{\text{i.i.d.} }{\sim } \operatorname{Ber}(1 / N) \). Using the above theorems, we can show the following.
+
+		      \begin{claim}
+			      As \(N \to \infty \), with \(Z_k \sim \operatorname{Pois}(1) \), we have
+			      \[
+				      \mathbb{E}_{}[\lambda _1(T)]
+				      = \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} T_{k k} \right]
+				      \to \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} Z_k \right]
+				      = \Theta \left( \frac{\log n}{\log \log n} \right).
+			      \]
+		      \end{claim}
+		      \begin{explanation}
+			      For every \(k \in [n]\), we apply the \hyperref[thm:Poisson-limit]{Poisson limit theorem} since as \(N \to \infty \), \(p_{N, ik} = 1 / N \to 0\) and \(\mathbb{E}_{}[S^k_N] = \mathbb{E}_{}[\sum_{i=1}^{N} b^{(N)}_{ik}] = 1 \eqqcolon \lambda \) as \(N \to \infty \). So as \(N \to \infty \), \(S^k_N \overset{D}{\to} \operatorname{Pois}(1) \).
+
+			      Here, with a similar interpretation as in \hyperref[ex5.4.14:a]{(a)}, we can interpret \(S^k_N = \sum_{i=1}^{N} b^{(N)}_{ik}\) as the value of the \(k^{\text{th} }\) diagonal element of \(T\), i.e., \(T_{k k}\). Hence, as \(N \to \infty \), for all \(k\), \(T_{k k} \overset{D}{\to} Z_k\) where \(Z_k \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \). By using the \hyperref[thm:Skorokhod-representation]{Skorokhod's representation theorem}, we can establish that \(T \overset{\text{a.s.} }{\to} \diag (Z_1, \dots , Z_n)\),\footnote{Note that \(X_n \overset{D}{\to} X\) and \(Y_n \overset{D}{\to} Y\) doesn't imply \((X_n, Y_n) \overset{D}{\to} (X, Y)\).} therefore
+			      \[
+				      \mathbb{E}_{}[\lambda _1 (T)]
+				      = \mathbb{E}_{}\left[\max _{1 \leq k \leq n} T_{k k}\right]
+				      \to \mathbb{E}_{}\left[\max _{1 \leq k \leq n} Z_k \right].
+			      \]
+			      Finally, the expectation of maximum of independent Poisson is thoroughly studied~\cite{kimber1983note,briggs2009notedistributionmaximumset}, which is highly concentrated exactly around \(\log n / \log \log n\).
+		      \end{explanation}
+
+		      \begin{remark}
+			      We note that the above claim doesn't require \(n\) to vary with \(N\).
+		      \end{remark}
+
+		      Finally, the bound in \hyperref[ex5.4.11]{Exercise 5.4.11} will fail if the logarithmic factors were removed becomes obvious after a direct substitution. Indeed, since \(\lVert X_i \rVert = 1 \eqqcolon K\), \hyperref[ex5.4.11]{Exercise 5.4.11} states that
+		      \[
+			      \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right]
+			      \lesssim \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] \right\rVert ^{1 / 2} ,
+		      \]
+		      where the logarithmic factors were removed along with \(K = 1\). Now, using the bound for \(S \coloneqq \sum_{i=1}^{N} X_i\) we have, with the observation that \(X_i^2 = X_i\) and \(\mathbb{E}_{}[X_i^2] = \mathbb{E}_{}[X_i] = \diag (1 / n, \dots , 1 / n)\), we see that the bound becomes
+		      \[
+			      \frac{\log n}{\log \log n}
+			      \lesssim \sqrt{\frac{N}{n} },
+		      \]
+		      which is clear not valid.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 5.4.15]\label{ex5.4.15}
+	Let \(X_1, \dots , X_N\) be independent, mean zero, \(m \times n\) random matrices, such that \(\lVert X_i \rVert \leq K\) almost surely for all \(i\). Prove that for \(t \geq 0\), we have
+	\[
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq t \right)
+		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+	\]
+	where
+	\[
+		\sigma ^2
+		= \max \left( \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i ^{\top} X_i] \right\rVert , \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i X_i ^{\top} ] \right\rVert \right) .
+	\]
+\end{problem*}
+\begin{answer}
+	Consider the following \(N\) independent \((m+n) \times (m+n)\) symmetric, mean \(0\) matrices
+	\[
+		X_i^{\prime} \coloneqq \begin{pmatrix}
+			0_{n\times n} & X_i ^{\top}    \\
+			X_i           & 0_{m \times m} \\
+		\end{pmatrix}.
+	\]
+	To apply the matrix Bernstein's inequality (Theorem 5.4.1), we need to show that \(\lVert X_i ^{\prime} \rVert \leq K^{\prime} \) for some \(K^{\prime} \), where we know that \(\lVert X_i \rVert \leq K\). However, it's easy to see that since \(\lVert X_i \rVert = \lVert X_i ^{\top} \rVert \), we have \(\lVert X_i^{\prime} \rVert \leq K\) as well since the characteristic equation for \(X_i ^{\prime} \) is
+	\[
+		\det (X_i^{\prime} - \lambda I)
+		= \det (\begin{pmatrix}
+				-\lambda I & X_i ^{\top} \\
+				X_i        & -\lambda I  \\
+			\end{pmatrix} )
+		= \det (\lambda ^2 I - X_i ^{\top} X_i)
+		= 0,
+	\]
+	so \(\lVert X_i^{\prime} \rVert = \sqrt{\lVert X_i ^{\top} X_i \rVert } \leq K\). Hence, from matrix Bernstein's inequality, for every \(t \geq 0\),
+	\[
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq t \right)
+		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+	\]
+	where \(\sigma ^2 = \lVert \sum_{i=1}^{N} \mathbb{E}_{}[(X_i ^{\prime}) ^2] \rVert \). A quick calculation reveals that
+	\[
+		(X_i^{\prime} )^2
+		= \begin{pmatrix}
+			0   & X_i ^{\top} \\
+			X_i & 0           \\
+		\end{pmatrix}\begin{pmatrix}
+			0   & X_i ^{\top} \\
+			X_i & 0           \\
+		\end{pmatrix}
+		= \begin{pmatrix}
+			X_i ^{\top} X_i & 0               \\
+			0               & X_i X_i ^{\top} \\
+		\end{pmatrix},
+	\]
+	hence we have
+	\[
+		\sigma ^2
+		= \max \left( \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i ^{\top} X_i] \right\rVert , \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i X_i ^{\top} ] \right\rVert \right),
+	\]
+	which completes the proof.
+\end{answer}

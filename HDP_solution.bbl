@@ -19,6 +19,83 @@
 
 \refsection{0}
   \datalist[entry]{anyt/global//global/global/global}
+    \entry{briggs2009notedistributionmaximumset}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=d417eef87d1696e18fecc95a8044b448}{%
+           family={Briggs},
+           familyi={B\bibinitperiod},
+           given={K.\bibnamedelimi M.},
+           giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=6721bbdcfff2f66ff805afb174cd2773}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+        {{hash=ec1d2318b20a0dc48d426228e4706ed0}{%
+           family={Prellberg},
+           familyi={P\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{50e38ad7acd62a1ae401e6bfd12c2652}
+      \strng{fullhash}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \strng{fullhashraw}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \strng{bibnamehash}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \strng{authorbibnamehash}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \strng{authornamehash}{50e38ad7acd62a1ae401e6bfd12c2652}
+      \strng{authorfullhash}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \strng{authorfullhashraw}{ee94d20a1be195d364c3b974ff0d8ebb}
+      \field{labelalpha}{BSP09}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.PR}
+      \field{eprinttype}{arXiv}
+      \field{title}{A note on the distribution of the maximum of a set of Poisson random variables}
+      \field{year}{2009}
+      \verb{eprint}
+      \verb 0903.4373
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/0903.4373
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/0903.4373
+      \endverb
+    \endentry
+    \entry{kimber1983note}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=f4a3ca1b68e367a4ad75f3dee25d3479}{%
+           family={Kimber},
+           familyi={K\bibinitperiod},
+           given={AC},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{fullhash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{fullhashraw}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{bibnamehash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{authorbibnamehash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{authornamehash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{authorfullhash}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \strng{authorfullhashraw}{f4a3ca1b68e367a4ad75f3dee25d3479}
+      \field{labelalpha}{Kim83}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Zeitschrift für Wahrscheinlichkeitstheorie und Verwandte Gebiete}
+      \field{number}{4}
+      \field{title}{A note on Poisson maxima}
+      \field{volume}{63}
+      \field{year}{1983}
+      \field{pages}{551\bibrangedash 552}
+      \range{pages}{2}
+    \endentry
     \entry{vershyninHighDimensionalProbability2024}{book}{}{}
       \name{author}{1}{}{%
         {{hash=711c5aa2fe76a4ff674a2c6e2c7a2d91}{%
