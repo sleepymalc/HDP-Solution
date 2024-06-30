@@ -313,75 +313,145 @@
 		\item We first observe that since \(S\) is diagonal, \(\lVert S \rVert = \lambda _1(S) = \max _k S_{k k}\) as all the diagonal elements are eigenvalues of \(S\). We first answer the question of how this related to the coupon collector's problem. Firstly, let's introduce the problem formally:
 
 		      \begin{problem}[Coupon collector's problem]
-		      Say we have \(n\) different types of coupons to collect, and we buy \(N\) boxes, where each box contains a (uniformly) random type of coupon. The classical \emph{coupon collector problem} asks for the expected number of boxes (i.e., \(N\)) we need in order to collect all coupons.
+		      Say we have \(n\) different types of coupons to collect, and we buy \(N\) boxes, where each box contains a (uniformly) random type of coupon. The classical \emph{coupon collector's problem} asks for the expected number of boxes (i.e., \(N\)) we need in order to collect all coupons.
 		      \end{problem}
 
-		      With the interpretation of \hyperref[ex5.4.14:a]{(a)}, we can view \(S_{k k}\) as the number of coupons we have collected for the \(k^{\text{th}}\) type of the coupon, where \(N\) is the number of boxes we have bought. Hence, the coupon collector's problem asks for the expected \(N\) we need for \(\lambda _n (S) = \min _{k} S_{k k} > 0\).
+		      \begin{intuition}
+			      From \hyperref[ex5.4.14:a]{(a)}, we can view \(S_{k k}\) as the number of coupons we have collected for the \(k^{\text{th}}\) type of the coupon, where \(N\) is the number of boxes we have bought.
+		      \end{intuition}
 
-		      Compared to our original problem, we see that it is \emph{different} from the classical coupon collector's problem: we're asked for the expected number of \emph{the most frequent} coupons (i.e., \(\max_{k} S_{k k}\)) we will see when buying only \(N \asymp n\) boxes.
+		      Hence, the coupon collector's problem asks for the expected \(N\) we need for \(\lambda _n (S) = \min _{k} S_{k k} > 0\), while \hyperref[ex5.4.14:b]{(b)} is asking for the expected number of \emph{the most frequent} coupons (i.e., \(\max_{k} S_{k k}\)) we will see when buying only \(N \asymp n\) boxes.
 
-		      To proceed, we need to recall the following theorems.
+		      Next, let's prove the upper bound and the lower bound separately. Let \(0 < c < C\) to be some constants satisfying \(N \leq Cn\) and \(n \leq c N\).
 
-		      \begin{theorem}[Poisson limit thoerem]\label{thm:Poisson-limit}
-			      Let \(X_{N, i}\), \(1 \leqq i \leqq N\), be independent random variables \(X_{N, i} \sim \operatorname{Ber}(p_{N, i}) \), and let \(S_N \coloneqq \sum_{i=1}^{N} X_{N, i}\). Assume that as \(N \to \infty \), \(\max _{i \leqq N} p_{N, i} \to 0\) and \(\mathbb{E}_{}[S_N] \to \lambda < \infty \). Then, as \(N \to \infty \), \(S_N \overset{D}{\to} \operatorname{Pois}(\lambda ) \).\footnote{Recall that \(Z \sim \operatorname{Pois}(\lambda ) \) means \(\mathbb{P} (Z = k) = e^{-\lambda } \lambda ^k / k!\) for \(k = 0, 1, \dots \).}
-		      \end{theorem}
-
-		      Also, we need the following.
-
-		      \begin{theorem}[Skorokhod's representation theorem]\label{thm:Skorokhod-representation}
-			      If \(X_N \overset{D}{\to} X\), then there exists \((\Omega , \mathscr{F} , \mathbb{P} )\) on which we can define random variables \((Y_n)\) and \(Y\) such that \(Y_N \overset{D}{=} X_N\) for all \(n\) and \(Y \overset{D}{=} X\), and \(\mathbb{P} (Y_N \to Y) = 1\).
-		      \end{theorem}
-
-		      Now, consider the following random \(n \times n\) matrix (slightly different from \(S\))
-		      \[
-			      T \coloneqq \sum_{i=1}^{N} \sum_{k=1}^{n} b_{ik}^{(N)} e_k e_k ^{\top} ,
-		      \]
-		      where \(b_{ik}^{(N)} \overset{\text{i.i.d.} }{\sim } \operatorname{Ber}(1 / N) \). Using the above theorems, we can show the following.
-
-		      \begin{claim}
-			      As \(N \to \infty \), with \(Z_k \sim \operatorname{Pois}(1) \), we have
-			      \[
-				      \mathbb{E}_{}[\lambda _1(T)]
-				      = \mathbb{E}_{}\left[ \max _{1 \leqq k \leqq n} T_{k k} \right]
-				      \to \mathbb{E}_{}\left[ \max _{1 \leqq k \leqq n} Z_k \right]
-				      = \Theta \left( \frac{\log n}{\log \log n} \right).
-			      \]
+		      \begin{claim}[Upper bound]
+			      \(\mathbb{E}_{}[\lVert S \rVert ] \lesssim \log n / \log \log n\).
 		      \end{claim}
 		      \begin{explanation}
-			      For every \(k \in [n]\), we apply the \hyperref[thm:Poisson-limit]{Poisson limit theorem} since as \(N \to \infty \), \(p_{N, ik} = 1 / N \to 0\) and \(\mathbb{E}_{}[S^k_N] = \mathbb{E}_{}[\sum_{i=1}^{N} b^{(N)}_{ik}] = 1 \eqqcolon \lambda \) as \(N \to \infty \). So as \(N \to \infty \), \(S^k_N \overset{D}{\to} \operatorname{Pois}(1) \).
-
-			      Here, with a similar interpretation as in \hyperref[ex5.4.14:a]{(a)}, we can interpret \(S^k_N = \sum_{i=1}^{N} b^{(N)}_{ik}\) as the value of the \(k^{\text{th} }\) diagonal element of \(T\), i.e., \(T_{k k}\). Hence, as \(N \to \infty \), for all \(k\), \(T_{k k} \overset{D}{\to} Z_k\) where \(Z_k \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \). By using the \hyperref[thm:Skorokhod-representation]{Skorokhod's representation theorem}, we can establish that \(T \overset{\text{a.s.} }{\to} \diag (Z_1, \dots , Z_n)\),\footnote{Note that \(X_n \overset{D}{\to} X\) and \(Y_n \overset{D}{\to} Y\) doesn't imply \((X_n, Y_n) \overset{D}{\to} (X, Y)\).} therefore
+			      We first note that \(S_{kk} \sim \operatorname{Binomial}(N, 1 / n) \) for all \(k\), so by \hyperref[ex2.4.3]{Exercise 2.4.3},\todo{Fix} for any \(m > N / n\), we have
 			      \[
-				      \mathbb{E}_{}[\lambda _1 (T)]
-				      = \mathbb{E}_{}\left[\max _{1 \leqq k \leqq n} T_{k k}\right]
-				      \to \mathbb{E}_{}\left[\max _{1 \leqq k \leqq n} Z_k \right].
+				      \mathbb{P} (\lVert S \rVert \geq m)
+				      = \mathbb{P} (\exists k \colon S_{k k} \geq m)
+				      \leq \sum_{k=1}^{n} \mathbb{P} (S_{k k} \geq m)
+				      \leq 3^{\frac{N}{n} + 1 - \frac{m \log \log n}{\log n}}.
 			      \]
-			      Finally, the expectation of maximum of independent Poisson is thoroughly studied~\cite{kimber1983note,briggs2009notedistributionmaximumset}, which is highly concentrated exactly around \(\log n / \log \log n\).
+			      Let \(L\coloneqq \left\lfloor \frac{(C+1) \log n}{\log \log n} \right\rfloor + 1 > C + 1 > N / n\), then
+			      \[
+				      \begin{split}
+					      \mathbb{E}_{}[\lVert S \rVert ]
+					       & = \left( \sum_{m=1}^{L-1} + \sum_{m=L}^{\infty} \right) \mathbb{P} (\lVert S \rVert \geq m)               \\
+					       & \leq \sum_{m=1}^{L-1} 1 + \sum_{m=L}^{\infty} 3^{\frac{N}{n} + 1 - \frac{m \log \log n}{\log n}}          \\
+					       & = L - 1 + \frac{3^{\frac{N}{n} + 1 - \frac{L \log \log n}{\log n}}}{1 - 3^{- \frac{\log \log n}{\log n}}}
+					      \leq \frac{(C+1) \log n}{\log \log n} + \frac{3^{C + 1 - (C+1)}}{\frac{2}{3} \cdot \frac{\log \log n}{\log n}}
+					      = \frac{(C + \frac{5}{2}) \log n}{\log \log n},
+				      \end{split}
+			      \]
+			      establishing the desired upper bound.
 		      \end{explanation}
 
-		      \begin{remark}
-			      We note that the above claim doesn't require \(n\) to vary with \(N\).
-		      \end{remark}
+		      The hard part lies in the lower bound. We will need the following fact.
+
+		      \begin{lemma}[Maximum of Poisson~\cite{kimber1983note,briggs2009notedistributionmaximumset}]\label{lma:maximum-Poisson}
+			      Given \(Y_1, \dots , Y_n \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \),
+			      \[
+				      \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} Y_k \right]
+				      \asymp \frac{\log n}{\log \log n}.
+			      \]
+			      Such a concentration is \emph{very} tight.
+		      \end{lemma}
+
+		      \begin{claim}[Lower bound]
+			      \(\mathbb{E}_{}[\lVert S \rVert ] \gtrsim \log n / \log \log n\)
+		      \end{claim}
+		      \begin{explanation}
+			      Let \(M_T \coloneqq \mathbb{E}_{}[\max _k \{ Y_k \} \mid \sum_{k=1}^{n} Y_k = T ] \) with \(Y_1, \dots , Y_n \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \). As \((Y_1, \dots , Y_n) \mid \sum_{k=1}^{n} Y_k = T \sim \operatorname{Multinomial}(T; 1 / n, \dots , 1 / n) \), we know that \(M_T\) is non-decreasing w.r.t.\ \(T\). Moreover, as \(\sum_{k=1}^{n} Y_k \sim \operatorname{Pois}(n) \), by the law of total expectation and \hyperref[lma:maximum-Poisson]{maximum of Poisson lemma},
+			      \begin{align*}
+				      \frac{\log n}{\log \log n}
+				      \asymp \mathbb{E}_{}\left[\max _{1 \leq k \leq n} Y_k\right]
+				       & = \left( \sum_{T=0}^{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \right) \frac{e^{-n} n^T}{T!} M_T                                                     \\
+				       & \leq \sum_{T=0}^{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } \frac{e^{-n} n^T}{T!} M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \frac{e^{-n} n^T}{T!} T \\
+				       & \leq M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } \cdot 1 + \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \frac{e^{-n} n^T}{\Gamma (T)}                                                              \\
+				      \shortintertext{From Stirling's approximation, \(\Gamma (z) \geq \sqrt{2\pi } z^{z - 1 / 2} e^{-z} \) for \(z > 0\),}
+				       & \leq M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \frac{e^{-n} n^T}{\sqrt{2\pi } T^{T - 1 / 2} e^{-T}}                                               \\
+				       & = M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \frac{e^{-n}}{\sqrt{2\pi } } \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \left( \frac{n e T^{\frac{1}{2T}}}{T} \right) ^T                         \\
+				      \shortintertext{since for all \(x > 0\), \(x^{1 / 2x} \leq e^{1 / 2e}\), for \(x = T\), we have}
+				       & \leq M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \frac{e^{-n}}{\sqrt{2\pi } } \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} \left( \frac{n e^{1 + \frac{1}{2e}}}{T} \right) ^T                    \\
+				       & \leq M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \frac{e^{-n}}{\sqrt{2\pi } } \sum_{T= \lfloor n e^{2 + \frac{1}{2e}} \rfloor + 1}^{\infty} e^{-T}                                                                \\
+				       & = M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor } + \frac{e^{-n - \lfloor n e^{2 + \frac{1}{2e}} \rfloor - 1}}{\sqrt{2\pi } (1 - e^{-1})},
+			      \end{align*}
+			      leading to
+			      \[
+				      M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor}
+				      \gtrsim \frac{\log n}{\log \log n}
+			      \]
+			      as the trailing term is decreasing exponentially fast. Finally, we have
+			      \[
+				      M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor}
+				      \leq M_{\left\lceil \frac{\lfloor n e^{2 + \frac{1}{2e}} \rfloor}{N} \right\rceil N}
+				      \leq \left\lceil \frac{\lfloor n e^{2 + \frac{1}{2e}} \rfloor}{N} \right\rceil M_N
+				      \leq \left\lceil \frac{n e^{2 + \frac{1}{2e}}}{N} \right\rceil M_N
+				      \leq \lceil c e^{2 + \frac{1}{2e}} \rceil M_N,
+			      \]
+			      where the second inequality follows from the triangle inequality of \(\max \). This leads to
+			      \[
+				      \mathbb{E}_{}[\lVert S \rVert ]
+				      = M_N
+				      \geq \frac{1}{\lceil c e^{2 + \frac{1}{2e}} \rceil } M_{\lfloor n e^{2 + \frac{1}{2e}} \rfloor }
+				      \gtrsim \frac{\log n}{\log \log n}
+			      \]
+			      as desired.
+		      \end{explanation}
 
 		      Finally, the bound in \hyperref[ex5.4.11]{Exercise 5.4.11} will fail if the logarithmic factors were removed becomes obvious after a direct substitution. Indeed, since \(\lVert X_i \rVert = 1 \eqqcolon K\), \hyperref[ex5.4.11]{Exercise 5.4.11} states that
 		      \[
 			      \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right]
 			      \lesssim \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] \right\rVert ^{1 / 2} ,
 		      \]
-		      where the logarithmic factors were removed along with \(K = 1\). Now, using the bound for \(S \coloneqq \sum_{i=1}^{N} X_i\) we have, with the observation that \(X_i^2 = X_i\) and \(\mathbb{E}_{}[X_i^2] = \mathbb{E}_{}[X_i] = \diag (1 / n, \dots , 1 / n)\), we see that the bound becomes
-		      \[
-			      \frac{\log n}{\log \log n}
-			      \lesssim \sqrt{\frac{N}{n} },
-		      \]
-		      which is clear not valid.
+		      where the logarithmic factors were removed along with \(K = 1\). Now, using the bound for \(S \coloneqq \sum_{i=1}^{N} X_i\) we have, with the observation that \(X_i^2 = X_i\) and \(\mathbb{E}_{}[X_i^2] = \mathbb{E}_{}[X_i] = \diag (1 / n, \dots , 1 / n)\), we see that the bound becomes \(\sqrt{N / n} = \Theta (1)\), while the left-hand side grows as \(\log n / \log \log n \to \infty \), which is clear not valid.
 	\end{enumerate}
 \end{answer}
 
+\begin{remark}[Alternative examples]
+	We give another example to demonstrate the sharpness of the matrix Bernstein's inequality. Consider the following random \(n \times n\) matrix (slightly different from \(S\))
+	\[
+		T \coloneqq \sum_{i=1}^{N} \sum_{k=1}^{n} b_{ik}^{(N)} e_k e_k ^{\top} ,
+	\]
+	where \(b_{ik}^{(N)} \overset{\text{i.i.d.} }{\sim } \operatorname{Ber}(1 / N) \). Here, we view \(X_i \coloneqq \sum_{k=1}^{n} b_{ik}^{(N)}e_k e_k ^{\top} \)
+
+	\begin{intuition}
+		In expectation, \(T\) and \(S\) should behave the same. However, this is easier to work with from independence.
+	\end{intuition}
+
+	\begin{claim}
+		As \(N \to \infty \), with \(Y_k \sim \operatorname{Pois}(1) \), we have
+		\[
+			\mathbb{E}_{}[\lambda _1(T)]
+			= \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} T_{k k} \right]
+			\to \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} Y_k \right]
+			= \Theta \left( \frac{\log n}{\log \log n} \right).
+		\]
+		Noticeably, the above claim doesn't require \(n\) to vary with \(N\).
+	\end{claim}
+	\begin{explanation}
+		For every \(k \in [n]\), we apply the Poisson limit theorem since as \(N \to \infty \), \(p_{N, ik} = 1 / N \to 0\) and \(\mathbb{E}_{}[S^k_N] = \mathbb{E}_{}[\sum_{i=1}^{N} b^{(N)}_{ik}] = 1 \eqqcolon \lambda \) as \(N \to \infty \). So as \(N \to \infty \), \(S^k_N \overset{D}{\to} \operatorname{Pois}(1) \).
+
+		With a similar interpretation as in \hyperref[ex5.4.14:a]{(a)}, we can interpret \(S^k_N = \sum_{i=1}^{N} b^{(N)}_{ik}\) as the value of the \(k^{\text{th} }\) diagonal element of \(T\), i.e., \(T_{k k}\). Hence, as \(N \to \infty \), for all \(k\), \(T_{k k} \overset{D}{\to} Y_k\) where \(Y_k \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \). Since \(T_{k k}\)'s are independent, we have \(T \overset{D}{\to} \diag (Z_1, \dots , Z_n)\), therefore
+		\[
+			\mathbb{E}_{}[\lambda _1 (T)]
+			= \mathbb{E}_{}\left[\max _{1 \leq k \leq n} T_{k k}\right]
+			\to \mathbb{E}_{}\left[\max _{1 \leq k \leq n} Y_k \right]
+			\asymp \Theta \left( \frac{\log n}{\log \log n} \right)
+		\]
+		from the \hyperref[lma:maximum-Poisson]{maximum of Poisson lemma}.
+	\end{explanation}
+	A simple calculation of \(\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] \rVert ^{1 / 2}\) reveals that the logarithmic factors can't be removed.
+\end{remark}
+
 \begin{problem*}[Exercise 5.4.15]\label{ex5.4.15}
-	Let \(X_1, \dots , X_N\) be independent, mean zero, \(m \times n\) random matrices, such that \(\lVert X_i \rVert \leqq K\) almost surely for all \(i\). Prove that for \(t \geq q 0\), we have
+	Let \(X_1, \dots , X_N\) be independent, mean zero, \(m \times n\) random matrices, such that \(\lVert X_i \rVert \leq K\) almost surely for all \(i\). Prove that for \(t \geq q 0\), we have
 	\[
 		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq q t \right)
-		\leqq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
 	\]
 	where
 	\[
@@ -397,7 +467,7 @@
 			X_i           & 0_{m \times m} \\
 		\end{pmatrix}.
 	\]
-	To apply the matrix Bernstein's inequality (Theorem 5.4.1), we need to show that \(\lVert X_i ^{\prime} \rVert \leqq K^{\prime} \) for some \(K^{\prime} \), where we know that \(\lVert X_i \rVert \leqq K\). However, it's easy to see that since \(\lVert X_i \rVert = \lVert X_i ^{\top} \rVert \), we have \(\lVert X_i^{\prime} \rVert \leqq K\) as well since the characteristic equation for \(X_i ^{\prime} \) is
+	To apply the matrix Bernstein's inequality (Theorem 5.4.1), we need to show that \(\lVert X_i ^{\prime} \rVert \leq K^{\prime} \) for some \(K^{\prime} \), where we know that \(\lVert X_i \rVert \leq K\). However, it's easy to see that since \(\lVert X_i \rVert = \lVert X_i ^{\top} \rVert \), we have \(\lVert X_i^{\prime} \rVert \leq K\) as well since the characteristic equation for \(X_i ^{\prime} \) is
 	\[
 		\det (X_i^{\prime} - \lambda I)
 		= \det (\begin{pmatrix}
@@ -407,10 +477,35 @@
 		= \det (\lambda ^2 I - X_i ^{\top} X_i)
 		= 0,
 	\]
-	so \(\lVert X_i^{\prime} \rVert = \sqrt{\lVert X_i ^{\top} X_i \rVert } \leqq K\). Hence, from matrix Bernstein's inequality, for every \(t \geq q 0\),
+	so \(\lVert X_i^{\prime} \rVert = \sqrt{\lVert X_i ^{\top} X_i \rVert } \leq K\).
+
+	\begin{claim}
+		Actually, we have \(\lVert X_i^{\prime} \rVert = \lVert X_i \rVert \), hence \(\lVert X_i^{\prime} \rVert \leq K\).
+	\end{claim}
+	\begin{explanation}
+		Observe that for any matrix \(A \in \mathbb{R} ^{m \times n}\), as \(\lVert A \rVert = \sqrt{\lambda _1 (A A^{\top} )} = \sqrt{\lambda _1(A ^{\top} A)} \), we have
+		\[
+			\lVert A \rVert
+			= \sqrt{\lambda _1 \left( \begin{pmatrix}
+					A^{\top} A & 0          \\
+					0          & A A^{\top} \\
+				\end{pmatrix} \right) }
+			= \sqrt{\lambda _1 \left( \begin{pmatrix}
+					0 & A^{\top} \\
+					A & 0        \\
+				\end{pmatrix}^2 \right) }
+			= \left\lVert \begin{pmatrix}
+				0 & A^{\top} \\
+				A & 0        \\
+			\end{pmatrix} \right\rVert.
+		\]
+		Plugging in \(X_i \eqqcolon A\), we're done.
+	\end{explanation}
+
+	Hence, from matrix Bernstein's inequality, for every \(t \geq q 0\),
 	\[
 		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq q t \right)
-		\leqq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
 	\]
 	where \(\sigma ^2 = \lVert \sum_{i=1}^{N} \mathbb{E}_{}[(X_i ^{\prime}) ^2] \rVert \). A quick calculation reveals that
 	\[
