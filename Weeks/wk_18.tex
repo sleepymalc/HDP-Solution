@@ -1,4 +1,51 @@
 \week{18}{29 Jun.\ 2024}{Tighter Bounds on Sub-Gaussian Matrices}
+
+\newcommand\BIN\mathbin
+\newcommand\RM\mathrm
+\newcommand\IT\mathit
+\newcommand\FR\mathfrak
+\newcommand\BBM\mathbbm
+\newcommand\Unit[1]{\,\RM{#1}}
+\newcommand\PU[1]{/\RM{#1}}
+\newcommand\DC{\Unit{^\circ C}}
+\newcommand\RMDC{\RM{^\circ C}}
+\newcommand\DD[1]{\mathop{\mathrm{d}#1}}
+\newcommand\EQ[1]{\begin{equation}#1\end{equation}}
+\newcommand\EQN[2]{\EQ{#2\label{#1}}}
+\newcommand\BM[1]{\boldsymbol{#1}}
+\newcommand\BB[1]{\mathbb{#1}}
+\newcommand\CAL[1]{\mathcal{#1}}
+\newcommand\Tp{^\mathsf{T}}
+\newcommand\Hp{^\mathsf{H}}
+\newcommand\To[1]{\overset{\mathrm{#1}}{\to}}
+\newcommand\UB[1]{^{(#1)}}
+\newcommand\OP[1]{\operatorname{#1}}
+\newcommand\MAT[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand\AL[1]{\begin{align}#1\end{align}}
+\newcommand\AM[1]{\begin{align*}#1\end{align*}}
+\newcommand\ALN[2]{\AL{#2\label{#1}}}
+\newcommand\GA[1]{\begin{gather}#1\end{gather}}
+\newcommand\GB[1]{\begin{gather*}#1\end{gather*}}
+\newcommand\HAT[1]{\widehat{#1}}
+\newcommand\BAR[1]{\overline{#1}}
+\newcommand\TLD[1]{\widetilde{#1}}
+%\newcommand\Prb{\mathbb{P}}
+%\newcommand\Exp{\mathbb{E}}
+\newcommand\Tr{\operatorname{tr}}
+\newcommand\Var{\operatorname{Var}}
+\newcommand\Cov{\operatorname{Cov}}
+\newcommand\IID{\overset{\mathrm{i.i.d.}}{\sim}}
+\newcommand\VS{\longleftrightarrow}
+\newcommand\diag{\operatorname{diag}}
+\DeclareMathOperator*{\Prb}{\mathbb{P}}
+\DeclareMathOperator*{\Exp}{\mathbb{E}}
+\DeclareMathOperator*{\argmin}{\arg\min}
+\DeclareMathOperator*{\argmax}{\arg\max}
+\DeclareMathOperator*{\softmax}{softmax}
+\DeclareMathOperator*{\hardmax}{hardmax}
+\DeclareMathOperator*{\minimize}{minimize}
+\DeclareMathOperator*{\maximize}{maximize}
+
 \section{Matrix Bernstein’s inequality}
 \begin{problem*}[Exercise 5.4.3]\label{ex5.4.3}
 
