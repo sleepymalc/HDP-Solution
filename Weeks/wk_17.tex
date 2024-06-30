@@ -1,7 +1,194 @@
 \chapter{Concentration without independence}
-\week{17}{22 Jun.\ 2024}{}
+\week{17}{22 Jun.\ 2024}{Concentration of Lipschitz Functions on Spheres}
 \section{Concentration of Lipschitz functions on the sphere}
+\begin{problem*}[Exercise 5.1.2]\label{ex5.1.2}
+	Prove the following statements.
+	\begin{enumerate}[(a)]
+		\item\label{ex5.1.2:a} Every Lipschitz function is uniformly continuous.
+		\item\label{ex5.1.2:b} Every differentiable function \(f \colon \mathbb{R} ^n \to \mathbb{R} \) is Lipschitz, and
+		      \[
+			      \lVert f \rVert _{\mathrm{Lip} }
+			      \leq \sup _{x \in \mathbb{R} ^n} \lVert \nabla f(x) \rVert _2.
+		      \]
+		\item\label{ex5.1.2:c} Give an example of a non-Lipschitz but uniformly continuous function \(f\colon [-1, 1] \to \mathbb{R} \).
+		\item\label{ex5.1.2:d} Give an example of a non-differentiable but Lipschitz function \(f \colon [-1, 1] \to \mathbb{R} \).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.3]\label{ex5.1.3}
+	Prove the following statements.
+	\begin{enumerate}[(a)]
+		\item\label{ex5.1.3:a} For a fixed \(\theta \in \mathbb{R} ^n\), the linear functional
+		      \[
+			      f(x)
+			      = \langle x, \theta  \rangle
+		      \]
+		      is a Lipschitz function on \(\mathbb{R} ^n\), and \(\lVert f \rVert _{\mathrm{Lip} } = \lVert \theta \rVert _2\).
+		\item\label{ex5.1.3:b} More generally, an \(m \times n\) matrix \(A\) acting as a linear operator
+		      \[
+			      A \colon (\mathbb{R} ^n, \lVert \cdot \rVert _2) \to (\mathbb{R} ^m, \lVert \cdot \rVert _2)
+		      \]
+		      is Lipschitz, and \(\lVert A \rVert _{\mathrm{Lip} } = \lVert A \rVert \).
+		\item\label{ex5.1.3:c} Any norm \(f(x) = \lVert x \rVert \) on \((\mathbb{R} ^n, \lVert \cdot \rVert _2)\) is a Lipschitz function. The Lipschitz norm of \(f\) is the smallest \(L\) that satisfies
+		      \[
+			      \lVert x \rVert
+			      \leq L \lVert x \rVert _2 \text{ for all } x \in \mathbb{R} ^n.
+		      \]
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.8]\label{ex5.1.8}
+	Prove inclusion (5.2), i.e., \(H_t \supseteq \{ x \in \sqrt{n} S^{n-1} \colon x_1 \leq t / \sqrt{2}  \} \).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.9]\label{ex5.1.9}
+	Let \(A\) be the subset of the sphere \(\sqrt{n} S^{n-1}\) such that
+	\[
+		\sigma (A)
+		> 2 \exp (-cs^2) \text{ for some } s > 0.
+	\]
+	\begin{enumerate}[(a)]
+		\item\label{ex5.1.9:a} Prove that \(\sigma (A_s) > 1 / 2\).
+		\item\label{ex5.1.9:b} Deduce from this that for any \(t \geq s\),
+		      \[
+			      \sigma (A_{2t})
+			      \geq 1 - 2 \exp (-ct^2).
+		      \]
+	\end{enumerate}
+	Here \(c > 0\) is the absolute constant from Lemma 5.1.7.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.11]\label{ex5.1.11}
+	We proved Theorem 5.1.4 for functions \(f\) that are Lipschitz with respect to the Euclidean metric \(\lVert x - y \rVert _2\) on the sphere. Argue that the same result holds for the geodesic metric, which is the length of the shortest arc connecting \(x\) and \(y\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.12]\label{ex5.1.12}
+	We stated Theorem 5.1.4 for the scaled sphere \(\sqrt{n} S^{n-1}\). Deduce that a Lipschitz function \(f\) on the \emph{unit} sphere \(S^{n-1}\) satisfies
+	\[
+		\lVert f(X) - \mathbb{E}_{}[f(X)] \rVert _{\psi _2}
+		\leq \frac{C \lVert f \rVert _{\mathrm{Lip} }}{\sqrt{n} },
+	\]
+	where \(X \sim \mathcal{U} (S^{n-1})\). Equivalently, for every \(t \geq 0\), we have
+	\[
+		\mathbb{P} \left( \lvert f(X) - \mathbb{E}_{}[f(X)] \rvert \geq t \right)
+		\leq 2 \exp (- \frac{cnt^2}{\lVert f \rVert _{\mathrm{Lip} }^2}).
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.13]\label{ex5.1.13}
+	Consider a random variable \(Z\) with median \(M\). Show that
+	\[
+		c \lVert Z - \mathbb{E}_{}[Z] \rVert _{\psi _2}
+		\leq \lVert Z - M \rVert _{\psi _2}
+		\leq C \lVert Z - \mathbb{E}_{}[Z]  \rVert _{\psi _2},
+	\]
+	where \(c, C > 0\) are some absolute constants.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.14]\label{ex5.1.14}
+	Consider a random vector \(X\) taking values in some metric space \((T, d)\). Assume that there exists \(K > 0\) such that
+	\[
+		\lVert f(X) - \mathbb{E}_{}[f(X)] \rVert _{\psi _2}
+		\leq K \lVert f \rVert _{\mathrm{Lip} }
+	\]
+	for every Lipschitz function \(f \colon T \to \mathbb{R} \). For a subset \(A \subseteq T\), define \(\sigma (A) \coloneqq \mathbb{P} (X \in A)\). (Then \(\sigma \) is a probability measure on \(T\).) Show that if \(\sigma (A) \geq 1 / 2\) then, for every \(t \geq 0\),
+	\[
+		\sigma (A_t)
+		\geq 1 - 2 \exp (-ct^2 / K^2)
+	\]
+	where \(c > 0\) is an absolute constant.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.1.15]\label{ex5.1.15}
+	From linear algebra, we know that any set of orthonormal vectors in \(\mathbb{R} ^n\) must contain at most \(n\) vectors. However, if we allow the vectors to be almost orthogonal, there can be \emph{exponentially many} of them! Prove this counterintuitive fact as follows. Fix \(\epsilon \in (0, 1)\). Show that there exists a set \(\{ x_1, \dots , x_N \} \) of unit vectors in \(\mathbb{R} ^n\) which are mutually almost orthogonal:
+	\[
+		\lvert \langle x_i, x_j \rangle \rvert \leq \epsilon \text{ for all } i \neq j,
+	\]
+	and the set is \emph{exponentially large} in \(n\):
+	\[
+		N
+		\geq \exp (c(\epsilon ) n).
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
 
 \section{Concentration on other metric measure spaces}
+\begin{problem*}[Exercise 5.2.3]\label{ex5.2.3}
+	Deduce Gaussian concentration inequality (Theorem 5.2.2) from Gaussian isoperimetric inequality (Theorem 5.2.1).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.2.4]\label{ex5.2.4}
+	Prove that in the concentration results for sphere and Gauss space (Theorem 5.1.4 and 5.2.2), the expectation \(\mathbb{E}_{}[f(X)] \) can be replaced by the \(L^p\) norm \((\mathbb{E}_{}[f(X)^p] )^{1 / p}\) for any \(p \geq 1\) and for any non-negative function \(f\). The constants may depend on \(p\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.2.11]\label{ex5.2.11}
+	Let \(\Phi (x)\) denote the cumulative distribution function of the standard normal distribution \(\mathcal{N} (0, 1)\). Consider a random vector \(Z = (Z_1, \dots , Z_n) \sim \mathcal{N} (0, I_n)\). Check that
+	\[
+		\phi (Z)
+		\coloneqq \left( \Phi (Z_1), \dots , \Phi (Z_n) \right) \sim \mathcal{U} ([0, 1]^n).
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.2.12]\label{ex5.2.12}
+	Expressing \(X = \phi (Z)\) by the \hyperref[ex5.2.11]{previous exercise}, use Gaussian concentration to control the deviation of \(f(\phi (Z))\) in terms of \(\lVert f \circ \phi \rVert _{\mathrm{Lip} } \leq \lVert f \rVert _{\mathrm{Lip} } \lVert \phi \rVert _{\mathrm{Lip} }\). Show that \(\lVert \phi \rVert _{\mathrm{Lip} }\) is bounded by an absolute constant and complete the proof of Theorem 5.2.10.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.2.14]\label{ex5.2.14}
+	Use a similar method to prove Theorem 5.2.13. Define a function \(\phi \colon \mathbb{R} ^n \to \sqrt{n} B^n_2\) that pushes forward the Gaussian measure on \(\mathbb{R} ^n\) into the uniform measure on \(\sqrt{n} B^n_2\), and check that \(\phi \) has bounded Lipschitz norm.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
 
 \section{Application: Johnson-Lindenstrauss Lemma}
+\begin{problem*}[Exercise 5.3.3]\label{ex5.3.3}
+	Let \(A\) be an \(m \times n\) random matrix whose rows are independent, mean zero, sub-gaussian isotropic random vectors in \(\mathbb{R} ^n\). Show that the conclusion of Johnson-Lindenstrauss lemma holds for \(Q = (1 / \sqrt{m} )A\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 5.3.4]\label{ex5.3.4}
+	Give an example of a set \(\mathcal{X} \) of \(N\) points for which no scaled projection onto a subspace of dimension \(m \ll \log N\) is an approximate isometry.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}

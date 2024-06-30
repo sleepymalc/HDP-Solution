@@ -1,206 +1,299 @@
 \week{18}{29 Jun.\ 2024}{Tighter Bounds on Sub-Gaussian Matrices}
 
-\usepackage{upgreek}
-\usepackage{bbm}
-\newcommand\BIN\mathbin
-\newcommand\RM\mathrm
-\newcommand\IT\mathit
-\newcommand\FR\mathfrak
-\newcommand\BBM\mathbbm
-\newcommand\Unit[1]{\,\RM{#1}}
-\newcommand\PU[1]{/\RM{#1}}
-\newcommand\DC{\Unit{^\circ C}}
-\newcommand\RMDC{\RM{^\circ C}}
-\newcommand\DD[1]{\mathop{\mathrm{d}#1}}
-\newcommand\EQ[1]{\begin{equation}#1\end{equation}}
-\newcommand\EQN[2]{\EQ{#2\label{#1}}}
-\newcommand\BM[1]{\boldsymbol{#1}}
-\newcommand\BB[1]{\mathbb{#1}}
-\newcommand\CAL[1]{\mathcal{#1}}
-\newcommand\Tp{^\mathsf{T}}
-\newcommand\Hp{^\mathsf{H}}
-\newcommand\To[1]{\overset{\mathrm{#1}}{\to}}
-\newcommand\UB[1]{^{(#1)}}
-\newcommand\OP[1]{\operatorname{#1}}
-\newcommand\MAT[1]{\begin{bmatrix}#1\end{bmatrix}}
-\newcommand\AL[1]{\begin{align}#1\end{align}}
-\newcommand\AM[1]{\begin{align*}#1\end{align*}}
-\newcommand\ALN[2]{\AL{#2\label{#1}}}
-\newcommand\GA[1]{\begin{gather}#1\end{gather}}
-\newcommand\GB[1]{\begin{gather*}#1\end{gather*}}
-\newcommand\HAT[1]{\widehat{#1}}
-\newcommand\BAR[1]{\overline{#1}}
-\newcommand\TLD[1]{\widetilde{#1}}
-%\newcommand\Prb{\mathbb{P}}
-%\newcommand\Exp{\mathbb{E}}
-\newcommand\Tr{\operatorname{tr}}
-\newcommand\Var{\operatorname{Var}}
-\newcommand\Cov{\operatorname{Cov}}
-\newcommand\IID{\overset{\mathrm{i.i.d.}}{\sim}}
-\newcommand\VS{\longleftrightarrow}
-\newcommand\diag{\operatorname{diag}}
-\DeclareMathOperator*{\Prb}{\mathbb{P}}
-\DeclareMathOperator*{\Exp}{\mathbb{E}}
-\DeclareMathOperator*{\argmin}{\arg\min}
-\DeclareMathOperator*{\argmax}{\arg\max}
-\DeclareMathOperator*{\softmax}{softmax}
-\DeclareMathOperator*{\hardmax}{hardmax}
-\DeclareMathOperator*{\minimize}{minimize}
-\DeclareMathOperator*{\maximize}{maximize}
-
-\section{Matrix Bernstein’s inequality}
+\section{Matrix Bernstein's inequality}
 \begin{problem*}[Exercise 5.4.3]\label{ex5.4.3}
-
+	\begin{enumerate}[(a)]
+		\item\label{ex5.4.3:a} Consider a polynomial
+		      \[
+			      f(x)
+			      = a_0 + a_1 x + \dots + a_p x^p.
+		      \]
+		      Check that for a matrix \(X\), we have
+		      \[
+			      f(X)
+			      = a_0 I + a_1 X + \dots + a_p X^p .
+		      \]
+		      In the right side, we use the standard rules for matrix addition and multiplication, so in particular, \(X^p = X \cdots X\) (\(p\) times) there.
+		\item\label{ex5.4.3:b} Consider a convergent power series expansion of \(f\) about \(x_0\):
+		      \[
+			      f(x)
+			      = \sum_{k=1}^{\infty} a_k (x - x_0)^k.
+		      \]
+		      Check that the series of matrix terms converges, and
+		      \[
+			      f(X)
+			      = \sum_{k=1}^{\infty} a_k (X - x_0 I)^k.
+		      \]
+	\end{enumerate}
 \end{problem*}
 \begin{answer}
-Let $\BM X=:\BM U\BM\varLambda\BM U\Tp$ be the symmetric eigendecomposition of $\BM X$. 
-
-\begin{enumerate}[(a)]
-\item
-Since $\BM X^k=\BM U\BM\varLambda\BM U\Tp\cdots\BM U\BM\varLambda\BM U\Tp=\BM U\BM\varLambda\BM I\cdots\BM I\BM\varLambda\BM U\Tp=\BM U\BM\varLambda^k\BM U\Tp$ for all $k\ge0$, then
-\AM{
-f(\BM X)=\BM Uf(\BM\varLambda)\BM U\Tp=\BM U\bigg(\sum_{k=0}^pa_k\BM\varLambda^k\bigg)\BM U\Tp=\sum_{k=0}^pa_k\BM U\BM\varLambda^k\BM U\Tp=\sum_{k=0}^pa_k\BM X^k
-.}
-\item
-Since $\BM X-x_0\BM I=\BM U(\BM\varLambda-x_0\BM I)\BM U\Tp$, then by (a),
-\AM{
-f(\BM X)=\BM U\bigg(\sum_{k=1}^\infty a_k(\BM\varLambda-x_0\BM I)^k\bigg)\BM U\Tp=\sum_{k=1}^\infty a_k\BM U(\BM\varLambda-x_0\BM I)^k\BM U\Tp=\sum_{k=0}^\infty a_k(\BM X-x_0\BM I)^k
-.}
-\end{enumerate}
+	Let \(X\eqqcolon U\varLambda U^{\top}\) be the symmetric eigendecomposition of \(X\).
+	\begin{enumerate}[(a)]
+		\item Since \(X^k = U \varLambda U^{\top} \cdots U\varLambda U^{\top}=U\varLambda I\cdots I\varLambda U^{\top}=U\varLambda ^kU^{\top}\) for all \(k\geq 0\), then
+		      \[
+			      f(X)
+			      = U f(\varLambda ) U^{\top}
+			      =U\left( \sum_{k=0}^pa_k\varLambda ^k \right) U^{\top}
+			      = \sum_{k=0}^{p} a_k U\varLambda ^k U^{\top}
+			      =\sum_{k=0}^{p} a_k X^k.
+		      \]
+		\item Since \(X - x_0 I = U(\varLambda -x_0 I) U^{\top}\), then by \hyperref[ex5.4.3:a]{(a)},
+		      \[
+			      f(X)
+			      = U \left( \sum_{k=1}^{\infty} a_k (\varLambda -x_0 I)^k \right) U^{\top}
+			      =\sum_{k=1}^{\infty} a_k U(\varLambda -x_0 I)^k U^{\top}
+			      =\sum_{k=0}^{\infty} a_k(X-x_0 I)^k.
+		      \]
+	\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.5]\label{ex5.4.5}
-
+	Prove the following properties.
+	\begin{enumerate}[(a)]
+		\item\label{ex5.4.5:a} \(\lVert X \rVert \leq t\) if and only if \(-t I \preceq X \preceq t I\).
+		\item\label{ex5.4.5:b} Let \(f, g \colon \mathbb{R} \to \mathbb{R} \) be two functions. If \(f(x) \leq g(x)\) for all \(x \in \mathbb{R} \) satisfying \(\lvert x \rvert \leq K\), then \(f(X) \preceq g(X)\) for all \(X\) satisfying \(\lVert X \rVert \leq K\).
+		\item\label{ex5.4.5:c} Let \(f \colon \mathbb{R} \to \mathbb{R} \) be an increasing function and \(X, Y\) are commuting matrices. Then \(X \preceq Y\) implies \(f(X) \preceq f(Y)\).
+		\item\label{ex5.4.5:d} Given an example showing that property \hyperref[ex5.4.5:c]{(c)} may fail for non-commuting matrices.
+		\item\label{ex5.4.5:e} In the following parts of the exercise, we develop weaker versions of property \hyperref[ex5.4.5:c]{(c)} that hold for arbitrary, nor necessarily commuting, matrices. First, show that \(X \preceq Y\) always implies \(\tr f(X) \leq \tr f(Y)\) for any increasing function \(f \colon \mathbb{R} \to \mathbb{R} \).
+		\item\label{ex5.4.5:f} Show that \(0 \preceq X \preceq Y\) implies \(X ^{-1} \preceq Y ^{-1} \) if \(X\) is invertible.
+		\item\label{ex5.4.5:g} Show that \(0 \preceq X \preceq Y\) implies \(\log X \preceq \log Y\).
+	\end{enumerate}
 \end{problem*}
 \begin{answer}
-Let $\BM X=:\BM U\BM\varLambda\BM U\Tp$ and $\BM Y=:\BM V\BM M\BM V\Tp$ denote the symmetric eigendecompositions of $\BM X$ and $\BM Y$, respectively. Additionally, let $\BM\lambda:=\diag(\BM\varLambda)$, $\BM\mu:=\diag(\BM M)$.
-
-\begin{enumerate}[(a)]
-\item
-By the Courant--Fisher min-max theorem w.r.t.\ $\lambda_1$ and $\lambda_n$,
-\AM{
-\|\BM X\|\le t&\iff -t\BM1\le\BM\lambda\le t\BM1\iff t\BM1\pm\BM\lambda\ge\BM0\iff t\BM I\pm\BM X\succeq\BM0\iff -t\BM I\preceq\BM X\preceq t\BM I
-.}
-
-\item
-Since $|\BM\lambda|\le K\BM1$, then $g(\BM\lambda)-f(\BM\lambda)\ge\BM0$. This implies that $g(\BM X)-f(\BM X)=\BM U(g(\BM\varLambda)-f(\BM\varLambda))\BM U\Tp$ has non-negative eigenvalues. Therefore, $g(\BM X)\succeq f(\BM X)$.
-
-\item
-Since $\BM X$ and $\BM Y$ are symmetric and commute, then $\BM Y$ admits an eigendecomposition with $\BM V=\BM U$. This implies $\BM\lambda\le\BM\mu$. It follows that $f(\BM\mu)-f(\BM\lambda)\ge0$, so
-$f(\BM Y)-f(\BM X)=\BM U(f(\BM M)-f(\BM\varLambda))\BM U\Tp$ has non-negative eigenvalues. Therefore, $f(\BM X)\preceq f(\BM Y)$.
-
-\item
-\AM{
-\textstyle
-\lambda\bigg(\!\MAT{4&2\\2&4}-\MAT{3&0\\0&0}\!\bigg)\!=\{5,0\},\quad\lambda\bigg(\!\MAT{4&2\\2&4}^{\!3}-\MAT{3&0\\0&0}^{\!3}\!\bigg)\!=\big\{\!\frac{\sqrt{43993}+197}2,-\frac{\sqrt{43993}-197}2\!\big\}.}
-
-\item
-Since $\BM X-\BM Y\preceq\BM0$, then by the Courant--Fisher min-max theorem, for any $i=1,\dots,n$,
-\AM{
-\lambda_i-\mu_i&=\max_{\OP{dim}\CAL E=i}\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v-\max_{\OP{dim}\CAL E=i}\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM Y\BM v\\
-&\le\max_{\OP{dim}\CAL E=i}\Big(\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v-\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM Y\BM v\Big)\\
-%&=\max_{\OP{dim}\CAL E=i}\Big(\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v+\max_{\BM v\in\BB S(\CAL E)}\big({-\BM v\Tp\BM Y\BM v}\big)\Big)\\
-&\le\max_{\OP{dim}\CAL E=i}\max_{\BM v\in\BB S(\CAL E)}\big(\BM v\Tp\BM X\BM v-\BM v\Tp\BM Y\BM v\big)\\
-&=\max_{\OP{dim}\CAL E=i}\max_{\BM v\in\BB S(\CAL E)}\BM v\Tp(\BM X-\BM Y)\BM v\le0
-.}
-Since $f$ is increasing, then $f(\lambda_i)\le f(\mu_i)$ for all $i$. It follows that
-\AM{\Tr f(\BM X)=\sum_{i=1}^nf(\lambda_i)\le\sum_{i=1}^nf(\mu_i)=\Tr f(\BM Y).}
-
-\item
-Since $\BM X\preceq\BM Y$, then $\BM I=\BM X^{-1/2}\BM X\BM X^{-1/2}\preceq\BM X^{-1/2}\BM Y\BM X^{-1/2}$. This implies $\lambda(\BM X^{-1/2}\BM Y\BM X^{-1/2})\ge1$. Thus, $\lambda(\BM X^{1/2}\BM Y^{-1}\BM X^{1/2})=\lambda^{-1}(\BM X^{-1/2}\BM Y\BM X^{-1/2})\le1$, so $\BM X^{1/2}\BM Y^{-1}\BM X^{1/2}\preceq\BM I$. It follows that $\BM Y^{-1}=\BM X^{-1/2}(\BM X^{1/2}\BM Y^{-1}\BM X^{1/2})\BM X^{-1/2}\preceq\BM X^{-1/2}\BM I\BM X^{-1/2}=\BM X^{-1}$. 
-
-\item
-By (f), $(\BM X+t\BM I)^{-1}\succeq(\BM Y+t\BM I)^{-1}$ for $t\ge0$. Since $\log z=\log\frac{1+t}{z+t}\big|_{t=0}^\infty=\int_0^\infty\big(\frac1{1+t}-\frac1{z+t}\big)\DD t$, then
-\AM{\log\BM X=\int_0^\infty((1+t)^{-1}\BM I-(\BM X+t\BM I)^{-1})\DD t\preceq\int_0^\infty((1+t)^{-1}\BM I-(\BM Y+t\BM I)^{-1})\DD t=\log\BM Y.}
-\end{enumerate}
+	Let \(X \eqqcolon U \varLambda U^{\top}\) and \(Y\eqqcolon V M V^{\top}\) denote the symmetric eigendecompositions of \(X\) and \(Y\), respectively. Additionally, let \(\lambda \coloneqq \diag(\varLambda )\) and \(\mu\coloneqq \diag(M)\) in \(\mathbb{R} ^n\).
+	\begin{enumerate}[(a)]
+		\item By the Courant-Fisher min-max theorem w.r.t.\ \(\lambda_1\) and \(\lambda_n\),
+		      \[
+			      \lVert X \rVert \leq t
+			      \iff - t \mathbbm{1}  \leq \lambda \leq t \mathbbm{1}
+			      \iff t \mathbbm{1}  \pm \lambda \geq 0
+			      \iff tI \pm X \succeq 0
+			      \iff -tI \preceq X \preceq tI.
+		      \]
+		\item Since \(\lvert \lambda \rvert \leq K \mathbbm{1} \), then \(g(\lambda)-f(\lambda)\geq 0\). This implies that \(g(X)-f(X)=U(g(\varLambda )-f(\varLambda ))U^{\top}\) has non-negative eigenvalues. Therefore, \(g(X)\succeq f(X)\).
+		\item Since \(X\) and \(Y\) are symmetric and commute, then \(Y\) admits an eigendecomposition with \(V=U\). This implies \(\lambda\leq\mu\). It follows that \(f(\mu)-f(\lambda)\geq 0\), so
+		      \(f(Y)-f(X)=U(f(M)-f(\varLambda ))U^{\top}\) has non-negative eigenvalues. Therefore, \(f(X) \preceq f(Y)\).
+		\item We see that
+		      \[
+			      \lambda \left( \begin{pmatrix}
+					      4 & 2 \\
+					      2 & 4 \\
+				      \end{pmatrix} - \begin{pmatrix}
+					      3 & 0 \\
+					      0 & 0 \\
+				      \end{pmatrix} \right) = \{ 5, 0 \} ,
+		      \]
+		      while
+		      \[
+			      \lambda \left( \begin{pmatrix}
+					      4 & 2 \\
+					      2 & 4 \\
+				      \end{pmatrix}^3 - \begin{pmatrix}
+					      3 & 0 \\
+					      0 & 0 \\
+				      \end{pmatrix}^3 \right) = \left\{ \frac{\sqrt{43993} + 197}{2} , - \frac{\sqrt{43993} - 197}{2}\right\} .
+		      \]
+		\item Since \(X-Y \preceq 0\), then by the Courant-Fisher min-max theorem, for any \(i = 1,\dots,n\),
+		      \[
+			      \begin{split}
+				      \lambda_i-\mu_i
+				       & = \max_{\dim E=i}\min_{v\in S(E)}v^{\top} X v-\max_{\dim E=i}\min_{v\in S(E)} v^{\top} Y v      \\
+				       & \leq \max_{\dim E=i} \left( \min_{v\in S(E)} v^{\top} X v - \min_{v\in S(E)}v^{\top}Y v \right) \\
+				       & \leq \max_{\dim E=i}\max_{v\in S(E)} \left( v^{\top} X v - v^{\top} Y v \right)
+				      = \max_{\dim E=i} \max_{v\in S(E)} v^{\top} (X-Y) v
+				      \leq 0
+			      \end{split}
+		      \]
+		      Since \(f\) is increasing, then \(f(\lambda_i)\leq f(\mu_i)\) for all \(i\). It follows that
+		      \[
+			      \tr f(X)
+			      = \sum_{i=1}^{n} f(\lambda_i)
+			      \leq \sum_{i=1}^{n} f(\mu_i)
+			      =\tr f(Y).
+		      \]
+		\item Since \(X\preceq Y\), then \(I = X^{-1/2} X X^{-1/2} \preceq X^{-1/2} Y X^{-1/2}\). This implies \(\lambda(X^{-1/2} Y X^{-1/2}) \geq 1\). Thus, \(\lambda(X^{1/2} Y^{-1} X^{1/2}) = \lambda^{-1}(X^{-1/2} Y X^{-1/2})\leq 1\), so \(X^{1/2} Y^{-1} X^{1/2} \preceq I\). It follows that
+		      \[
+			      Y^{-1}
+			      = X^{-1/2}(X^{1/2} Y^{-1} X^{1/2}) X^{-1/2}
+			      \preceq X^{-1/2} I X^{-1/2}
+			      = X^{-1}.
+		      \]
+		\item By \hyperref[ex5.4.5:f]{(f)}, \((X+tI)^{-1} \succeq (Y+tI)^{-1}\) for \(t \geq 0\). Since \(\log z = \at{\log \frac{1+t}{z+t}}{t = 0}{t = \infty } = \int_{0}^{\infty} \frac{1}{1+t} - \frac{1}{z+t} \,\mathrm{d} t\), then
+		      \[
+			      \log X
+			      = \int_{0}^{\infty} ((1+t)^{-1} I - (X + tI)^{-1} ) \,\mathrm{d} t
+			      \preceq \int_{0}^{\infty} ((1+t)^{-1}I-(Y+tI)^{-1}) \,\mathrm{d} t
+			      = \log Y.
+		      \]
+	\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.6]\label{ex5.4.6}
-
+	Let \(X\) and \(Y\) be \(n \times n\) symmetric matrices.
+	\begin{enumerate}[(a)]
+		\item\label{ex5.4.6:a} Show that if the matrices commute, i.e., \(XY = YX\), then
+		      \[
+			      e^{X + Y}
+			      = e^X e^Y.
+		      \]
+		\item\label{ex5.4.6:b} Find and example of matrices \(X\) and \(Y\) such that
+		      \[
+			      e^{X + Y}
+			      \neq e^X e^Y.
+		      \]
+	\end{enumerate}
 \end{problem*}
 \begin{answer}
-\begin{enumerate}[(a)]
-\item
-Since $\BM X$ and $\BM Y$ commute, then by the binomial theorem and the substitution $i:=k-j$,
-\AM{\RM e^{\BM X+\BM Y}=\sum_{k=0}^\infty\frac{(\BM X+\BM Y)^k}{k!}=\sum_{k=0}^\infty\frac{1}{k!}\sum_{j=0}^k\frac{k!}{(k-j)!j!}\BM X^{k-j}\BM Y^{j}=\sum_{i=0}^\infty\frac{\BM X^i}{i!}\sum_{j=0}^\infty\frac{\BM Y^j}{j!}=\RM e^{\BM X}\RM e^{\BM Y}.}
-
-\item
-For $\BM X:=\MAT{1&0\\0&-1}$ and $\BM Y:=\MAT{0&1\\1&0}$,
-\AM{%\textstyle
-\RM e^{\BM X+\BM Y}\!=\!\MAT{\cosh\sqrt2+\frac1{\sqrt2}{\sinh\sqrt2}&\!\!\!\!\!\!\!\!\frac1{\sqrt2}{\sinh\sqrt2}\\\frac1{\sqrt2}{\sinh\sqrt2}&\!\!\!\!\!\!\!\!\cosh\sqrt2-\frac1{\sqrt2}{\sinh\sqrt2}}\!,\quad
-\RM e^{\BM X}\RM e^{\BM Y}\!=\frac12\!\MAT{\RM e^2+1&\RM e^2-1\\1-\RM e^{-2}&1+\RM e^{-2}}\!
-.}
-\end{enumerate}
+	\begin{enumerate}[(a)]
+		\item Since \(X\) and \(Y\) commute, by the binomial theorem and the substitution \(i \coloneqq k-j\),
+		      \[
+			      e^{X+Y}
+			      = \sum_{k=0}^{\infty} \frac{(X+Y)^k}{k!}
+			      = \sum_{k=0}^{\infty} \frac{1}{k!} \sum_{j=0}^{k} \frac{k!}{(k-j)!j!} X^{k-j}Y^{j}
+			      = \sum_{i=0}^{\infty} \frac{X^i}{i!} \sum_{j=0}^{\infty} \frac{Y^j}{j!}
+			      =e^{X}e^{Y}.
+		      \]
+		\item For \(X \coloneqq \begin{pmatrix}
+			      1 & 0  \\
+			      0 & -1 \\
+		      \end{pmatrix}\) and \(Y\coloneqq \begin{pmatrix}
+			      0 & 1 \\
+			      1 & 0 \\
+		      \end{pmatrix}\),
+		      \[
+			      e^{X+Y} = \begin{pmatrix}
+				      \cosh \sqrt{2} + \frac{\sinh \sqrt{2}}{\sqrt{2} } & \frac{\sinh \sqrt{2}}{\sqrt{2} }                  \\
+				      \frac{\sinh \sqrt{2}}{\sqrt{2} }                  & \cosh \sqrt{2} - \frac{\sinh \sqrt{2}}{\sqrt{2} }
+			      \end{pmatrix},\quad
+			      e^X e^Y = \frac{1}{2} \begin{pmatrix}
+				      e^2 + 1    & e^2 - 1    \\
+				      1 - e^{-2} & 1 + e^{-2}
+			      \end{pmatrix}.
+		      \]
+	\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.11]\label{ex5.4.11}
-
+	Let \(X_1, \dots , X_N\) be independent, mean zero, \(n \times n\) symmetric random matrices, such that \(\lVert X_i \rVert \leq K\) almost surely for all \(i\). Deduce from Bernstein's inequality that
+	\[
+		\mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right]
+		\lesssim \left\lVert \sum_{i=1}^{N} \mathbb{E}_{}[X_i^2] \right\rVert ^{1 / 2} \sqrt{1 + \log n} + K(1 + \log n).
+	\]
 \end{problem*}
 \begin{answer}
-Let $\sigma^2:=\|{\sum_{i=1}^N\Exp\BM X_i^2}\|$. By the matrix Berstein's inequality, for every $u>0$, with the substitution $t:=c^{-\frac12}\sigma\sqrt{u+\ln n}+c^{-1}K(u+\ln n)$,
-\AM{\Prb\!\bigg\{{\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|\ge t}\bigg\}\le2n\RM e^{-c\min\left\{\!\frac{t^2}{\sigma^2},\frac{t}{K}\!\right\}}\le2n\RM e^{-(u+\ln n)}=2\RM e^{-u}.}
-Then by Lemma 1.2.1,
-\AM{\Exp\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|&=\bigg(\int_0^{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}+\int_{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}^\infty\bigg)\Prb\!\bigg\{{\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|\ge t}\bigg\}\DD t\\
-&\le\int_0^{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}1\DD t+\int_{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}^\infty2\RM e^{-u}\DD t\\
-&=c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+\int_1^\infty2\RM e^{-u}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{u+\ln n}}+c^{-1}K\Big)\DD u\\
-&\le c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+\int_1^\infty2\RM e^{-u}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{1+\ln n}}+c^{-1}K\Big)\DD u\\
-&=c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+2\RM e^{-1}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{1+\ln n}}+c^{-1}K\Big)\\
-&\lesssim\sigma\sqrt{1+\ln n}+K(1+\ln n)
-.}
+	Let \(\sigma^2 \coloneqq \lVert {\sum_{i=1}^N \mathbb{E}_{}[X_i^2] } \rVert \). By the matrix Berstein's inequality, for every \(u > 0\), with the substitution \(t \coloneqq c^{-1 / 2} \sigma \sqrt{u + \log n} + c^{-1} K (u+\log n)\),
+	\[
+		\mathbb{P} \left(\left\lVert {\sum_{i=1}^{N} X_i} \right\rVert \geq t \right)
+		\leq 2 n e^{-c\min\left( \frac{t^2}{\sigma^2}, \frac{t}{K} \right)}
+		\leq 2 n e^{-(u+\log n)}
+		= 2 e^{-u}.
+	\]
+	Then by Lemma 1.2.1,
+	\[
+		\begin{split}
+			 & \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right]                                                                                                                                                                   \\
+			 & = \left( \int_{0}^{c^{-1 / 2}\sigma\sqrt{1+\log n}+c^{-1}K(1+\log n)}+\int_{c^{-1 / 2}\sigma\sqrt{1+\log n}+c^{-1}K(1+\log n)}^{\infty} \right) \mathbb{P} \left( \left\lVert \sum_{i=1}^NX_i \right\rVert \geq t \right) \,\mathrm{d} t \\
+			 & \leq \int_{0}^{c^{-1 / 2}\sigma \sqrt{1+\log n}+c^{-1}K(1+\log n)} 1 \,\mathrm{d} t + \int_{c^{-1 / 2}\sigma\sqrt{1+\log n}+c^{-1}K(1+\log n)}^{\infty} 2 e^{-u} \,\mathrm{d} t                                                          \\
+			 & = c^{-1 / 2}\sigma\sqrt{1+\log n}+c^{-1}K(1+\log n) + \int_{1}^{\infty} 2 e^{-u} \left(\frac{2^{-1}c^{-1 / 2}\sigma}{\sqrt{u+\log n}}+c^{-1}K \right)\,\mathrm{d} u                                                                      \\
+			 & \leq c^{-1 / 2}\sigma\sqrt{1+\log n} + c^{-1}K(1+\log n) + \int_{1}^{\infty} 2 e^{-u} \left(\frac{2^{-1}c^{-1 / 2}\sigma}{\sqrt{1+\log n}}+c^{-1}K\right) \,\mathrm{d} u                                                                 \\
+			 & = c^{-1 / 2}\sigma\sqrt{1+\log n} + c^{-1}K(1+\log n)+2e^{-1}\left(\frac{2^{-1}c^{-1 / 2}\sigma}{\sqrt{1+\log n}}+c^{-1}K\right)                                                                                                         \\
+			 & \lesssim \sigma\sqrt{1+\log n}+K(1+\log n),
+		\end{split}
+	\]
+	which is exactly what we want to show.
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.12]\label{ex5.4.12}
-
+	Let \(\varepsilon _1, \dots , \varepsilon _n\) be independent symmetric Bernoulli random variables and let \(A_1, \dots , A_N\) be symmetric \(n \times n\) matrices (deterministic). Prove that, for any \(t \geq 0\), we have
+	\[
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} \varepsilon _i A_i \right\rVert \geq t \right)
+		\leq 2 n \exp (-t^2 / 2 \sigma ^2),
+	\]
+	where \(\sigma ^2 = \lVert \sum_{i=1}^{N} A_i^2 \rVert \).
 \end{problem*}
 \begin{answer}
-Let $\sigma^2:=\|{\sum_{i=1}^N\BM A_i^2}\|$ and $\lambda:=\frac{t}{\sigma^2}\ge0$. By Exercise 2.2.3,
-\AM{&\Tr\RM e^{\sum_{i=1}^N\!\log\Exp\RM e^{\lambda\varepsilon_i\BM A_i}}
-=\Tr\RM e^{\sum_{i=1}^N\!\log\cosh(\lambda\BM A_i)}
-\le\Tr\RM e^{\sum_{i=1}^N\!\frac{\lambda^2}2\BM A_i^2}\le n\RM e^{\frac{\lambda^2}2\lambda_{\max}(\sum_{i=1}^N\BM A_i^2)}=n\RM e^{\frac{\lambda^2\sigma^2}2}
-.}
-Then by the Chernoff bound and Lieb's inequality,
-\AM{{}&\Prb\!\bigg\{\lambda_{\max}\!\bigg({\sum_{i=1}^N\varepsilon_i\BM A_i}\!\bigg)\!\ge t\bigg\}\!\le\RM e^{-\lambda t}\Exp\RM e^{\lambda\cdot\lambda_{\max}(\sum_{i=1}^N\varepsilon_i\BM A_i)}\!
-=\RM e^{-\lambda t}\Tr\RM e^{\sum_{i=1}^N\!\log\Exp\RM e^{\lambda\varepsilon_i\BM A_i}}\!\le\RM e^{-\lambda t}n\RM e^{\frac{\lambda^2\sigma^2}2}\!=n\RM e^{-\frac{t^2}{2\sigma^2}}
-.}
-Similarly, $\Prb\{\lambda_{\min}(\sum_{i=1}^N\varepsilon_i\BM A_i)\le -t\}\le n\RM e^{-\frac{t^2}{2\sigma^2}}$.
+	Let \(\sigma^2 \coloneqq \lVert \sum_{i=1}^{N} A_i^2 \rVert \) and \(\lambda \coloneqq t / \sigma ^2 \geq 0\). By \hyperref[ex2.2.3]{Exercise 2.2.3},
+	\[
+		\tr e^{\sum_{i=1}^{N} \log \mathbb{E}_{}[e^{\lambda\varepsilon_iA_i}] }
+		= \tr e^{\sum_{i=1}^{N} \log\cosh(\lambda A_i)}
+		\leq \tr e^{\sum_{i=1}^{N} \frac{\lambda^2}{2} A_i^2}
+		\leq n e^{\frac{\lambda^2}{2} \lambda_{\max} (\sum_{i=1}^{N} A_i^2)}
+		= n e^{\frac{\lambda^2\sigma^2}{2}}
+	\]
+	Then by the Chernoff bound and Lieb's inequality,
+	\[
+		\begin{split}
+			\mathbb{P} \left( \lambda_{\max} \left( \sum_{i=1}^{N} \varepsilon_i A_i \right) \geq t \right)
+			 & \leq e^{-\lambda t} \mathbb{E}_{}[e^{\lambda \cdot \lambda_{\max}(\sum_{i=1}^{N}\varepsilon_i A_i)}] \\
+			 & = e^{-\lambda t} \tr e^{\sum_{i=1}^{N} \log \mathbb{E}_{}[e^{\lambda\varepsilon_iA_i}]}
+			\leq e^{-\lambda t} n e^{\frac{\lambda^2\sigma^2}{2}}
+			= n e^{-\frac{t^2}{2\sigma^2}}.
+		\end{split}
+	\]
+	Similarly, \(\mathbb{P} (\lambda_{\min}(\sum_{i=1}^{N} \varepsilon_i A_i)\leq -t) \leq n e^{-\frac{t^2}{2\sigma^2}}\).
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.13]\label{ex5.4.13}
-
+	Let \(\varepsilon _1, \dots , \varepsilon _N\) be independent symmetric Bernoulli random variables and let \(A_1, \dots , A_N\) be symmetric \(n \times n\) matrices (deterministic).
+	\begin{enumerate}
+		\item\label{ex5.4.13:a} Prove that
+		      \[
+			      \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i A_i \right\rVert \right]
+			      \leq C \sqrt{1 + \log n} \left\lVert \sum_{i=1}^{N} A_i^2 \right\rVert ^{1 / 2}.
+		      \]
+		\item\label{ex5.4.13:b} More generally, prove that for every \(p \in [1, \infty )\), we have
+		      \[
+			      \left( \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i A_i \right\rVert ^p \right] \right) ^{1 / p}
+			      \leq C \sqrt{p + \log n} \left\lVert \sum_{i=1}^{N} A_i^2 \right\rVert ^{1 / 2}.
+		      \]
+	\end{enumerate}
 \end{problem*}
 \begin{answer}
-Since (a) follows from (b) with $p=1$, I will present only (b) here.
+	Since \hyperref[ex5.4.13:a]{(a)} follows from \hyperref[ex5.4.13:b]{(b)} with \(p=1\), we will only prove \hyperref[ex5.4.13:b]{(b)} here. As the inequality trivially holds for \(n=1\) with \(C=1\), let's assume \(n\geq 2\) from now on.
 
-Since the inequality trivially holds for $n=1$ with $C=1$, let's assume $n\ge2$ from now on.
-
-Note that if $1\le p\le2$, then by Stirling's approximation $\Gamma(z)\le\sqrt{\frac{2\uppi}z}\big(\frac z{\RM e}\big)^{\!z}\RM e^{\frac1{12z}}$,
-\AM{\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
-&\le\bigg(\!\int_0^\infty\!\!\RM e^{-s}(0+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
-=\Gamma\Big(\frac p2\Big)^{\!\frac1p}\le\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}};}
-and that if $p>2$, then by Minkowski's inequality (and the same Stirling's approximation),
-\AM{
-&\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
-=\bigg(\!\int_0^\infty\!\!\big(\RM e^{-\frac sp}(\ln(2n)+s)^{\frac12-\frac1p}\big)^{p}\DD s\!\bigg)^{\!\frac1p}\!\!\\
-\le{}&\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}((\ln(2n))^{\frac12-\frac1p}+s^{\frac12-\frac1p})^{p}\DD s\!\bigg)^{\!\frac1p}\!\!
-\le\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}(\ln(2n))^{\frac12-\frac1p})^p\DD s\!\bigg)^{\!\frac1p}\!\!+\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}s^{\frac12-\frac1p})^{p}\DD s\!\bigg)^{\!\frac1p}\!\!\\
-={}&(\ln(2n))^{\frac12-\frac1p}\!\bigg(\!\int_0^\infty\!\!\!\!\RM e^{-s}\DD s\!\!\bigg)^{\!\frac1p}\!\!\!+\!\bigg(\!\int_0^\infty\!\!\!\!\RM e^{-s}s^{\frac p2-1}\DD s\!\!\bigg)^{\!\frac1p}\!\!\!
-=(\ln(2n))^{\frac12-\frac1p}\!+\Gamma\Big(\frac p2\Big)^{\!\frac1p}\!\!
-\le(\ln(2n))^{\frac12-\frac1p}\!+\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}}
-.}
-Let $\sigma^2:=\|\!\sum_{i=1}^N\BM A_i^2\|$. By Exercise~5.4.12, for any $t\ge0$,
-\AM{\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^p\!\ge t\bigg\}=\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|\ge t^{\frac1p}\!\bigg\}\le2n\RM e^{-\frac{t^{2/p}}{2\sigma^2}}.}
-Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~1.2.1 and Minkowski's inequality,
-\AM{
-\bigg(\!\Exp\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^{p}\bigg)^{\!\frac1p}&=\bigg(\!\bigg(\!\int_0^{(\sigma\sqrt{2\ln(2n)})^p}\!\!\!\!+\int_{(\sigma\sqrt{2\ln(2n)})^p}^\infty\!\bigg)\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^p\!\ge t\bigg\}\DD t\!\bigg)^{\!\frac1p}\\
-&\le\bigg(\!\int_0^{(\sigma\sqrt{2\ln(2n)})^p}\!\!\!\!1\DD t+\int_{(\sigma\sqrt{2\ln(2n)})^p}^\infty\!\!2n\RM e^{-\frac{t^{2/p}}{2\sigma^2}}\DD t\!\bigg)^{\!\frac1p}\\
-&=\bigg(\!\big(\sigma\sqrt{2\ln(2n)}\big)^p+\int_0^\infty\!\!\RM e^{-s}\frac{(\sqrt{2}\sigma)^pp}2(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\\
-&=\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}^{p}+\frac{p}2\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\\
-&\le\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}+\Big(\frac{p}2\Big)^{\!\frac1p}\!\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\bigg)\\
-&\le\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}+\Big(\frac{p}2\Big)^{\!\frac1p}\!\Big((\ln(2n))^{\frac12-\frac1p}\BBM1_{[p>2]}\!+\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}}\Big)\!\bigg)\\
-&=\sqrt2\sigma\bigg(\!\Big(1+\Big(\frac{p}2\Big)^{\!\frac1p}(\ln(2n))^{-\frac1p}\BBM1_{[p>2]}\Big)\!\sqrt{\ln(2n)}+\frac{\uppi^{\frac1{2p}}p^{\frac{p+1}{2p}}}{\sqrt2\RM e^{\frac12-\frac1{6p^2}}}\Big)\!\bigg)\\
-&\le\sqrt2\sigma\bigg(\big(1+\RM e^{\!\frac1{\RM e\ln16}}\big)\sqrt{\ln(2n)}+\frac{\sqrt\uppi}{\sqrt2\RM e^{\frac13}}\sqrt p\!\bigg)\\
-&\asymp\sigma\sqrt{p+\ln n}
-.}
+	Note that if \(1 \leq p \leq 2\), then by Stirling's approximation \(\Gamma(z) \leq \sqrt{\frac{2\pi}{z}} \left( \frac{z}{e} \right)^{z} e^{\frac{1}{12z}}\),
+	\[
+		\left( \int_{0}^{\infty} e^{-s}(\log(2n)+s)^{\frac{p}{2} - 1}\,\mathrm{d} s \right) ^{1 / p}
+		\leq \left( \int_{0}^{\infty} e^{-s}(0+s)^{\frac{p}{2} - 1}\,\mathrm{d} s \right) ^{1 / p}
+		= \Gamma \left( \frac{p}{2} \right) ^{1 / p}
+		\leq \frac{\pi^{\frac{1}{2p}} p^{\frac{p-1}{2p}}}{2^{\frac{1}{2} - \frac{1}{p}} e^{\frac{1}{2} - \frac{1}{6 p^2}}},
+	\]
+	and that if \(p>2\), then by Minkowski's inequality (and the same Stirling's approximation),
+	\begin{align*}
+		\left( \int_{0}^{\infty} e^{-s}(\log(2n)+s)^{\frac p2-1}\,\mathrm{d} s \right)^{1 / p}
+		 & =\left( \int_{0}^{\infty} \big( e^{-\frac{s}{p}} (\log(2n)+s)^{\frac{1}{2} - \frac{1}{p}}\big)^{p} \,\mathrm{d} s \right)^{1 / p}                                                                                                    \\
+		\shortintertext{since \(p > 2\), and as \(x, y > 0\), we have \((x + y)^{\frac{1}{2} - \frac{1}{p}}\leq x^{\frac{1}{2} - \frac{1}{p}} + y^{\frac{1}{2} + \frac{1}{p}}\),}
+		 & \leq \left( \int_{0}^{\infty} \big( e^{-\frac{s}{p}} ((\log(2n))^{\frac{1}{2} - \frac{1}{p}} + s^{\frac{1}{2} - \frac{1}{p}}) \big)^{p} \,\mathrm{d} s \right) ^{1 / p}                                                              \\
+		\shortintertext{then by Minkowski's inequality (i.e., \(\lVert f + g \rVert _{L^p} \leq \lVert f \rVert _{L^p} + \lVert g \rVert _{L^p}\)),}
+		 & \leq \left( \int_{0}^{\infty} (e^{-\frac{s}{p}}(\log(2n))^{\frac{1}{2}-\frac{1}{p}})^p \,\mathrm{d} s \right)^{1 / p} + \left( \int_{0}^{\infty} (e^{-\frac{s}{p}} s^{\frac{1}{2} - \frac{1}{p}})^{p} \,\mathrm{d} s \right)^{1 / p} \\
+		\shortintertext{then by some direct calculations,}
+		 & = (\log(2n))^{\frac{1}{2} - \frac{1}{p}} \left( \int_{0}^{\infty} e^{-s} \,\mathrm{d} s \right)^{1 / p} + \left( \int_{0}^{\infty} e^{-s} s^{\frac{p}{2} - 1} \,\mathrm{d} s \right)^{1 / p}                                         \\
+		 & = (\log(2n))^{\frac{1}{2} - \frac{1}{p}} + \Gamma\left( \frac{p}{2} \right) ^{1 / p}                                                                                                                                                 \\
+		 & \leq (\log(2n))^{\frac{1}{2} - \frac{1}{p}} + \frac{\pi^{\frac{1}{2p}} p^{\frac{p-1}{2p}}}{2^{\frac{1}{2} - \frac{1}{p}} e^{\frac{1}{2} - \frac{1}{6p^2}}}.
+	\end{align*}
+	Let \(\sigma^2\coloneqq \lVert \sum_{i=1}^{N} A_i^2 \rVert \). By \hyperref[ex5.4.12]{Exercise 5.4.12}, for any \(t\geq 0\),
+	\[
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} \varepsilon_i A_i \right\rVert ^p \geq t \right)
+		= \mathbb{P} \left( \left\lVert \sum_{i=1}^{N} \varepsilon_i A_i \right\rVert \geq t^{1 / p} \right)
+		\leq 2 n e^{-\frac{t^{2/p}}{2\sigma^2}}.
+	\]
+	Then with the substitution \(t\eqqcolon \big(\sigma\sqrt{2(\log(2n)+s)}\big)^p\), by Lemma~1.2.1 and Minkowski's inequality,
+	\[
+		\begin{split}
+			\left( \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^N\varepsilon_iA_i \right\rVert ^p\right] \right)^{1 / p}
+			 & = \left( \left( \int_{0}^{\big(\sigma\sqrt{2\log(2n)}\big)^p} + \int_{\big(\sigma\sqrt{2\log(2n)}\big)^p}^{\infty} \right) \mathbb{P} \left( \left\lVert \sum_{i=1}^{N} \varepsilon_i A_i \right\rVert ^p \geq t \right) \,\mathrm{d} t \right)^{1 / p}                       \\
+			 & \leq \left( \int_{0}^{\big(\sigma\sqrt{2\log(2n)}\big)^p} 1 \,\mathrm{d} t + \int_{\big(\sigma\sqrt{2\log(2n)}\big)^p}^{\infty} 2 n e^{-\frac{t^{2/p}}{2\sigma^2}} \,\mathrm{d} t \right) ^{1 / p}                                                                            \\
+			 & = \left( \big(\sigma\sqrt{2\log(2n)}\big)^p + \int_{0}^{\infty} e^{-s}\frac{(\sqrt{2}\sigma)^pp}2(\log(2n)+s)^{\frac{p}{2} - 1} \,\mathrm{d} s \right)^{1 / p}                                                                                                                \\
+			 & = \sqrt{2}\sigma \left( \sqrt{\log(2n)}^{p}+\frac{p}2\!\int_{0}^{\infty}\!\!e^{-s}(\log(2n)+s)^{\frac p2-1}\,\mathrm{d} s \right) ^{1 / p}                                                                                                                                    \\
+			 & \leq \sqrt{2}\sigma \left( \sqrt{\log(2n)} + \left( \frac{p}{2} \right)^{1 / p} \left( \int_{0}^{\infty} e^{-s}(\log(2n)+s)^{\frac{p}{2} - 1}\,\mathrm{d} s \right) ^{1 / p} \right)                                                                                          \\
+			\shortintertext{plugging in the bound we have established in the beginning,}
+			 & \leq \sqrt{2}\sigma \left( \sqrt{\log(2n)} + \left( \frac{p}{2} \right) ^{1 / p} \left( (\log(2n))^{\frac{1}{2} - \frac{1}{p}} \mathbbm{1}_{p>2} + \frac{\pi^{\frac{1}{2p}} p^{\frac{p-1}{2p}}}{2^{\frac{1}{2}-\frac{1}{p}} e^{\frac{1}{2} - \frac{1}{6p^2}}} \right) \right) \\
+			 & = \sqrt{2}\sigma \left( \left( 1+ \left( \frac{p}{2} \right) ^{1 / p}(\log(2n))^{-\frac{1}{p}}\mathbbm{1}_{p>2} \right) \sqrt{\log(2n)} + \frac{\pi^{\frac{1}{2p}}p^{\frac{p+1}{2p}}}{\sqrt{2}e^{\frac{1}{2} - \frac{1}{6p^2}}} \right)                                       \\
+			 & \leq\sqrt{2}\sigma \left( (1+e^{\frac{1}{e\log(16)}})\sqrt{\log(2n)} + \frac{\sqrt{\pi}}{\sqrt{2}e^{\frac{1}{3}}}\sqrt{p} \right)                                                                                                                                             \\
+			 & \asymp \sigma\sqrt{p+\log n},
+		\end{split}
+	\]
+	which is exactly what we want to show.
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.14]\label{ex5.4.14}
@@ -230,7 +323,7 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 		      To proceed, we need to recall the following theorems.
 
 		      \begin{theorem}[Poisson limit thoerem]\label{thm:Poisson-limit}
-			      Let \(X_{N, i}\), \(1 \leq i \leq N\), be independent random variables \(X_{N, i} \sim \operatorname{Ber}(p_{N, i}) \), and let \(S_N \coloneqq \sum_{i=1}^{N} X_{N, i}\). Assume that as \(N \to \infty \), \(\max _{i \leq N} p_{N, i} \to 0\) and \(\mathbb{E}_{}[S_N] \to \lambda < \infty \). Then, as \(N \to \infty \), \(S_N \overset{D}{\to} \operatorname{Pois}(\lambda ) \).\footnote{Recall that \(Z \sim \operatorname{Pois}(\lambda ) \) means \(\mathbb{P} (Z = k) = e^{-\lambda } \lambda ^k / k!\) for \(k = 0, 1, \dots \).}
+			      Let \(X_{N, i}\), \(1 \leqq i \leqq N\), be independent random variables \(X_{N, i} \sim \operatorname{Ber}(p_{N, i}) \), and let \(S_N \coloneqq \sum_{i=1}^{N} X_{N, i}\). Assume that as \(N \to \infty \), \(\max _{i \leqq N} p_{N, i} \to 0\) and \(\mathbb{E}_{}[S_N] \to \lambda < \infty \). Then, as \(N \to \infty \), \(S_N \overset{D}{\to} \operatorname{Pois}(\lambda ) \).\footnote{Recall that \(Z \sim \operatorname{Pois}(\lambda ) \) means \(\mathbb{P} (Z = k) = e^{-\lambda } \lambda ^k / k!\) for \(k = 0, 1, \dots \).}
 		      \end{theorem}
 
 		      Also, we need the following.
@@ -249,8 +342,8 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 			      As \(N \to \infty \), with \(Z_k \sim \operatorname{Pois}(1) \), we have
 			      \[
 				      \mathbb{E}_{}[\lambda _1(T)]
-				      = \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} T_{k k} \right]
-				      \to \mathbb{E}_{}\left[ \max _{1 \leq k \leq n} Z_k \right]
+				      = \mathbb{E}_{}\left[ \max _{1 \leqq k \leqq n} T_{k k} \right]
+				      \to \mathbb{E}_{}\left[ \max _{1 \leqq k \leqq n} Z_k \right]
 				      = \Theta \left( \frac{\log n}{\log \log n} \right).
 			      \]
 		      \end{claim}
@@ -260,8 +353,8 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 			      Here, with a similar interpretation as in \hyperref[ex5.4.14:a]{(a)}, we can interpret \(S^k_N = \sum_{i=1}^{N} b^{(N)}_{ik}\) as the value of the \(k^{\text{th} }\) diagonal element of \(T\), i.e., \(T_{k k}\). Hence, as \(N \to \infty \), for all \(k\), \(T_{k k} \overset{D}{\to} Z_k\) where \(Z_k \overset{\text{i.i.d.} }{\sim } \operatorname{Pois}(1) \). By using the \hyperref[thm:Skorokhod-representation]{Skorokhod's representation theorem}, we can establish that \(T \overset{\text{a.s.} }{\to} \diag (Z_1, \dots , Z_n)\),\footnote{Note that \(X_n \overset{D}{\to} X\) and \(Y_n \overset{D}{\to} Y\) doesn't imply \((X_n, Y_n) \overset{D}{\to} (X, Y)\).} therefore
 			      \[
 				      \mathbb{E}_{}[\lambda _1 (T)]
-				      = \mathbb{E}_{}\left[\max _{1 \leq k \leq n} T_{k k}\right]
-				      \to \mathbb{E}_{}\left[\max _{1 \leq k \leq n} Z_k \right].
+				      = \mathbb{E}_{}\left[\max _{1 \leqq k \leqq n} T_{k k}\right]
+				      \to \mathbb{E}_{}\left[\max _{1 \leqq k \leqq n} Z_k \right].
 			      \]
 			      Finally, the expectation of maximum of independent Poisson is thoroughly studied~\cite{kimber1983note,briggs2009notedistributionmaximumset}, which is highly concentrated exactly around \(\log n / \log \log n\).
 		      \end{explanation}
@@ -285,10 +378,10 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.15]\label{ex5.4.15}
-	Let \(X_1, \dots , X_N\) be independent, mean zero, \(m \times n\) random matrices, such that \(\lVert X_i \rVert \leq K\) almost surely for all \(i\). Prove that for \(t \geq 0\), we have
+	Let \(X_1, \dots , X_N\) be independent, mean zero, \(m \times n\) random matrices, such that \(\lVert X_i \rVert \leqq K\) almost surely for all \(i\). Prove that for \(t \geq q 0\), we have
 	\[
-		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq t \right)
-		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq q t \right)
+		\leqq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
 	\]
 	where
 	\[
@@ -304,7 +397,7 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 			X_i           & 0_{m \times m} \\
 		\end{pmatrix}.
 	\]
-	To apply the matrix Bernstein's inequality (Theorem 5.4.1), we need to show that \(\lVert X_i ^{\prime} \rVert \leq K^{\prime} \) for some \(K^{\prime} \), where we know that \(\lVert X_i \rVert \leq K\). However, it's easy to see that since \(\lVert X_i \rVert = \lVert X_i ^{\top} \rVert \), we have \(\lVert X_i^{\prime} \rVert \leq K\) as well since the characteristic equation for \(X_i ^{\prime} \) is
+	To apply the matrix Bernstein's inequality (Theorem 5.4.1), we need to show that \(\lVert X_i ^{\prime} \rVert \leqq K^{\prime} \) for some \(K^{\prime} \), where we know that \(\lVert X_i \rVert \leqq K\). However, it's easy to see that since \(\lVert X_i \rVert = \lVert X_i ^{\top} \rVert \), we have \(\lVert X_i^{\prime} \rVert \leqq K\) as well since the characteristic equation for \(X_i ^{\prime} \) is
 	\[
 		\det (X_i^{\prime} - \lambda I)
 		= \det (\begin{pmatrix}
@@ -314,10 +407,10 @@ Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~
 		= \det (\lambda ^2 I - X_i ^{\top} X_i)
 		= 0,
 	\]
-	so \(\lVert X_i^{\prime} \rVert = \sqrt{\lVert X_i ^{\top} X_i \rVert } \leq K\). Hence, from matrix Bernstein's inequality, for every \(t \geq 0\),
+	so \(\lVert X_i^{\prime} \rVert = \sqrt{\lVert X_i ^{\top} X_i \rVert } \leqq K\). Hence, from matrix Bernstein's inequality, for every \(t \geq q 0\),
 	\[
-		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq t \right)
-		\leq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
+		\mathbb{P} \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \geq q t \right)
+		\leqq 2 (m+n) \exp (- \frac{t^2 / 2}{\sigma ^2 + Kt / 3}),
 	\]
 	where \(\sigma ^2 = \lVert \sum_{i=1}^{N} \mathbb{E}_{}[(X_i ^{\prime}) ^2] \rVert \). A quick calculation reveals that
 	\[
