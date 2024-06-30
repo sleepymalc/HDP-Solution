@@ -4,42 +4,152 @@
 
 \end{problem*}
 \begin{answer}
+Let $\BM X=:\BM U\BM\varLambda\BM U\Tp$ be the symmetric eigendecomposition of $\BM X$. 
 
+\begin{enumerate}[(a)]
+\item
+Since $\BM X^k=\BM U\BM\varLambda\BM U\Tp\cdots\BM U\BM\varLambda\BM U\Tp=\BM U\BM\varLambda\BM I\cdots\BM I\BM\varLambda\BM U\Tp=\BM U\BM\varLambda^k\BM U\Tp$ for all $k\ge0$, then
+\AM{
+f(\BM X)=\BM Uf(\BM\varLambda)\BM U\Tp=\BM U\bigg(\sum_{k=0}^pa_k\BM\varLambda^k\bigg)\BM U\Tp=\sum_{k=0}^pa_k\BM U\BM\varLambda^k\BM U\Tp=\sum_{k=0}^pa_k\BM X^k
+.}
+\item
+Since $\BM X-x_0\BM I=\BM U(\BM\varLambda-x_0\BM I)\BM U\Tp$, then by (a),
+\AM{
+f(\BM X)=\BM U\bigg(\sum_{k=1}^\infty a_k(\BM\varLambda-x_0\BM I)^k\bigg)\BM U\Tp=\sum_{k=1}^\infty a_k\BM U(\BM\varLambda-x_0\BM I)^k\BM U\Tp=\sum_{k=0}^\infty a_k(\BM X-x_0\BM I)^k
+.}
+\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.5]\label{ex5.4.5}
 
 \end{problem*}
 \begin{answer}
+Let $\BM X=:\BM U\BM\varLambda\BM U\Tp$ and $\BM Y=:\BM V\BM M\BM V\Tp$ denote the symmetric eigendecompositions of $\BM X$ and $\BM Y$, respectively. Additionally, let $\BM\lambda:=\diag(\BM\varLambda)$, $\BM\mu:=\diag(\BM M)$.
 
+\begin{enumerate}[(a)]
+\item
+By the Courant--Fisher min-max theorem w.r.t.\ $\lambda_1$ and $\lambda_n$,
+\AM{
+\|\BM X\|\le t&\iff -t\BM1\le\BM\lambda\le t\BM1\iff t\BM1\pm\BM\lambda\ge\BM0\iff t\BM I\pm\BM X\succeq\BM0\iff -t\BM I\preceq\BM X\preceq t\BM I
+.}
+
+\item
+Since $|\BM\lambda|\le K\BM1$, then $g(\BM\lambda)-f(\BM\lambda)\ge\BM0$. This implies that $g(\BM X)-f(\BM X)=\BM U(g(\BM\varLambda)-f(\BM\varLambda))\BM U\Tp$ has non-negative eigenvalues. Therefore, $g(\BM X)\succeq f(\BM X)$.
+
+\item
+Since $\BM X$ and $\BM Y$ are symmetric and commute, then $\BM Y$ admits an eigendecomposition with $\BM V=\BM U$. This implies $\BM\lambda\le\BM\mu$. It follows that $f(\BM\mu)-f(\BM\lambda)\ge0$, so
+$f(\BM Y)-f(\BM X)=\BM U(f(\BM M)-f(\BM\varLambda))\BM U\Tp$ has non-negative eigenvalues. Therefore, $f(\BM X)\preceq f(\BM Y)$.
+
+\item
+\AM{
+\textstyle
+\lambda\bigg(\!\MAT{4&2\\2&4}-\MAT{3&0\\0&0}\!\bigg)\!=\{5,0\},\quad\lambda\bigg(\!\MAT{4&2\\2&4}^{\!3}-\MAT{3&0\\0&0}^{\!3}\!\bigg)\!=\big\{\!\frac{\sqrt{43993}+197}2,-\frac{\sqrt{43993}-197}2\!\big\}.}
+
+\item
+Since $\BM X-\BM Y\preceq\BM0$, then by the Courant--Fisher min-max theorem, for any $i=1,\dots,n$,
+\AM{
+\lambda_i-\mu_i&=\max_{\OP{dim}\CAL E=i}\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v-\max_{\OP{dim}\CAL E=i}\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM Y\BM v\\
+&\le\max_{\OP{dim}\CAL E=i}\Big(\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v-\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM Y\BM v\Big)\\
+%&=\max_{\OP{dim}\CAL E=i}\Big(\min_{\BM v\in\BB S(\CAL E)}\BM v\Tp\BM X\BM v+\max_{\BM v\in\BB S(\CAL E)}\big({-\BM v\Tp\BM Y\BM v}\big)\Big)\\
+&\le\max_{\OP{dim}\CAL E=i}\max_{\BM v\in\BB S(\CAL E)}\big(\BM v\Tp\BM X\BM v-\BM v\Tp\BM Y\BM v\big)\\
+&=\max_{\OP{dim}\CAL E=i}\max_{\BM v\in\BB S(\CAL E)}\BM v\Tp(\BM X-\BM Y)\BM v\le0
+.}
+Since $f$ is increasing, then $f(\lambda_i)\le f(\mu_i)$ for all $i$. It follows that
+\AM{\Tr f(\BM X)=\sum_{i=1}^nf(\lambda_i)\le\sum_{i=1}^nf(\mu_i)=\Tr f(\BM Y).}
+
+\item
+Since $\BM X\preceq\BM Y$, then $\BM I=\BM X^{-1/2}\BM X\BM X^{-1/2}\preceq\BM X^{-1/2}\BM Y\BM X^{-1/2}$. This implies $\lambda(\BM X^{-1/2}\BM Y\BM X^{-1/2})\ge1$. Thus, $\lambda(\BM X^{1/2}\BM Y^{-1}\BM X^{1/2})=\lambda^{-1}(\BM X^{-1/2}\BM Y\BM X^{-1/2})\le1$, so $\BM X^{1/2}\BM Y^{-1}\BM X^{1/2}\preceq\BM I$. It follows that $\BM Y^{-1}=\BM X^{-1/2}(\BM X^{1/2}\BM Y^{-1}\BM X^{1/2})\BM X^{-1/2}\preceq\BM X^{-1/2}\BM I\BM X^{-1/2}=\BM X^{-1}$. 
+
+\item
+By (f), $(\BM X+t\BM I)^{-1}\succeq(\BM Y+t\BM I)^{-1}$ for $t\ge0$. Since $\log z=\log\frac{1+t}{z+t}\big|_{t=0}^\infty=\int_0^\infty\big(\frac1{1+t}-\frac1{z+t}\big)\DD t$, then
+\AM{\log\BM X=\int_0^\infty((1+t)^{-1}\BM I-(\BM X+t\BM I)^{-1})\DD t\preceq\int_0^\infty((1+t)^{-1}\BM I-(\BM Y+t\BM I)^{-1})\DD t=\log\BM Y.}
+\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.6]\label{ex5.4.6}
 
 \end{problem*}
 \begin{answer}
+\item
+Since $\BM X$ and $\BM Y$ commute, then by the binomial theorem and the substitution $i:=k-j$,
+\AM{\RM e^{\BM X+\BM Y}=\sum_{k=0}^\infty\frac{(\BM X+\BM Y)^k}{k!}=\sum_{k=0}^\infty\frac{1}{k!}\sum_{j=0}^k\frac{k!}{(k-j)!j!}\BM X^{k-j}\BM Y^{j}=\sum_{i=0}^\infty\frac{\BM X^i}{i!}\sum_{j=0}^\infty\frac{\BM Y^j}{j!}=\RM e^{\BM X}\RM e^{\BM Y}.}
 
+\item
+For $\BM X:=\MAT{1&0\\0&-1}$ and $\BM Y:=\MAT{0&1\\1&0}$,
+\AM{%\textstyle
+\RM e^{\BM X+\BM Y}\!=\!\MAT{\cosh\sqrt2+\frac1{\sqrt2}{\sinh\sqrt2}&\!\!\!\!\!\!\!\!\frac1{\sqrt2}{\sinh\sqrt2}\\\frac1{\sqrt2}{\sinh\sqrt2}&\!\!\!\!\!\!\!\!\cosh\sqrt2-\frac1{\sqrt2}{\sinh\sqrt2}}\!,\quad
+\RM e^{\BM X}\RM e^{\BM Y}\!=\frac12\!\MAT{\RM e^2+1&\RM e^2-1\\1-\RM e^{-2}&1+\RM e^{-2}}\!
+.}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.11]\label{ex5.4.11}
 
 \end{problem*}
 \begin{answer}
-
+Let $\sigma^2:=\|{\sum_{i=1}^N\Exp\BM X_i^2}\|$. By the matrix Berstein's inequality, for every $u>0$, with the substitution $t:=c^{-\frac12}\sigma\sqrt{u+\ln n}+c^{-1}K(u+\ln n)$,
+\AM{\Prb\!\bigg\{{\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|\ge t}\bigg\}\le2n\RM e^{-c\min\left\{\!\frac{t^2}{\sigma^2},\frac{t}{K}\!\right\}}\le2n\RM e^{-(u+\ln n)}=2\RM e^{-u}.}
+Then by Lemma 1.2.1,
+\AM{\Exp\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|&=\bigg(\int_0^{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}+\int_{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}^\infty\bigg)\Prb\!\bigg\{{\bigg\|{\sum_{i=1}^N\BM X_i}\bigg\|\ge t}\bigg\}\DD t\\
+&\le\int_0^{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}1\DD t+\int_{c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)}^\infty2\RM e^{-u}\DD t\\
+&=c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+\int_1^\infty2\RM e^{-u}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{u+\ln n}}+c^{-1}K\Big)\DD u\\
+&\le c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+\int_1^\infty2\RM e^{-u}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{1+\ln n}}+c^{-1}K\Big)\DD u\\
+&=c^{-\frac12}\sigma\sqrt{1+\ln n}+c^{-1}K(1+\ln n)+2\RM e^{-1}\Big(\frac{2^{-1}c^{-\frac12}\sigma}{\sqrt{1+\ln n}}+c^{-1}K\Big)\\
+&\lesssim\sigma\sqrt{1+\ln n}+K(1+\ln n)
+.}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.12]\label{ex5.4.12}
 
 \end{problem*}
 \begin{answer}
-
+Let $\sigma^2:=\|{\sum_{i=1}^N\BM A_i^2}\|$ and $\lambda:=\frac{t}{\sigma^2}\ge0$. By Exercise 2.2.3,
+\AM{&\Tr\RM e^{\sum_{i=1}^N\!\log\Exp\RM e^{\lambda\varepsilon_i\BM A_i}}
+=\Tr\RM e^{\sum_{i=1}^N\!\log\cosh(\lambda\BM A_i)}
+\le\Tr\RM e^{\sum_{i=1}^N\!\frac{\lambda^2}2\BM A_i^2}\le n\RM e^{\frac{\lambda^2}2\lambda_{\max}(\sum_{i=1}^N\BM A_i^2)}=n\RM e^{\frac{\lambda^2\sigma^2}2}
+.}
+Then by the Chernoff bound and Lieb's inequality,
+\AM{{}&\Prb\!\bigg\{\lambda_{\max}\!\bigg({\sum_{i=1}^N\varepsilon_i\BM A_i}\!\bigg)\!\ge t\bigg\}\!\le\RM e^{-\lambda t}\Exp\RM e^{\lambda\cdot\lambda_{\max}(\sum_{i=1}^N\varepsilon_i\BM A_i)}\!
+=\RM e^{-\lambda t}\Tr\RM e^{\sum_{i=1}^N\!\log\Exp\RM e^{\lambda\varepsilon_i\BM A_i}}\!\le\RM e^{-\lambda t}n\RM e^{\frac{\lambda^2\sigma^2}2}\!=n\RM e^{-\frac{t^2}{2\sigma^2}}
+.}
+Similarly, $\Prb\{\lambda_{\min}(\sum_{i=1}^N\varepsilon_i\BM A_i)\le -t\}\le n\RM e^{-\frac{t^2}{2\sigma^2}}$.
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.13]\label{ex5.4.13}
 
 \end{problem*}
 \begin{answer}
+Since (a) follows from (b) with $p=1$, I will present only (b) here.
 
+Since the inequality trivially holds for $n=1$ with $C=1$, let's assume $n\ge2$ from now on.
+
+Note that if $1\le p\le2$, then by Stirling's approximation $\Gamma(z)\le\sqrt{\frac{2\uppi}z}\big(\frac z{\RM e}\big)^{\!z}\RM e^{\frac1{12z}}$,
+\AM{\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
+&\le\bigg(\!\int_0^\infty\!\!\RM e^{-s}(0+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
+=\Gamma\Big(\frac p2\Big)^{\!\frac1p}\le\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}};}
+and that if $p>2$, then by Minkowski's inequality (and the same Stirling's approximation),
+\AM{
+&\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\!
+=\bigg(\!\int_0^\infty\!\!\big(\RM e^{-\frac sp}(\ln(2n)+s)^{\frac12-\frac1p}\big)^{p}\DD s\!\bigg)^{\!\frac1p}\!\!\\
+\le{}&\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}((\ln(2n))^{\frac12-\frac1p}+s^{\frac12-\frac1p})^{p}\DD s\!\bigg)^{\!\frac1p}\!\!
+\le\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}(\ln(2n))^{\frac12-\frac1p})^p\DD s\!\bigg)^{\!\frac1p}\!\!+\bigg(\!\int_0^\infty\!\!(\RM e^{-\frac sp}s^{\frac12-\frac1p})^{p}\DD s\!\bigg)^{\!\frac1p}\!\!\\
+={}&(\ln(2n))^{\frac12-\frac1p}\!\bigg(\!\int_0^\infty\!\!\!\!\RM e^{-s}\DD s\!\!\bigg)^{\!\frac1p}\!\!\!+\!\bigg(\!\int_0^\infty\!\!\!\!\RM e^{-s}s^{\frac p2-1}\DD s\!\!\bigg)^{\!\frac1p}\!\!\!
+=(\ln(2n))^{\frac12-\frac1p}\!+\Gamma\Big(\frac p2\Big)^{\!\frac1p}\!\!
+\le(\ln(2n))^{\frac12-\frac1p}\!+\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}}
+.}
+Let $\sigma^2:=\|\!\sum_{i=1}^N\BM A_i^2\|$. By Exercise~5.4.12, for any $t\ge0$,
+\AM{\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^p\!\ge t\bigg\}=\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|\ge t^{\frac1p}\!\bigg\}\le2n\RM e^{-\frac{t^{2/p}}{2\sigma^2}}.}
+Then with the substitution $t=:\big(\sigma\sqrt{2(\ln(2n)+s)}\big)^p$, by Lemma~1.2.1 and Minkowski's inequality,
+\AM{
+\bigg(\!\Exp\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^{p}\bigg)^{\!\frac1p}&=\bigg(\!\bigg(\!\int_0^{(\sigma\sqrt{2\ln(2n)})^p}\!\!\!\!+\int_{(\sigma\sqrt{2\ln(2n)})^p}^\infty\!\bigg)\Prb\!\bigg\{\bigg\|\sum_{i=1}^N\varepsilon_i\BM A_i\bigg\|^p\!\ge t\bigg\}\DD t\!\bigg)^{\!\frac1p}\\
+&\le\bigg(\!\int_0^{(\sigma\sqrt{2\ln(2n)})^p}\!\!\!\!1\DD t+\int_{(\sigma\sqrt{2\ln(2n)})^p}^\infty\!\!2n\RM e^{-\frac{t^{2/p}}{2\sigma^2}}\DD t\!\bigg)^{\!\frac1p}\\
+&=\bigg(\!\big(\sigma\sqrt{2\ln(2n)}\big)^p+\int_0^\infty\!\!\RM e^{-s}\frac{(\sqrt{2}\sigma)^pp}2(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\\
+&=\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}^{p}+\frac{p}2\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\\
+&\le\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}+\Big(\frac{p}2\Big)^{\!\frac1p}\!\bigg(\!\int_0^\infty\!\!\RM e^{-s}(\ln(2n)+s)^{\frac p2-1}\DD s\!\bigg)^{\!\frac1p}\!\bigg)\\
+&\le\sqrt2\sigma\bigg(\!\sqrt{\ln(2n)}+\Big(\frac{p}2\Big)^{\!\frac1p}\!\Big((\ln(2n))^{\frac12-\frac1p}\BBM1_{[p>2]}\!+\frac{\uppi^{\frac1{2p}}p^{\frac{p-1}{2p}}}{2^{\frac12-\frac1p}\RM e^{\frac12-\frac1{6p^2}}}\Big)\!\bigg)\\
+&=\sqrt2\sigma\bigg(\!\Big(1+\Big(\frac{p}2\Big)^{\!\frac1p}(\ln(2n))^{-\frac1p}\BBM1_{[p>2]}\Big)\!\sqrt{\ln(2n)}+\frac{\uppi^{\frac1{2p}}p^{\frac{p+1}{2p}}}{\sqrt2\RM e^{\frac12-\frac1{6p^2}}}\Big)\!\bigg)\\
+&\le\sqrt2\sigma\bigg(\big(1+\RM e^{\!\frac1{\RM e\ln16}}\big)\sqrt{\ln(2n)}+\frac{\sqrt\uppi}{\sqrt2\RM e^{\frac13}}\sqrt p\!\bigg)\\
+&\asymp\sigma\sqrt{p+\ln n}
+.}
 \end{answer}
 
 \begin{problem*}[Exercise 5.4.14]\label{ex5.4.14}
