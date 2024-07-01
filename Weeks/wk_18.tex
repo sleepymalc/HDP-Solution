@@ -262,7 +262,7 @@
 	\begin{align*}
 		\left( \int_{0}^{\infty} e^{-s}(\log(2n)+s)^{\frac p2-1}\,\mathrm{d} s \right)^{1 / p}
 		 & =\left( \int_{0}^{\infty} \big( e^{-\frac{s}{p}} (\log(2n)+s)^{\frac{1}{2} - \frac{1}{p}}\big)^{p} \,\mathrm{d} s \right)^{1 / p}                                                                                                    \\
-		\shortintertext{since \(p > 2\), and as \(x, y > 0\), we have \((x + y)^{\frac{1}{2} - \frac{1}{p}}\leq x^{\frac{1}{2} - \frac{1}{p}} + y^{\frac{1}{2} + \frac{1}{p}}\),}
+		\shortintertext{since \(p > 2\), and as \(x, y > 0\), we have \((x + y)^{\frac{1}{2} - \frac{1}{p}}\leq x^{\frac{1}{2} - \frac{1}{p}} + y^{\frac{1}{2} - \frac{1}{p}}\),}
 		 & \leq \left( \int_{0}^{\infty} \big( e^{-\frac{s}{p}} ((\log(2n))^{\frac{1}{2} - \frac{1}{p}} + s^{\frac{1}{2} - \frac{1}{p}}) \big)^{p} \,\mathrm{d} s \right) ^{1 / p}                                                              \\
 		\shortintertext{then by Minkowski's inequality (i.e., \(\lVert f + g \rVert _{L^p} \leq \lVert f \rVert _{L^p} + \lVert g \rVert _{L^p}\)),}
 		 & \leq \left( \int_{0}^{\infty} (e^{-\frac{s}{p}}(\log(2n))^{\frac{1}{2}-\frac{1}{p}})^p \,\mathrm{d} s \right)^{1 / p} + \left( \int_{0}^{\infty} (e^{-\frac{s}{p}} s^{\frac{1}{2} - \frac{1}{p}})^{p} \,\mathrm{d} s \right)^{1 / p} \\
@@ -529,3 +529,8 @@
 	\]
 	which completes the proof.
 \end{answer}
+
+\section{Application: community detection in sparse networks}
+
+
+\section{Application: covariance estimation for general distributions}
