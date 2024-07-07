@@ -1,0 +1,147 @@
+\chapter{Quadratic forms, symmetrization and contraction}
+\week{19}{6 Jul.\ 2024}{Decoupling and Hanson-Wright Inequality}
+\section{Decoupling}
+\begin{problem*}[Exercise 6.1.4]\label{ex6.1.4}
+	Prove the following generalization of Theorem 6.1.1. Let \(A = (a_{ij})\) be an \(n \times n\) matrix. Let \(X_1, \dots , X_n\) be independent, mean zero random vectors in some Hilbert space. Show that for every convex function \(F \colon \mathbb{R} \to \mathbb{R} \), one has
+	\[
+		\mathbb{E}_{}\left[F \left( \sum_{i, j\colon i \neq j} a_{ij} \langle X_i, X_j \rangle \right) \right]
+		\leq \mathbb{E}_{}\left[F \left( 4 \sum_{i, j} a_{ij} \langle X_i, X_j^{\prime} \rangle  \right) \right] ,
+	\]
+	where \((X_i^{\prime} )\) is an independent copy of \((X_i)\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.1.5]\label{ex6.1.5}
+	Prove the following alternative generalization of Theorem 6.1.1. Let \((u_{ij})_{i, j = 1}^n\) be fixed vectors in some normed space. Let \(X_1, \dots , X_n\) be independent, mean zero random variables. Show that, for every convex and increasing function \(F\), one has
+	\[
+		\mathbb{E}_{}\left[F \left( \left\lVert \sum_{i, j \colon i \neq j} X_i X_j u_{ij} \right\rVert \right) \right]
+		\leq \mathbb{E}_{}\left[F \left( 4 \left\lVert \sum_{i, j} X_i X_j^{\prime} u_{ij} \right\rVert  \right) \right] ,
+	\]
+	where \((X_i^{\prime} )\) is an independent copy of \((X_i)\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Hanson-Wright Inequality}
+\begin{problem*}[Exercise 6.2.4]\label{ex6.2.4}
+	Complete the proof of Lemma 6.2.3. Replace \(X^{\prime} \) by \(g^{\prime} \); write all details carefully.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.2.5]\label{ex6.2.5}
+	Give an alternative proof of Hanson-Write inequality for normal distributions, without separating the diagonal part or decoupling.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.2.6]\label{ex6.2.6}
+	Consider a mean zero, sub-gaussian random vector \(X\) in \(\mathbb{R} ^n\) with \(\lVert X \rVert _{\psi _2} \leq K\). Let \(B\) be an \(m \times n\) matrix. Show that
+	\[
+		\mathbb{E}_{}\left[\exp (\lambda ^2 \lVert BX \rVert _2^2)\right]
+		\leq \exp (CK^2 \lambda ^2 \lVert B \rVert _F^2)
+		\text{ provided } \lvert \lambda \rvert \leq \frac{c}{K \lVert B \rVert }.
+	\]
+	To prove this bound, replace \(X\) with a Gaussian random vector \(g \sim \mathcal{N} (0, I_m)\) along the following lines:
+	\begin{enumerate}[(a)]
+		\item\label{ex6.2.6:a} Prove the comparison inequality
+		      \[
+			      \mathbb{E}_{}[\exp (\lambda ^2 \lVert BX \rVert _2^2)]
+			      \leq \mathbb{E}_{}[\exp (CK^2 \lambda ^2 \lVert B^{\top} g \rVert _2^2)]
+		      \]
+		      for every \(\lambda \in \mathbb{R} \).
+		\item\label{ex6.2.6:b} Check that
+		      \[
+			      \mathbb{E}_{}[\exp (\lambda ^2 \lVert B^{\top} g \rVert _2^2)]
+			      \leq \exp (C \lambda ^2 \lVert B \rVert _F^2)
+		      \]
+		      provided that \(\lvert \lambda \rvert \leq c / \lVert B \rVert \).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.2.7]\label{ex6.2.7}
+	Let \(X_1, \dots , X_n\) be independent, mean zero, sub-gaussian random vectors in \(\mathbb{R} ^d\). Let \(A = (a_{ij})\) be an \(n \times n\) matrix. prove that for every \(t \geq 0\), we have
+	\[
+		\mathbb{P} \left( \left\lvert \sum_{i, j\colon i \neq j}^{n} a_{ij} \langle X_i, X_j \rangle \right\rvert \geq t \right)
+		\leq 2 \exp (- c \min \left( \frac{t^2}{K^4 d \lVert A \rVert _F^2} , \frac{t}{K^2 \lVert A \rVert }\right) )
+	\]
+	where \(K = \max _i \lVert X_i \rVert _{\psi _2}\).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\section{Concentration of anisotropic random vectors}
+\begin{problem*}[Exercise 6.3.1]\label{ex6.3.1}
+	Let \(B\) be an \(m \times n\) matrix and \(X\) be an isotropic random vector in \(\mathbb{R} ^n\). Check that
+	\[
+		\mathbb{E}_{}[\lVert BX \rVert _2^2]
+		= \lVert B \rVert _F^2.
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.3.3]\label{ex6.3.3}
+	Let \(D\) be a \(k \times m\) matrix and \(B\) be an \(m \times n\) matrix. Prove that
+	\[
+		\lVert DB \rVert _F
+		\leq \lVert D \rVert \lVert B \rVert _F.
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.3.4]\label{ex6.3.4}
+	Let \(E\) be a subspace of \(\mathbb{R} ^n\) of dimension \(d\). Consider a random vector \(X = (X_1, \dots , X_n) \in \mathbb{R} ^n\) with independent, mean zero, unit variance, sub-gaussian coordinates.
+	\begin{enumerate}[(a)]
+		\item\label{ex6.3.4:a} Check that
+		      \[
+			      (\mathbb{E}_{}[\dist(X, E)^2] )^{1 / 2}
+			      = \sqrt{n - d} .
+		      \]
+		\item\label{ex6.3.4:b} Prove that for any \(t \geq 0\), the distance nicely concentrates:
+		      \[
+			      \mathbb{P} \left( \left\lvert \dist(X, E) - \sqrt{n - d} \right\rvert > t \right)
+			      \leq 2 \exp (-ct^2 / K^4)
+		      \]
+		      where \(K = \max _i \lVert X_i \rVert _{\psi _2}\).
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.3.5]\label{ex6.3.5}
+	Let \(B\) be an \(m \times n\) matrix, and let \(X\) be a mean zero, sub-gaussian random vector in \(\mathbb{R} ^n\) with \(\lVert X \rVert _{\psi _2} \leq K\). Prove that for any \(t \geq 0\), we have
+	\[
+		\mathbb{P} ( \lVert BX \rVert _2 \geq CK \lVert B \rVert _F + t)
+		\leq \exp (- \frac{ct^2}{K^2 \lVert B \rVert ^2}).
+	\]
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.3.6]\label{ex6.3.6}
+	Show that there exists a mean zero, isotropic, and sub-gaussian random vector \(X\) in \(\mathbb{R} ^n\) such that
+	\[
+		\mathbb{P} (\lVert X \rVert _2 = 0)
+		= \mathbb{P} (\lVert X \rVert _2 \geq 1.4 \sqrt{n} )
+		= \frac{1}{2}.
+	\]
+	In other words, \(\lVert X \rVert _2\) does not concentrate near \(\sqrt{n} \).
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}

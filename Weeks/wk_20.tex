@@ -1,0 +1,130 @@
+\week{20}{13 Jul.\ 2024}{The Symmetrization Trick}
+\section{Symmetrization}
+\begin{problem*}[Exercise 6.4.1]\label{ex6.4.1}
+	Let \(X\) be a random variable and \(\xi \) be an independent symmetric Bernoulli random variable.
+	\begin{enumerate}[(a)]
+		\item\label{ex6.4.1:a} Check that \(\xi X\) and \(\xi \lvert X \rvert \) are symmetric random variables, and they have the same distribution.
+		\item\label{ex6.4.1:b} If \(X\) is symmetric, show that the distribution of \(\xi X\) and \(\xi \lvert X \rvert \) is the same as of \(x\).
+		\item\label{ex6.4.1:c} Let \(X^{\prime} \) be an independent copy of \(X\). Check that \(X - X^{\prime} \) is symmetric.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item For any random variable \(X\) and a symmetric Bernoulli random variable \(\xi \), we first prove that \(\xi X \overset{D}{=} - \xi X\), i.e., \(\mathbb{P} (\xi X \geq t) = \mathbb{P} (- \xi X \geq t)\) for any \(t \in \mathbb{R} \). Indeed, since
+		      \[
+			      \mathbb{P} (\xi X \geq t)
+			      = \frac{\mathbb{P} (\xi X \geq t \mid \xi = 1) + \mathbb{P} (\xi X \geq t \mid \xi = -1)}{2}
+			      = \frac{\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)}{2}
+		      \]
+		      while
+		      \[
+			      \mathbb{P} (- \xi X \geq t)
+			      = \frac{\mathbb{P} (-\xi X \geq t \mid \xi = 1) + \mathbb{P} (-\xi X \geq t \mid \xi = -1)}{2}
+			      = \frac{\mathbb{P} (-X \geq t) + \mathbb{P} (X \geq t)}{2}.
+		      \]
+		      This proves that both \(\xi X\) and \(\xi \lvert X \rvert \) are symmetric (by substituting \(X\) as \(\lvert X \rvert \)).  Secondly, we show that \(\xi X \overset{D}{=} \xi \lvert X \rvert \), i.e., \(\mathbb{P} (\xi X \geq t) = \mathbb{P} (\xi \lvert X \rvert \geq t)\) for any \(t \in \mathbb{R} \). Again, we have
+		      \[
+			      \begin{split}
+				      \mathbb{P} (\xi \lvert X \rvert \geq t)
+				       & = \frac{\mathbb{P} (\xi \lvert X \rvert \geq t \mid \xi = 1) + \mathbb{P} (\xi \lvert X \rvert \geq t \mid \xi = -1)}{2}                                           \\
+				       & = \frac{\mathbb{P} (\lvert X \rvert \geq t) + \mathbb{P} (- \lvert X \rvert \geq t)}{2}                                                                            \\
+				       & = \frac{\mathbb{P} (\lvert X \rvert \geq t \mid X \geq 0) \mathbb{P} (X \geq 0) + \mathbb{P} (\lvert X \rvert \geq t \mid X < 0) \mathbb{P} (X < 0) }{2}           \\
+				       & \qquad + \frac{\mathbb{P} (- \lvert X \rvert \geq t \mid X \geq 0) \mathbb{P} (X \geq 0) + \mathbb{P} (- \lvert X \rvert \geq t \mid X < 0) \mathbb{P} (X < 0)}{2} \\
+				       & = \frac{(\mathbb{P} (X \geq t) + \mathbb{P} (- X \geq t))\mathbb{P} (X \geq 0) + (\mathbb{P} (- X \geq t) + \mathbb{P} (X \geq t))\mathbb{P} (X < 0)}{2}           \\
+				       & = \frac{(\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)) (\mathbb{P} (X \geq 0) + \mathbb{P} (X < 0))}{2}                                                          \\
+				       & = \frac{\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)}{2},
+			      \end{split}
+		      \]
+		      which is just \(\mathbb{P} (\xi X \geq t)\), as we desired.
+		\item Moreover, if \(X\) is symmetric, we want to show that \(\xi X \overset{D}{=} \xi \lvert X \rvert \overset{D}{=} X\). The first equation is from \hyperref[ex6.4.1:a]{(a)}, as for the second, we see that for any \(t \geq 0\),
+		      \[
+			      \mathbb{P} (X \geq t)
+			      = \mathbb{P} (-X \geq t)
+			      = \frac{\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)}{2},
+		      \]
+		      which is the same as \(\mathbb{P} (\xi X \geq t)\).
+		\item We want to show that \(X - X^{\prime} \overset{D}{=} X^{\prime} - X\). Indeed, suppose this is not true, then
+		      \[
+			      X - X^{\prime}
+			      \overset{D}{\neq } X^{\prime} - X
+			      \overset{D}{\neq } X^{\prime\prime} - X^{\prime} ,
+		      \]
+		      where \(X^{\prime\prime} \) is an independent copy of \(x^{\prime} \), which can be \(X\). This is clearly a contradiction.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 6.4.3]\label{ex6.4.3}
+	Where in this argument did we use the independence of the random variables \(X_i\)? Is mean zero assumption needed for both upper and lower bounds?
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.4.4]\label{ex6.4.4}
+	\begin{enumerate}[(a)]
+		\item\label{ex6.4.4:a} Prove the following generalization of Symmetrization Lemma 6.4.2 for random vectors \(X_i\) that do not necessarily have zero means:
+		      \[
+			      \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i - \sum_{i=1}^{N} \mathbb{E}_{}[X_i] \right\rVert \right]
+			      \leq 2 \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right] .
+		      \]
+		\item\label{ex6.4.4:b} Argue that there can not be any non-trivial reverse inequality.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.4.5]\label{ex6.4.5}
+	Prove the following generalization of Symmetrization Lemma 6.4.2. Let \(F \colon \mathbb{R} _+ \to \mathbb{R} \) be an increasing, convex function. Show that the same inequalities in Lemma 6.4.2 hold if the norm \(\lVert \cdot \rVert \) is replaced with \(F(\lVert \cdot \rVert )\), namely
+	\[
+		\mathbb{E}_{}\left[F \left( \frac{1}{2}\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right) \right]
+		\leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{N} X_i \right\rVert \right) \right]
+		\leq \mathbb{E}_{}\left[F \left( 2 \left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right) \right] .
+	\]
+\end{problem*}
+\begin{answer}
+	We see that
+	\begin{align*}
+		\mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert  \right) \right]
+		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \mathbb{E}_{X^{\prime} }\left[\sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))} \\
+		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                           \\
+		 & \leq \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                  \\
+		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                             \\
+		 & \leq \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i \right\rVert + \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                                   \\
+		 & \leq \mathbb{E}_{}\left[\frac{1}{2} F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) +  \frac{1}{2} F \left( \left\lVert \sum_{i=1}^{n} X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) convex)}                                     \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) \right]                                                                                                                                                               \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \mathbb{E}_{X^{\prime} }\left[ \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))}                           \\
+		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                                                      \\
+		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                                             \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                          \\
+		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert + \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                             \\
+		 & \leq \mathbb{E}_{}\left[\frac{1}{2} F \left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert \right) + \frac{1}{2} F\left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) convex)}     \\
+		 & = \mathbb{E}_{}\left[F \left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert \right) \right].
+	\end{align*}
+\end{answer}
+
+\begin{problem*}[Exercise 6.4.6]\label{ex6.4.6}
+	Let \(X_1, \dots , X_N\) be independent, mean zero random variables. Show that their sum \(\sum_{i} X_i\) is sub-gaussian if and only if \(\sum_{i} \varepsilon _i X_i\) is sub-gaussian, and
+	\[
+		c \left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert _{\psi _2}
+		\leq \left\lVert \sum_{i=1}^{N} X_i \right\rVert _{\psi _2}
+		\leq C \left\lVert \sum_{i=1}^{N} \varepsilon X_i \right\rVert _{\psi _2}.
+	\]
+\end{problem*}
+\begin{answer}
+	Consider \(F_K(x) \coloneqq \exp (x^2 / K^2) - 1\) for some \(K \geq 0\), which is clearly convex. Hence, by \hyperref[ex6.4.5]{Exercise 6.4.5}, if \(\lVert \sum_{i=1}^{n} \varepsilon _i X_i \rVert _{\psi _2} \leq K\), then
+	\[
+		\mathbb{E}_{}\left[F_{2K} \left( \left\lvert \sum_{i=1}^{n} X_i \right\rvert \right) \right]
+		\leq \mathbb{E}_{}\left[F_{2K} \left( 2 \left\lvert \sum_{i=1}^{n} \varepsilon _i X_i \right\rvert \right) \right]
+		= \mathbb{E}_{}\left[F_K \left( \left\lvert \sum_{i=1}^{n} \varepsilon _i X_i \right\rvert \right) \right]
+		\leq 1,
+	\]
+	implying \(\lVert \sum_{i=1}^{n} X_i \rVert _{\psi _2} \leq 2K\). Conversely, if \(\lVert \sum_{i=1}^{n} X_i \rVert _{\psi _2} \leq K\), then
+	\[
+		\mathbb{E}_{}\left[F_{2K} \left( \left\lvert \sum_{i=1}^{n} \varepsilon _i X_i \right\rvert \right) \right]
+		= \mathbb{E}_{}\left[F_K \left( \frac{1}{2} \left\lvert \sum_{i=1}^{n} \varepsilon _i X_i \right\rvert \right) \right]
+		\leq \mathbb{E}_{}\left[F_K \left( \left\lvert \sum_{i=1}^{n} X_i \right\rvert \right) \right]
+		\leq 1,
+	\]
+	thus \(\lVert \sum_{i=1}^{n} \varepsilon _i X_i \rVert _{\psi _2} \leq 2K\).
+\end{answer}
