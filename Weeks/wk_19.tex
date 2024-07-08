@@ -99,7 +99,14 @@
 	\]
 \end{problem*}
 \begin{answer}
-	Omit.
+	Let \(B = (b_1, \dots , b_n)\), then
+	\[
+		\lVert DB \rVert _F^2
+		= \sum_{i=1}^{n} \lVert D b_i \rVert _2^2
+		\leq \sum_{i=1}^{n} \lVert D \rVert ^2 \lVert b_i \rVert _2^2
+		= \lVert D \rVert ^2 \lVert B \rVert _F^2,
+	\]
+	where we use the fact that \(\lVert A \rVert = \sqrt{\sum_{i, j} a_{ij}^2} \) for any matrix \(A\).
 \end{answer}
 
 \begin{problem*}[Exercise 6.3.4]\label{ex6.3.4}
