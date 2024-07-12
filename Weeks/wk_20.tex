@@ -36,20 +36,15 @@
 			      \end{split}
 		      \]
 		      which is just \(\mathbb{P} (\xi X \geq t)\), as we desired.
-		\item Moreover, if \(X\) is symmetric, we want to show that \(\xi X \overset{D}{=} \xi \lvert X \rvert \overset{D}{=} X\). The first equation is from \hyperref[ex6.4.1:a]{(a)}, as for the second, we see that for any \(t \geq 0\),
+		\item Moreover, if \(X\) is symmetric, we want to show that \(\xi X \overset{D}{=} \xi \lvert X \rvert \overset{D}{=} X\). The first equation is from \hyperref[ex6.4.1:a]{(a)}; as for the second, we see that for any \(t \geq 0\),
 		      \[
 			      \mathbb{P} (X \geq t)
 			      = \mathbb{P} (-X \geq t)
-			      = \frac{\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)}{2},
+			      = \frac{\mathbb{P} (X \geq t) + \mathbb{P} (-X \geq t)}{2}
+			      = \mathbb{P} (\xi X \geq t)
 		      \]
-		      which is the same as \(\mathbb{P} (\xi X \geq t)\).
-		\item We want to show that \(X - X^{\prime} \overset{D}{=} X^{\prime} - X\). Indeed, suppose this is not true, then
-		      \[
-			      X - X^{\prime}
-			      \overset{D}{\neq } X^{\prime} - X
-			      \overset{D}{\neq } X^{\prime\prime} - X^{\prime} ,
-		      \]
-		      where \(X^{\prime\prime} \) is an independent copy of \(x^{\prime} \), which can be \(X\). This is clearly a contradiction.
+		      from the proof of \hyperref[ex6.4.1:a]{(a)}.
+		\item It suffices to show that \(X - X^{\prime} \overset{D}{=} X^{\prime} - X\), but this is trivial since \((X, X^{\prime} ) \overset{D}{=} (X^{\prime} , X)\).
 	\end{enumerate}
 \end{answer}
 
@@ -57,7 +52,7 @@
 	Where in this argument did we use the independence of the random variables \(X_i\)? Is mean zero assumption needed for both upper and lower bounds?
 \end{problem*}
 \begin{answer}
-	Omit.
+	If \(X_i\)'s are not independent, then \(\{ \varepsilon _i (X_i - X_i^{\prime} )\}_{i=1}^N \) might not have the same joint distribution as \(\{ (X_i - X_i^{\prime} ) \}_{i = 1}^N \). For the mean zero assumption, see \hyperref[ex6.4.4]{Exercise 6.4.4}.
 \end{answer}
 
 \begin{problem*}[Exercise 6.4.4]\label{ex6.4.4}
@@ -71,7 +66,28 @@
 	\end{enumerate}
 \end{problem*}
 \begin{answer}
-	Omit.
+	\begin{enumerate}[(a)]
+		\item We see that using Lemma 6.1.2 again, we have
+		      \begin{align*}
+			      \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i - \sum_{i=1}^{N} \mathbb{E}_{}[X_i] \right\rVert \right]
+			       & = \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} (X_i - \mathbb{E}_{}[X_i] ) \right\rVert \right]                                                                                            \\
+			       & \leq \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \left( (X_i - \mathbb{E}_{}[X_i] ) - (X_i^{\prime} - \mathbb{E}_{}[X_i^{\prime} ] ) \right) \right\rVert \right]                         \\
+			      \shortintertext{as \(\mathbb{E}_{}[X_i] = \mathbb{E}_{}[X_i^{\prime} ] \), and using \hyperref[ex6.4.1]{Exercise 6.4.1}, we have}
+			       & = \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} (X_i - X_i^{\prime} ) \right\rVert \right]                                                                                                  \\
+			       & = \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right]                                                                                   \\
+			       & \leq \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right] + \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i^{\prime} \right\rVert \right]
+			      = 2 \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right] .
+		      \end{align*}
+		\item Let \(N = 1\) and \(X_1 = \lambda \mathbbm{1} \) for some \(\lambda > 0\). Then,
+		      \[
+			      \mathbb{E}_{}[\lVert X_1 - \mathbb{E}_{}[X_1] \rVert _2] = 0,
+		      \]
+		      while
+		      \[
+			      \mathbb{E}_{}[\lVert \varepsilon _1 X_1 \rVert _2] = \lambda \lVert \mathbbm{1} \rVert _2
+		      \]
+		      can be arbitrarily large as \(\lambda \to \infty \).
+	\end{enumerate}
 \end{answer}
 
 \begin{problem*}[Exercise 6.4.5]\label{ex6.4.5}
@@ -83,7 +99,7 @@
 	\]
 \end{problem*}
 \begin{answer}
-	We see that
+	We see that for the lower bound, we have
 	\begin{align*}
 		\mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert  \right) \right]
 		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \mathbb{E}_{X^{\prime} }\left[\sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))} \\
@@ -92,13 +108,17 @@
 		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                             \\
 		 & \leq \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i \right\rVert + \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                                   \\
 		 & \leq \mathbb{E}_{}\left[\frac{1}{2} F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) +  \frac{1}{2} F \left( \left\lVert \sum_{i=1}^{n} X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) convex)}                                     \\
-		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) \right]                                                                                                                                                               \\
-		 & = \mathbb{E}_{}\left[F \left( \left\lVert \mathbb{E}_{X^{\prime} }\left[ \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))}                           \\
-		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                                                      \\
-		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                                             \\
-		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                          \\
-		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert + \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                             \\
-		 & \leq \mathbb{E}_{}\left[\frac{1}{2} F \left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert \right) + \frac{1}{2} F\left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) convex)}     \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) \right].
+	\end{align*}
+	On the other hand, for the upper bound, we also have
+	\begin{align*}
+		\mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) \right]
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \mathbb{E}_{X^{\prime} }\left[ \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))}                       \\
+		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                                                  \\
+		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                                         \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                      \\
+		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert + \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                         \\
+		 & \leq \mathbb{E}_{}\left[\frac{1}{2} F \left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert \right) + \frac{1}{2} F\left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) convex)} \\
 		 & = \mathbb{E}_{}\left[F \left( 2 \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert \right) \right].
 	\end{align*}
 \end{answer}
