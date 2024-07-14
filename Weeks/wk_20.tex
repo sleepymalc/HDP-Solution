@@ -103,7 +103,7 @@
 	\begin{align*}
 		\mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert  \right) \right]
 		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \mathbb{E}_{X^{\prime} }\left[\sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))} \\
-		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                           \\
+		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality, \(F\) increasing)}                         \\
 		 & \leq \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                  \\
 		 & = \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                             \\
 		 & \leq \mathbb{E}_{}\left[F \left( \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i \right\rVert + \frac{1}{2} \left\lVert \sum_{i=1}^{n} X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                                   \\
@@ -113,8 +113,8 @@
 	On the other hand, for the upper bound, we also have
 	\begin{align*}
 		\mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} X_i \right\rVert \right) \right]
-		 & = \mathbb{E}_{}\left[F \left( \left\lVert \mathbb{E}_{X^{\prime} }\left[ \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[\varepsilon _i X_i^{\prime} ] = 0 \))}                       \\
-		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality)}                                                                  \\
+		 & = \mathbb{E}_{}\left[F \left( \left\lVert \mathbb{E}_{X^{\prime} }\left[ \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right] \right\rVert \right) \right] \tag*{(\(\mathbb{E}_{X^{\prime}_i }[X_i^{\prime} ] = 0 \))}                                      \\
+		 & \leq \mathbb{E}_{}\left[F \left( \mathbb{E}_{X^{\prime} }\left[ \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right] \right) \right] \tag*{(Jensen's inequality, \(F\) increasing)}                                                \\
 		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(Jensen's inequality)}                                                                                                         \\
 		 & = \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i (X_i - X_i^{\prime} ) \right\rVert \right) \right] \tag*{(\hyperref[ex6.4.1]{Exercise 6.4.1} \hyperref[ex6.4.1:b]{(b)} and \hyperref[ex6.4.1:c]{(c)})}                      \\
 		 & \leq \mathbb{E}_{}\left[F \left( \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i \right\rVert + \left\lVert \sum_{i=1}^{n} \varepsilon _i X_i^{\prime} \right\rVert \right) \right] \tag*{(\(F\) increasing)}                                         \\
