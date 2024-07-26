@@ -1,0 +1,153 @@
+\week{22}{25 Jul.\ 2024}{Contraction Trick}
+\section{Contraction Principle}
+
+\begin{problem*}[Exercise 6.7.2]\label{ex6.7.2}
+	Check that the function \(f\) defined in (6/16) is convex. For reference, \(f\colon \mathbb{R} ^N \to \mathbb{R} \) is defined as
+	\[
+		f(a)
+		\coloneqq \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} a_i \varepsilon _i x_i \right\rVert \right] .
+	\]
+\end{problem*}
+\begin{answer}
+	To prove that for \(f \colon \mathbb{R} ^N \to \mathbb{R} \) where
+	\[
+		f(a)
+		= \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} a_i \varepsilon _i x_i \right\rVert \right]
+	\]
+	is convex, consider \(a, b \in \mathbb{R} ^N\) and some \(\lambda \in (0, 1)\), we have
+	\[
+		\begin{split}
+			f(\lambda a + (1 - \lambda )b)
+			 & = \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \left[ \lambda a_i + (1 - \lambda ) b_i \right] \varepsilon _i x_i \right\rVert \right]                                                 \\
+			 & \leq \mathbb{E}_{}\left[\lambda \left\lVert \sum_{i=1}^{N} a_i \varepsilon _i x_i \right\rVert + (1 - \lambda ) \left\lVert \sum_{i=1}^{N} b_i \varepsilon _i x_i \right\rVert  \right]
+			= \lambda f(a) + (1 - \lambda ) f(b),
+		\end{split}
+	\]
+	implying that \(f\) is convex.
+\end{answer}
+
+\begin{problem*}[Exercise 6.7.3]\label{ex6.7.3}
+	Prove the following generalization of Theorem 6.7.1. Let \(X_1, \dots , X_N\) be independent, mean zero random vectors in a normed space, and let \(a = (a_1, \dots, a_n) \in \mathbb{R} ^n\). Then
+	\[
+		\mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert \right]
+		\leq 4 \lVert a \rVert _\infty \cdot \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right] .
+	\]
+\end{problem*}
+\begin{answer}
+	Let \(\varepsilon _i\)'s be independent Bernoulli's random variables, then from the symmetrization and Theorem 6.7.1 with conditioning on \(X_i\)'s, we have
+	\[
+		\mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} a_i X_i \right\rVert \right]
+		\leq 2 \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} a_i \varepsilon _i X_i \right\rVert \right]
+		\leq 2 \lVert a \rVert _\infty \cdot \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i X_i \right\rVert \right]
+		\leq 4 \lVert a \rVert _\infty \cdot \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert \right],
+	\]
+	where the last inequality follows again from the symmetrization.
+\end{answer}
+
+\begin{problem*}[Exercise 6.7.5]\label{ex6.7.5}
+	Show that the factor \(\sqrt{\log N} \) in Lemma 6.7.4 is needed in general, and is optimal. Thus, symmetrization with Gaussian random variables is generally weaker than symmetrization with symmetric Bernoullis.
+\end{problem*}
+\begin{answer}
+	Consider \(e_i\)'s being \(i^{\text{th} }\) standard basis in \(\mathbb{R} ^N\), and consider \(X_i \coloneqq \varepsilon _i e_i\) for all \(i \geq 1\). We have
+	\[
+		\mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} X_i \right\rVert _\infty \right]
+		= \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} \varepsilon _i e_i \right\rVert _\infty \right]
+		= \mathbb{E}_{}[\lVert (\varepsilon _1, \dots , \varepsilon _N) \rVert _\infty ]
+		= 1,
+	\]
+	while given \(g_i \sim \mathcal{N} (0, 1)\), we have
+	\[
+		\mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} g_i X_i \right\rVert _\infty \right]
+		= \mathbb{E}_{}\left[\left\lVert \sum_{i=1}^{N} g_i \varepsilon _i e_i \right\rVert _\infty \right]
+		= \mathbb{E}_{}[\lVert (g_1, \dots , g_N) \rVert _\infty ]
+		\asymp \sqrt{\log N}
+	\]
+	due to symmetry of \(g_i\)'s and \hyperref[ex2.5.10]{Exercise 2.5.10} and \hyperref[ex2.5.11]{2.5.11}.
+\end{answer}
+
+\begin{problem*}[Exercise 6.7.6]\label{ex6.7.6}
+	Let \(F\colon \mathbb{R} _+ \to \mathbb{R} \) be a convex increasing function. Generalize the symmetrization and contraction results of this and previous section by replacing the norm \(\lVert \cdot \rVert \) with \(F(\lVert \cdot \rVert )\) throughout.
+\end{problem*}
+\begin{answer}
+	Omit.
+\end{answer}
+
+\begin{problem*}[Exercise 6.7.7]\label{ex6.7.7}
+	Consider a bounded subset \(T \subseteq \mathbb{R} ^n\), and let \(\varepsilon _1, \dots, \varepsilon _n \) be independent symmetric Bernoulli random variables. Let \(\phi _i \colon \mathbb{R} \to \mathbb{R} \) be contractions, i.e., Lipschitz functions with \(\lVert \phi _i \rVert _{\mathrm{Lip} } \leq 1\). Then
+	\[
+		\mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i \phi _i(t_i)\right]
+		\leq \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i t_i\right] .
+	\]
+	To prove this result, do the following steps:
+	\begin{enumerate}[(a)]
+		\item\label{ex6.7.7:a} First let \(n = 2\). Consider a subset \(T \subseteq \mathbb{R} ^2\) and contraction \(\phi \colon \mathbb{R} \to \mathbb{R} \), and check that
+		      \[
+			      \sup _{t \in T} (t_1 + \phi (t_2)) + \sup _{t \in T} (t_1 - \phi (t_2))
+			      \leq \sup _{t \in T} (t_1 + t_2) + \sup _{t \in T} (t_1 - t_2).
+		      \]
+		\item\label{ex6.7.7:b} Use induction on \(n\) complete proof.
+	\end{enumerate}
+\end{problem*}
+\begin{answer}
+	\begin{enumerate}[(a)]
+		\item For \(n = 2\), we aim to prove that
+		      \[
+			      \sup _{t \in T} (t_1 + \phi (t_2)) + \sup _{t \in T} (t_1 - \phi (t_2))
+			      \leq \sup _{t \in T} (t_1 + t_2) + \sup _{t \in T} (t_1 - t_2) .
+		      \]
+		      Observe that we can replace \(t\) by \(t^{\prime} \) in the second term on both sides, which gives
+		      \[
+			      \begin{split}
+				      \sup _{t \in T} (t_1 + \phi (t_2)) + \sup _{t^{\prime} \in T} (t^{\prime} _1 - \phi (t^{\prime} _2))
+				       & = \sup _{t, t^{\prime} \in T} \big(t_1 + \phi (t_2) + t^{\prime} _1 - \phi (t^{\prime} _2) \big)    \\
+				       & \leq \sup _{t, t^{\prime} \in T} \big(t_1 + t^{\prime} _1 + \lvert t_2 - t^{\prime} _2 \rvert \big) \\
+				       & = \sup _{t, t^{\prime} \in T} \big(t_1 + t^{\prime} _1 + t_2 - t^{\prime} _2 \big)
+				      = \sup _{t \in T} (t_1 + t_2) + \sup _{t^{\prime} \in T} (t^{\prime} _1 - t^{\prime} _2) ,
+			      \end{split}
+		      \]
+		      where we use symmetry strategically.
+		\item We now prove
+		      \[
+			      \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i \phi _i(t_i) \right]
+			      \leq \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i t_i \right].
+		      \]
+		      Firstly, we observe that conditioning on \(\varepsilon _1, \dots , \varepsilon _{n-1}\), we have
+		      \[
+			      \begin{split}
+				       & \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n \phi _n(t_n)\right]                                                                   \\
+				       & = \frac{1}{2} \left( \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \phi _n(t_n) + \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) - \phi _n(t_n) \right) \\
+				       & \leq \frac{1}{2} \left( \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + t_n + \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) - t_n \right)                \\
+				       & = \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n t_n\right],
+			      \end{split}
+		      \]
+		      where the inequality comes from \hyperref[ex6.7.7:a]{(a)} by considering the supremum is over
+		      \[
+			      T^{(n)}
+			      \coloneqq \left\{ (x, y) \in \mathbb{R} ^2 \colon x = \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i), y = t_n, (t _1, \dots , t_{n-1}, t_n) \in T \right\}.
+		      \]
+		      Explicitly, we get
+		      \[
+			      \mathbb{E}_{}\left[ \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n \phi _n(t_n)\right] \mid \varepsilon _{1 \colon n-1} \right]
+			      \leq \mathbb{E}_{}\left[ \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n t_n\right] \mid \varepsilon _{1\colon n-1} \right].
+		      \]
+		      By iterating this with conditioning on \(\varepsilon _{1 \colon k}\) for every \(k\) and apply \hyperref[ex6.7.7:a]{(a)} on
+		      \[
+			      T^{(k)}
+			      \coloneqq \left\{ (x, y) \in \mathbb{R} ^2 \colon x = \sum_{i=1}^{k-1} \varepsilon _i \phi _i(t_i) + \sum_{i=k+1}^{n} \varepsilon _i t_i, y = t_k, (t _1, \dots , t_{n-1}, t_n) \in T \right\},
+		      \]
+		      we get the desired result.
+	\end{enumerate}
+\end{answer}
+
+\begin{problem*}[Exercise 6.7.8]\label{ex6.7.8}
+	Generalize \hyperref[ex6.7.7]{Talagrand's contraction principle} for arbitrary Lipschitz functions \(\phi _i \colon \mathbb{R} \to \mathbb{R} \) without restriction on their Lipschitz norms.
+\end{problem*}
+\begin{answer}
+	Look into the proof of \hyperref[ex6.7.7]{Exercise 6.7.7}, we see that for general Lipschitz functions \(\phi _i\)'s,
+	\[
+		\mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i \phi _i(t_i) \right]
+		\leq \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i \lVert \phi _i \rVert _{\mathrm{Lip} } t_i \right]
+		\leq \max _{1 \leq i \leq n} \lVert \phi _i \rVert _{\mathrm{Lip} } \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i t_i \right],
+	\]
+	where the last inequality follows from Theorem 6.7.1, by noting that \(\sup _{t \in T} \) satisfies all the conditions we need in Theorem 6.7.1.
+\end{answer}
