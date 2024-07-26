@@ -90,12 +90,7 @@
 \end{problem*}
 \begin{answer}
 	\begin{enumerate}[(a)]
-		\item For \(n = 2\), we aim to prove that
-		      \[
-			      \sup _{t \in T} (t_1 + \phi (t_2)) + \sup _{t \in T} (t_1 - \phi (t_2))
-			      \leq \sup _{t \in T} (t_1 + t_2) + \sup _{t \in T} (t_1 - t_2) .
-		      \]
-		      Observe that we can replace \(t\) by \(t^{\prime} \) in the second term on both sides, which gives
+		\item Writing \(t\) by \(t^{\prime} \) in the second term on both sides, which gives
 		      \[
 			      \begin{split}
 				      \sup _{t \in T} (t_1 + \phi (t_2)) + \sup _{t^{\prime} \in T} (t^{\prime} _1 - \phi (t^{\prime} _2))
@@ -106,21 +101,16 @@
 			      \end{split}
 		      \]
 		      where we use symmetry strategically.
-		\item We now prove
-		      \[
-			      \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i \phi _i(t_i) \right]
-			      \leq \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n} \varepsilon _i t_i \right].
-		      \]
-		      Firstly, we observe that conditioning on \(\varepsilon _1, \dots , \varepsilon _{n-1}\), we have
+		\item Firstly, we observe that conditioning on \(\varepsilon _1, \dots , \varepsilon _{n-1}\) gives
 		      \[
 			      \begin{split}
 				       & \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n \phi _n(t_n)\right]                                                                   \\
 				       & = \frac{1}{2} \left( \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \phi _n(t_n) + \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) - \phi _n(t_n) \right) \\
-				       & \leq \frac{1}{2} \left( \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + t_n + \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) - t_n \right)                \\
-				       & = \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n t_n\right],
+				       & \leq \frac{1}{2} \left( \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + t_n + \sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) - t_n \right)
+				      = \mathbb{E}_{}\left[\sup _{t \in T} \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i) + \varepsilon _n t_n\right],
 			      \end{split}
 		      \]
-		      where the inequality comes from \hyperref[ex6.7.7:a]{(a)} by considering the supremum is over
+		      where the inequality comes from \hyperref[ex6.7.7:a]{(a)} by considering the supremum over
 		      \[
 			      T^{(n)}
 			      \coloneqq \left\{ (x, y) \in \mathbb{R} ^2 \colon x = \sum_{i=1}^{n-1} \varepsilon _i \phi _i(t_i), y = t_n, (t _1, \dots , t_{n-1}, t_n) \in T \right\}.
